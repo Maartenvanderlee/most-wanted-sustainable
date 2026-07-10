@@ -32,7 +32,7 @@ Next.js 14 (App Router, TypeScript, Tailwind) · Supabase (Postgres) · Vercel (
 ## Status
 
 - [x] Fase 1: skelet (homepage met testdata)
-- [ ] Fase 2: Supabase gekoppeld, schema aangemaakt
+- [x] Fase 2: Supabase gekoppeld, schema aangemaakt
 - [ ] Fase 3: pipeline met 3 bronnen + seed keywords (data/seed-keywords.md)
 - [ ] Fase 4: detailpagina's, /methodologie, filters, nieuwsbrief, admin
 - [ ] Fase 5: live op Vercel met dagelijkse cron
