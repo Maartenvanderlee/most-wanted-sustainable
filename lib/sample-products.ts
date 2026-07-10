@@ -25,11 +25,20 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 
 // Kleurverloop per categorie voor de placeholder-"foto".
 export const CATEGORY_GRADIENTS: Record<Category, string> = {
-  home: "from-emerald-100 to-teal-200",
-  personal_care: "from-rose-100 to-pink-200",
-  fashion: "from-violet-100 to-indigo-200",
-  tech: "from-sky-100 to-cyan-200",
-  food: "from-amber-100 to-orange-200",
+  home: "from-primary-container/40 to-primary/30",
+  personal_care: "from-tertiary-container/40 to-tertiary/25",
+  fashion: "from-secondary-container/50 to-secondary/20",
+  tech: "from-tertiary-container/50 to-primary-container/30",
+  food: "from-primary-container/40 to-secondary-container/40",
+};
+
+// Accentkleur per categorie voor de trendscore-badge.
+export const CATEGORY_ACCENT: Record<Category, { text: string; bg: string }> = {
+  home: { text: "text-primary", bg: "bg-primary-container/20" },
+  personal_care: { text: "text-tertiary", bg: "bg-tertiary-container/20" },
+  fashion: { text: "text-secondary", bg: "bg-secondary-container/30" },
+  tech: { text: "text-tertiary", bg: "bg-tertiary-container/20" },
+  food: { text: "text-primary", bg: "bg-primary-container/20" },
 };
 
 export const sampleProducts: SampleProduct[] = [

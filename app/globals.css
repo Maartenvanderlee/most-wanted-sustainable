@@ -2,13 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+body {
+  -webkit-font-smoothing: antialiased;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  -webkit-font-smoothing: antialiased;
+/* Glaseffect voor de bovenbalk */
+.glass-morphism {
+  background: rgba(247, 249, 251, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Zachte schaduw + lichte "optil"-hover op kaarten */
+.eco-shadow {
+  box-shadow: 0 20px 40px rgba(137, 206, 255, 0.1);
+}
+.eco-shadow-hover {
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+.eco-shadow-hover:hover {
+  box-shadow: 0 30px 60px rgba(137, 206, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Kleurverloop voor het nieuwsbrief-blok */
+.trend-gradient {
+  background: linear-gradient(135deg, #36b6fb 0%, #22c55e 100%);
+}
+
+/* Gele rand bovenaan de uitgelichte kaart */
+.card-featured-border {
+  border-top: 4px solid #fed01b;
+}
+
+/* Material Symbols icoon-lettertype */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
