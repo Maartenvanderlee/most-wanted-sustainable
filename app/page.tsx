@@ -120,9 +120,11 @@ function TrendGrid({ products }: { products: SampleProduct[] }) {
   return (
     <div className="grid grid-cols-1 gap-gutter md:grid-cols-12">
       {products.map((product, index) => {
-        // Bento-indeling: kaart 1 en de laatste kaart zijn breed.
+        // Bento-indeling: kaart 1 en de laatste kaart zijn breed,
+        // en één kaart in de tweede rij is een tekstkaart zonder foto.
         const isFeatured = index === 0;
         const isWide = index === products.length - 1;
+        const isText = index === 3;
 
         if (isFeatured || isWide) {
           return (
@@ -132,6 +134,9 @@ function TrendGrid({ products }: { products: SampleProduct[] }) {
               featured={isFeatured}
             />
           );
+        }
+        if (isText) {
+          return <TextCard key={product.slug} product={product} />;
         }
         return <StandardCard key={product.slug} product={product} />;
       })}
@@ -250,6 +255,55 @@ function StandardCard({ product }: { product: SampleProduct }) {
             {product.geography}
           </span>
         </div>
+      </div>
+    </a>
+  );
+}
+
+function TextCard({ product }: { product: SampleProduct }) {
+  const accent = CATEGORY_ACCENT[product.category];
+  return (
+    <a
+      href="#"
+      className="eco-shadow eco-shadow-hover group relative flex flex-col justify-between overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-lowest p-8 md:col-span-4"
+    >
+      <div>
+        <div className="mb-6 flex items-center justify-between">
+          <span
+            className="material-symbols-outlined text-[40px] text-secondary"
+            style={{ fontVariationSettings: "'FILL' 1" }}
+          >
+            bolt
+          </span>
+          <div className="text-right">
+            <span
+              className={`block font-display text-[32px] leading-none ${accent.text}`}
+            >
+              {product.trendScore}
+            </span>
+            <span className="font-label text-[10px] uppercase text-on-surface-variant">
+              trendscore
+            </span>
+          </div>
+        </div>
+        <span className={`font-label text-label-caps uppercase ${accent.text}`}>
+          {CATEGORY_LABELS[product.category]}
+        </span>
+        <h3 className="mb-4 mt-1 font-display text-headline-md text-on-background">
+          {product.name}
+        </h3>
+        <p className="font-body text-body-md text-on-surface-variant">
+          {product.description}
+        </p>
+      </div>
+      <div className="mt-8 flex items-center justify-between">
+        <span className="font-label text-label-caps text-on-surface-variant">
+          {product.geography}
+        </span>
+        <span className="flex items-center gap-2 font-semibold text-primary transition-all group-hover:gap-3">
+          Bekijk data
+          <span className="material-symbols-outlined">arrow_forward</span>
+        </span>
       </div>
     </a>
   );
