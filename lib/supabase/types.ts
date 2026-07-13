@@ -1,8 +1,15 @@
 // Handmatig onderhouden types die de databasetabellen beschrijven.
 // Houd dit gelijk aan de migraties in supabase/migrations/.
+// De vorm (Relationships, Views, Functions, Enums, CompositeTypes) volgt
+// wat @supabase/supabase-js verwacht; zonder deze sleutels vallen de
+// client-methodes terug op het type 'never'.
 
 export type ProductStatus = "pending" | "approved" | "rejected";
 export type SourceName = "google_trends" | "reddit" | "youtube";
+
+// Handige verkorting voor de "in te voegen rij"-vorm van een tabel.
+export type TablesInsert<T extends keyof Database["public"]["Tables"]> =
+  Database["public"]["Tables"][T]["Insert"];
 
 export type Database = {
   public: {
@@ -33,6 +40,7 @@ export type Database = {
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["products"]["Insert"]>;
+        Relationships: [];
       };
       signals: {
         Row: {
@@ -50,6 +58,7 @@ export type Database = {
           measured_at: string;
         };
         Update: Partial<Database["public"]["Tables"]["signals"]["Insert"]>;
+        Relationships: [];
       };
       scores: {
         Row: {
@@ -69,6 +78,7 @@ export type Database = {
           snapshot_date: string;
         };
         Update: Partial<Database["public"]["Tables"]["scores"]["Insert"]>;
+        Relationships: [];
       };
       newsletter_subscribers: {
         Row: {
@@ -84,7 +94,15 @@ export type Database = {
         Update: Partial<
           Database["public"]["Tables"]["newsletter_subscribers"]["Insert"]
         >;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: {
+      product_status: ProductStatus;
+      source_name: SourceName;
+    };
+    CompositeTypes: Record<string, never>;
   };
 };

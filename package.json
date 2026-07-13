@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check-db": "node --env-file=.env.local scripts/check-db.mjs"
+    "check-db": "node --env-file=.env.local scripts/check-db.mjs",
+    "pipeline": "node --env-file=.env.local --import tsx scripts/run-pipeline.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.2",
@@ -24,6 +26,8 @@
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.6",
-    "typescript": "^5.5.3"
+    "tsx": "^4.23.0",
+    "typescript": "^5.5.3",
+    "vitest": "^4.1.10"
   }
 }
