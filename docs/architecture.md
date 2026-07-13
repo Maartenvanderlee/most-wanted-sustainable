@@ -141,7 +141,11 @@ score = 0.45 * norm(googleTrendsGroei)
 
 - **Reddit** blokkeert niet-ingelogde verzoeken (403). De adapter gebruikt
   daarom app-only OAuth (`REDDIT_CLIENT_ID`/`REDDIT_CLIENT_SECRET`); zonder die
-  sleutels slaat de bron zichzelf over.
+  sleutels slaat de bron zichzelf over. **Uitgesteld voor de MVP:** Reddit's
+  Responsible Builder Policy vereist expliciete goedkeuring en verbiedt
+  commercieel gebruik van Reddit-data zonder schriftelijke toestemming. Omdat
+  het product een commercieel model heeft, gebruiken we Reddit pas na een
+  goedgekeurde aanvraag. De adaptercode blijft klaarstaan voor dat moment.
 - **Google Trends** gebruikt een onofficiële API en wordt snel gerate-limit
   (429). De adapter degradeert netjes (lege lijst); voor productie is een
   robuustere/officiële bron aan te raden.
