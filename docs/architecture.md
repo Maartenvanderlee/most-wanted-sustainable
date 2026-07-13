@@ -55,9 +55,16 @@ API-route `app/api/pipeline/run/route.ts` (voor de cron in fase 5).
 
 ```
 app/                     Next.js pagina's en API-routes
-  page.tsx               homepage (nu nog met testdata uit lib/sample-products.ts)
+  page.tsx               homepage: ranglijst + filters (echte data)
+  trending/[category]/   categoriepagina's (SEO)
+  product/[slug]/        productdetail: score-opbouw + 30-dagen-grafiek
+  methodologie/          uitleg trendscore in gewone taal
+  admin/                 beheer (wachtwoord via ADMIN_PASSWORD), server actions
+  newsletter/            nieuwsbrief-aanmelding (server action + formulier)
+  sitemap.ts, robots.ts  gegenereerd uit de database
   api/pipeline/run/      handmatige/cron-trigger voor de pipeline
 lib/
+  queries.ts             server-side data voor publieke pagina's (filtert op approved)
   adapters/              één bestand per databron + gedeelde helpers
     types.ts             het verplichte Signal/SourceAdapter-contract
     http.ts              fetch met retry/backoff
@@ -152,8 +159,9 @@ score = 0.45 * norm(googleTrendsGroei)
 - De **cache** is een bestandscache (`.cache/`), prima voor ontwikkeling. Op
   Vercel is het bestandssysteem vluchtig; overweeg de Supabase-tabel
   `raw_cache` uit de skill voor productie.
-- De **homepage** toont nog testdata (`lib/sample-products.ts`); koppelen aan
-  echte `products`/`scores` gebeurt in fase 4.
+- Publieke pagina's renderen server-side met de service-role client en
+  filteren expliciet op `status = 'approved'`; RLS + anon-sleutel zijn de
+  tweede beschermlaag. Zie `lib/queries.ts`.
 - De pipeline-route heeft `maxDuration = 60s`; een volledige run over 100
   zoekwoorden kan langer duren. Voor de cron in fase 5 evt. opsplitsen of de
   limiet op het Vercel-plan verhogen.

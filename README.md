@@ -73,5 +73,16 @@ Zie de fasen-checklist in [`CLAUDE.md`](CLAUDE.md). Kort:
 - [x] Fase 1 — skelet (homepage met testdata)
 - [x] Fase 2 — Supabase gekoppeld, schema aangemaakt
 - [x] Fase 3 — pipeline met 3 bronnen (YouTube live; Reddit uitgesteld; Google Trends best-effort)
-- [ ] Fase 4 — detailpagina's, /methodologie, filters, nieuwsbrief, admin
+- [x] Fase 4 — detailpagina's, /methodologie, filters, nieuwsbrief, admin
 - [ ] Fase 5 — live op Vercel met dagelijkse cron
+
+## Pagina's
+
+| Route | Wat |
+|---|---|
+| `/` | Ranglijst met filters op categorie en tag |
+| `/trending/[category]` | Categoriepagina (SEO) per categorie |
+| `/product/[slug]` | Productdetail: score-opbouw per bron + 30-dagen-grafiek |
+| `/methodologie` | Uitleg van de trendscore in gewone taal |
+| `/admin` | Beheer: goedkeuren/afwijzen, tags, affiliate-links (wachtwoord via `ADMIN_PASSWORD`) |
+| `/sitemap.xml`, `/robots.txt` | Automatisch uit de database |

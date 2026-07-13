@@ -4,6 +4,19 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Fase 4] — Rest van de MVP
+
+- Homepage gekoppeld aan echte data (goedgekeurde producten + scores) met
+  filters op categorie en tag; testdata verwijderd.
+- Productdetailpagina (`/product/[slug]`): "waarom op de lijst" (tags),
+  score-opbouw per bron met weging, 30-dagen-grafiek, SEO-metadata + JSON-LD.
+- Categoriepagina's (`/trending/[category]`) met unieke intro en JSON-LD ItemList.
+- `/methodologie` in gewone taal.
+- Nieuwsbrief-aanmelding die e-mails in Supabase opslaat (anon INSERT via RLS).
+- Admin (`/admin`) met wachtwoord (`ADMIN_PASSWORD`): goedkeuren/afwijzen met
+  reden, tags en affiliate-links beheren; volgt de sustainability-curation skill.
+- `sitemap.xml` en `robots.txt` uit de database; `/admin` en `/api` uitgesloten.
+
 ## [Fase 3] — Data-pipeline
 
 - Live geverifieerd: YouTube levert echte signalen; producten komen op status

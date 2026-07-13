@@ -29,6 +29,9 @@ const config: Config = {
         "on-surface-variant": "#3d4a3d",
         outline: "#6d7b6c",
         "outline-variant": "#bccbb9",
+        error: "#ba1a1a",
+        "error-container": "#ffdad6",
+        "on-error-container": "#93000a",
         // behoud van onze merk-groentinten voor accenten
         brand: {
           50: "#f0fdf4",

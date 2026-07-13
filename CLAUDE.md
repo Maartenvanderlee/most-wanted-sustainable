@@ -35,7 +35,7 @@ Next.js 14 (App Router, TypeScript, Tailwind) · Supabase (Postgres) · Vercel (
 - [x] Fase 2: Supabase gekoppeld, schema aangemaakt
 - [x] Fase 3: pipeline met 3 bronnen + seed keywords (data/seed-keywords.md)
       (YouTube live; Reddit uitgesteld i.v.m. beleid; Google Trends best-effort)
-- [ ] Fase 4: detailpagina's, /methodologie, filters, nieuwsbrief, admin
+- [x] Fase 4: detailpagina's, /methodologie, filters, nieuwsbrief, admin
 - [ ] Fase 5: live op Vercel met dagelijkse cron
 
 Werk deze checklist bij wanneer een fase af is. Het volledige bouwplan met prompts staat in BOUWPLAN.md.
