@@ -2,25 +2,16 @@
 // Volgt de sustainability-curation skill (drie poorten + uitsluitingslijst).
 import { createServerClient } from "@/lib/supabase/server";
 import { CATEGORY_LABELS, isCategory } from "@/lib/categories";
+import {
+  CERTIFICATIONS,
+  CERTIFICATION_LABELS,
+  splitTags,
+} from "@/lib/certifications";
 import type { ProductRow } from "@/lib/queries";
 import { isAuthenticated, logout, setStatus, updateDetails } from "./actions";
 import { LoginForm } from "./login-form";
 
 export const dynamic = "force-dynamic";
-
-const ACCEPTED_LABELS = [
-  "b-corp",
-  "fairtrade",
-  "gots",
-  "eu-ecolabel",
-  "fsc",
-  "cradle-to-cradle",
-  "oeko-tex",
-  "energy-star",
-  "rainforest-alliance",
-  "demeter",
-  "msc-asc",
-];
 
 const STATUS_BADGE: Record<string, string> = {
   pending: "bg-secondary-container/40 text-on-secondary-container",
@@ -90,8 +81,8 @@ function CurationGuide() {
           voor <strong>poort 3</strong>.
         </p>
         <p>
-          <strong>Poort 1 — Certificering.</strong> Geaccepteerde labels (gebruik
-          als tag): {ACCEPTED_LABELS.join(", ")}.
+          <strong>Poort 1 — Certificering.</strong> Vink hieronder de erkende
+          keurmerken aan die van toepassing zijn (bv. B Corp, Fairtrade, FSC).
         </p>
         <p>
           <strong>Poort 2 — Handmatige checklist</strong> (min. 3 van 5 ja):
@@ -117,6 +108,9 @@ function ProductCard({ product }: { product: ProductRow }) {
   const categoryLabel = isCategory(product.category)
     ? CATEGORY_LABELS[product.category]
     : product.category;
+  const { certifications, characteristics } = splitTags(
+    product.sustainability_tags
+  );
 
   return (
     <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm">
@@ -136,20 +130,52 @@ function ProductCard({ product }: { product: ProductRow }) {
         </p>
       )}
 
-      {/* Tags + affiliate-link bewerken */}
-      <form action={updateDetails} className="mb-4 space-y-2">
+      {/* Foto, keurmerken, kenmerken en koop-link bewerken */}
+      <form action={updateDetails} className="mb-4 space-y-3">
         <input type="hidden" name="id" value={product.id} />
+
         <label className="block text-xs text-on-surface-variant">
-          Duurzaamheids-tags (komma-gescheiden)
+          Foto (link naar een afbeelding)
           <input
-            name="tags"
-            defaultValue={product.sustainability_tags.join(", ")}
-            placeholder="bv. fsc, navulbaar"
+            name="image_url"
+            defaultValue={product.image_url ?? ""}
+            placeholder="https://.../foto.jpg"
             className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </label>
+
+        <fieldset>
+          <legend className="text-xs text-on-surface-variant">
+            Keurmerken (vink aan wat van toepassing is)
+          </legend>
+          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+            {CERTIFICATIONS.map((cert) => (
+              <label key={cert} className="flex items-center gap-1.5 text-sm">
+                <input
+                  type="checkbox"
+                  name="cert"
+                  value={cert}
+                  defaultChecked={certifications.includes(cert)}
+                  className="h-4 w-4 rounded border-outline-variant/50 text-primary"
+                />
+                {CERTIFICATION_LABELS[cert]}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
         <label className="block text-xs text-on-surface-variant">
-          Affiliate-link
+          Overige kenmerken (komma-gescheiden)
+          <input
+            name="tags"
+            defaultValue={characteristics.join(", ")}
+            placeholder="bv. navulbaar, herbruikbaar"
+            className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </label>
+
+        <label className="block text-xs text-on-surface-variant">
+          Koop-/affiliate-link
           <input
             name="affiliate_url"
             defaultValue={product.affiliate_url ?? ""}
@@ -157,6 +183,7 @@ function ProductCard({ product }: { product: ProductRow }) {
             className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </label>
+
         <button className="rounded-full border border-primary px-4 py-1.5 text-sm font-medium text-primary hover:bg-primary-container/10">
           Opslaan
         </button>

@@ -74,22 +74,29 @@ export async function setStatus(formData: FormData): Promise<void> {
   revalidatePath("/");
 }
 
-// Werk tags en affiliate-link bij (los van goedkeuren).
+// Werk foto, keurmerken, kenmerken en koop-/affiliate-link bij (los van goedkeuren).
 export async function updateDetails(formData: FormData): Promise<void> {
   assertAuthed();
   const id = String(formData.get("id"));
-  const tagsRaw = String(formData.get("tags") ?? "");
   const affiliate = String(formData.get("affiliate_url") ?? "").trim() || null;
+  const imageUrl = String(formData.get("image_url") ?? "").trim() || null;
 
-  const tags = tagsRaw
+  // Aangevinkte keurmerken + los ingevoerde kenmerken samenvoegen tot tags.
+  const certifications = formData.getAll("cert").map((c) => String(c));
+  const characteristics = String(formData.get("tags") ?? "")
     .split(",")
     .map((t) => t.trim().toLowerCase())
     .filter(Boolean);
+  const tags = Array.from(new Set([...certifications, ...characteristics]));
 
   const supabase = createServerClient();
   const { error } = await supabase
     .from("products")
-    .update({ sustainability_tags: tags, affiliate_url: affiliate })
+    .update({
+      sustainability_tags: tags,
+      affiliate_url: affiliate,
+      image_url: imageUrl,
+    })
     .eq("id", id);
   if (error) throw new Error(error.message);
 

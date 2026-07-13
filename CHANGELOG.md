@@ -6,6 +6,10 @@ Nieuwste bovenaan.
 
 ## [Fase 4] — Rest van de MVP
 
+- Per product: foto (`image_url`), koop-/affiliate-link en erkende keurmerken.
+  Keurmerken (B Corp, Fairtrade, FSC, …) via aankruislijst in de admin,
+  opgeslagen als tags en op de site apart getoond als keurmerk-badges
+  (los van gewone kenmerken). Zie `lib/certifications.ts`.
 - Homepage gekoppeld aan echte data (goedgekeurde producten + scores) met
   filters op categorie en tag; testdata verwijderd.
 - Productdetailpagina (`/product/[slug]`): "waarom op de lijst" (tags),

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getApprovedSlugs, type SourceMeasurement } from "@/lib/queries";
 import { CATEGORY_LABELS, categoryToSlug, isCategory } from "@/lib/categories";
+import { splitTags, certificationLabel } from "@/lib/certifications";
 import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 import type { SourceName } from "@/lib/supabase/types";
@@ -60,6 +61,9 @@ export default async function ProductPage({
   if (!detail) notFound();
 
   const { product, latest, history, measurements } = detail;
+  const { certifications, characteristics } = splitTags(
+    product.sustainability_tags
+  );
   const categorySlug = isCategory(product.category)
     ? categoryToSlug(product.category)
     : product.category;
@@ -73,6 +77,7 @@ export default async function ProductPage({
     "@type": "Product",
     name: product.name,
     category: categoryLabel,
+    ...(product.image_url ? { image: product.image_url } : {}),
   };
 
   return (
@@ -98,44 +103,82 @@ export default async function ProductPage({
           <ScoreDisplay latest={latest} />
         </div>
 
+        {product.image_url && (
+          <div className="mt-6 overflow-hidden rounded-2xl border border-outline-variant/20">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className="max-h-[420px] w-full object-cover"
+            />
+          </div>
+        )}
+
+        {product.affiliate_url && (
+          <div className="mt-6">
+            <a
+              href={product.affiliate_url}
+              target="_blank"
+              rel="nofollow sponsored noopener"
+              className="inline-flex items-center gap-2 rounded-full bg-primary-container px-6 py-3 font-semibold text-on-primary shadow-md transition hover:opacity-90"
+            >
+              Koop dit product
+              <span aria-hidden="true">→</span>
+            </a>
+            <p className="mt-2 text-xs text-on-surface-variant">
+              Affiliate-link — we verdienen mogelijk een kleine commissie. Dit
+              heeft geen invloed op de trendscore.
+            </p>
+          </div>
+        )}
+
         {/* Waarom op de lijst */}
         <section className="mt-8 rounded-xl border border-outline-variant/30 bg-surface-container-low p-6">
-          <h2 className="mb-2 font-semibold text-on-background">
+          <h2 className="mb-3 font-semibold text-on-background">
             Waarom staat dit product op de lijst?
           </h2>
-          {product.sustainability_tags.length > 0 ? (
-            <>
-              <p className="mb-3 text-body-md text-on-surface-variant">
-                Voldoet aan onze criteria:
+
+          {certifications.length > 0 && (
+            <div className="mb-4">
+              <p className="mb-2 text-sm text-on-surface-variant">
+                Erkende keurmerken:
               </p>
               <div className="flex flex-wrap gap-2">
-                {product.sustainability_tags.map((t) => (
+                {certifications.map((c) => (
+                  <span
+                    key={c}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-primary-container/25 px-3 py-1 text-sm font-medium text-primary"
+                  >
+                    <span aria-hidden="true">✓</span>
+                    {certificationLabel(c)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {characteristics.length > 0 && (
+            <div>
+              <p className="mb-2 text-sm text-on-surface-variant">Kenmerken:</p>
+              <div className="flex flex-wrap gap-2">
+                {characteristics.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full bg-primary-container/20 px-3 py-1 text-sm text-primary"
+                    className="rounded-full bg-surface-container px-3 py-1 text-sm text-on-surface-variant"
                   >
                     {t}
                   </span>
                 ))}
               </div>
-            </>
-          ) : (
+            </div>
+          )}
+
+          {product.sustainability_tags.length === 0 && (
             <p className="text-body-md text-on-surface-variant">
               De duurzaamheidskenmerken worden binnenkort toegevoegd.
             </p>
           )}
         </section>
-
-        {product.affiliate_url && (
-          <a
-            href={product.affiliate_url}
-            target="_blank"
-            rel="nofollow sponsored noopener"
-            className="mt-6 inline-block rounded-full bg-primary-container px-6 py-3 font-semibold text-on-primary shadow-md transition hover:opacity-90"
-          >
-            Bekijk product (advertentie)
-          </a>
-        )}
 
         {/* Score-opbouw per bron */}
         <section className="mt-10">

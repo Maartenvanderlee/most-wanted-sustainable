@@ -12,6 +12,7 @@ import {
   CATEGORY_EMOJI,
   type Category,
 } from "@/lib/categories";
+import { splitTags, certificationLabel } from "@/lib/certifications";
 import type { RankedProduct } from "@/lib/queries";
 
 export function HomeGrid({ products }: { products: RankedProduct[] }) {
@@ -162,11 +163,21 @@ function FeaturedCard({ product }: { product: RankedProduct }) {
         </div>
       </div>
       <div
-        className={`flex min-h-[200px] items-center justify-center bg-gradient-to-br md:w-1/2 ${CATEGORY_GRADIENTS[product.category]} transition-transform duration-700 group-hover:scale-105`}
+        className={`flex min-h-[200px] items-center justify-center overflow-hidden bg-gradient-to-br md:w-1/2 ${CATEGORY_GRADIENTS[product.category]} transition-transform duration-700 group-hover:scale-105`}
       >
-        <span className="text-7xl" aria-hidden="true">
-          {product.image_url ? "🖼️" : CATEGORY_EMOJI[product.category]}
-        </span>
+        {product.image_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={product.image_url}
+            alt={product.name}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <span className="text-7xl" aria-hidden="true">
+            {CATEGORY_EMOJI[product.category]}
+          </span>
+        )}
       </div>
     </Link>
   );
@@ -179,14 +190,24 @@ function StandardCard({ product }: { product: RankedProduct }) {
       className="eco-shadow eco-shadow-hover group flex flex-col overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-lowest"
     >
       <div
-        className={`flex h-40 items-center justify-center bg-gradient-to-br ${CATEGORY_GRADIENTS[product.category]}`}
+        className={`flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br ${CATEGORY_GRADIENTS[product.category]}`}
       >
-        <span
-          className="text-5xl transition-transform duration-500 group-hover:scale-110"
-          aria-hidden="true"
-        >
-          {product.image_url ? "🖼️" : CATEGORY_EMOJI[product.category]}
-        </span>
+        {product.image_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={product.image_url}
+            alt={product.name}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <span
+            className="text-5xl transition-transform duration-500 group-hover:scale-110"
+            aria-hidden="true"
+          >
+            {CATEGORY_EMOJI[product.category]}
+          </span>
+        )}
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-3 flex items-start justify-between gap-2">
@@ -207,10 +228,20 @@ function StandardCard({ product }: { product: RankedProduct }) {
 }
 
 function TagRow({ tags }: { tags: string[] }) {
+  const { certifications, characteristics } = splitTags(tags);
   if (tags.length === 0) return null;
   return (
     <div className="flex flex-wrap gap-1.5">
-      {tags.slice(0, 4).map((t) => (
+      {certifications.map((c) => (
+        <span
+          key={c}
+          className="inline-flex items-center gap-1 rounded-full bg-primary-container/25 px-2 py-0.5 text-[11px] font-medium text-primary"
+        >
+          <span aria-hidden="true">✓</span>
+          {certificationLabel(c)}
+        </span>
+      ))}
+      {characteristics.slice(0, 3).map((t) => (
         <span
           key={t}
           className="rounded-full bg-surface-container px-2 py-0.5 text-[11px] text-on-surface-variant"
