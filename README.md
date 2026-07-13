@@ -72,6 +72,6 @@ Zie de fasen-checklist in [`CLAUDE.md`](CLAUDE.md). Kort:
 
 - [x] Fase 1 — skelet (homepage met testdata)
 - [x] Fase 2 — Supabase gekoppeld, schema aangemaakt
-- [~] Fase 3 — pipeline met 3 bronnen (code klaar; live test + YouTube-sleutel resteert)
+- [x] Fase 3 — pipeline met 3 bronnen (YouTube live; Reddit uitgesteld; Google Trends best-effort)
 - [ ] Fase 4 — detailpagina's, /methodologie, filters, nieuwsbrief, admin
 - [ ] Fase 5 — live op Vercel met dagelijkse cron

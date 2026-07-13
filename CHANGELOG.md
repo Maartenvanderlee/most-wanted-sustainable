@@ -6,6 +6,11 @@ Nieuwste bovenaan.
 
 ## [Fase 3] — Data-pipeline
 
+- Live geverifieerd: YouTube levert echte signalen; producten komen op status
+  `pending` in de database. Reddit uitgesteld (Responsible Builder Policy vereist
+  goedkeuring/commerciële toestemming); Google Trends best-effort (429).
+  Scores verschijnen pas na ≥2 weken historie (meet versnelling, niet volume).
+
 - Trendscore-formule **v1** geïntroduceerd: `0.45 * Google Trends + 0.30 *
   Reddit + 0.25 * YouTube`, gemeten als week-op-week groei, min-max
   genormaliseerd per snapshotdag.
