@@ -10,7 +10,7 @@ const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 const MIN_HISTORY_MS = 14 * 24 * 60 * 60 * 1000; // min. 2 weken historie
 const SOURCES = Object.keys(WEIGHTS) as SourceName[];
 
-type SignalRow = {
+export type SignalRow = {
   product_id: string;
   source: SourceName;
   value: number;
@@ -18,7 +18,8 @@ type SignalRow = {
 };
 
 // Week-op-week groei voor één reeks metingen; null als er te weinig historie is.
-function growth(signals: SignalRow[]): number | null {
+// Geëxporteerd zodat het los te testen is.
+export function growth(signals: SignalRow[]): number | null {
   if (signals.length < 2) return null;
   const sorted = [...signals].sort(
     (a, b) => +new Date(a.measured_at) - +new Date(b.measured_at)
@@ -34,7 +35,8 @@ function growth(signals: SignalRow[]): number | null {
 }
 
 // Min-max normalisatie naar 0-100 over de hele productset van deze snapshot.
-function normalize(values: Map<string, number>): Map<string, number> {
+// Geëxporteerd zodat het los te testen is.
+export function normalize(values: Map<string, number>): Map<string, number> {
   const nums = [...values.values()];
   const min = Math.min(...nums);
   const max = Math.max(...nums);
