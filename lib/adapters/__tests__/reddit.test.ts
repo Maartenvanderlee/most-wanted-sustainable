@@ -12,7 +12,7 @@ vi.mock("../http", async (importActual) => {
 
 import { adapter } from "../reddit";
 
-function mockPosts(posts: { title: string; selftext?: string }[]) {
+function postsResponse(posts: { title: string; selftext?: string }[]) {
   return {
     ok: true,
     json: async () => ({
@@ -21,14 +21,24 @@ function mockPosts(posts: { title: string; selftext?: string }[]) {
   };
 }
 
+// Bootst zowel het token-endpoint als de data-endpoints na.
+function mockRedditFetch(posts: { title: string; selftext?: string }[]) {
+  return vi.fn(async (url: string) => {
+    if (url.includes("access_token")) {
+      return { ok: true, json: async () => ({ access_token: "test-token" }) };
+    }
+    return postsResponse(posts);
+  }) as unknown as typeof fetch;
+}
+
 describe("reddit adapter", () => {
   beforeEach(() => {
-    global.fetch = vi.fn(async () =>
-      mockPosts([
-        { title: "Best bamboo toothbrush ever", selftext: "" },
-        { title: "Something unrelated", selftext: "no keywords here" },
-      ])
-    ) as unknown as typeof fetch;
+    process.env.REDDIT_CLIENT_ID = "id";
+    process.env.REDDIT_CLIENT_SECRET = "secret";
+    global.fetch = mockRedditFetch([
+      { title: "Best bamboo toothbrush ever", selftext: "" },
+      { title: "Something unrelated", selftext: "no keywords here" },
+    ]);
   });
 
   it("telt hoe vaak een zoekwoord voorkomt", async () => {
@@ -45,11 +55,21 @@ describe("reddit adapter", () => {
     expect(bamboo?.source).toBe("reddit");
   });
 
+  it("slaat de bron over zonder client-sleutels", async () => {
+    delete process.env.REDDIT_CLIENT_ID;
+    delete process.env.REDDIT_CLIENT_SECRET;
+    const signals = await adapter.fetchSignals(["bamboo toothbrush"]);
+    expect(signals).toEqual([]);
+  });
+
   it("faalt geïsoleerd en geeft een lege lijst terug", async () => {
-    global.fetch = vi.fn(async () => ({
-      ok: false,
-      status: 500,
-    })) as unknown as typeof fetch;
+    // Token lukt, maar de data-endpoints geven een fout.
+    global.fetch = vi.fn(async (url: string) => {
+      if (url.includes("access_token")) {
+        return { ok: true, json: async () => ({ access_token: "t" }) };
+      }
+      return { ok: false, status: 500 };
+    }) as unknown as typeof fetch;
     const signals = await adapter.fetchSignals(["bamboo toothbrush"]);
     expect(signals).toEqual([]);
   });

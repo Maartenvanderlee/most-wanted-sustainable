@@ -9,9 +9,9 @@ Nieuwste bovenaan.
 - Trendscore-formule **v1** geïntroduceerd: `0.45 * Google Trends + 0.30 *
   Reddit + 0.25 * YouTube`, gemeten als week-op-week groei, min-max
   genormaliseerd per snapshotdag.
-- Drie bron-adapters toegevoegd: Reddit (publieke JSON API), Google Trends
-  (onofficiële API) en YouTube (Data API v3), elk met failure-isolatie,
-  retry/backoff en 12u cache.
+- Drie bron-adapters toegevoegd: Reddit (app-only OAuth — Reddit blokkeert
+  anonieme verzoeken), Google Trends (onofficiële API) en YouTube (Data API
+  v3), elk met failure-isolatie, retry/backoff en 12u cache.
 - Pipeline-orkestratie: seed-keywords → producten (status `pending`) →
   signalen → scores.
 - Handmatig draaien via `npm run pipeline` en de beveiligde API-route

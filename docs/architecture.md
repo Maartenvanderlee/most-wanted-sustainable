@@ -139,8 +139,12 @@ score = 0.45 * norm(googleTrendsGroei)
 
 ## Bekende beperkingen / verbeterpunten
 
-- **Google Trends** gebruikt een onofficiële API; verwacht af en toe uitval.
-  De adapter degradeert netjes, maar overweeg later een robuustere bron.
+- **Reddit** blokkeert niet-ingelogde verzoeken (403). De adapter gebruikt
+  daarom app-only OAuth (`REDDIT_CLIENT_ID`/`REDDIT_CLIENT_SECRET`); zonder die
+  sleutels slaat de bron zichzelf over.
+- **Google Trends** gebruikt een onofficiële API en wordt snel gerate-limit
+  (429). De adapter degradeert netjes (lege lijst); voor productie is een
+  robuustere/officiële bron aan te raden.
 - De **cache** is een bestandscache (`.cache/`), prima voor ontwikkeling. Op
   Vercel is het bestandssysteem vluchtig; overweeg de Supabase-tabel
   `raw_cache` uit de skill voor productie.

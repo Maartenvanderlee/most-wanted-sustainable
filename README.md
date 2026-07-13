@@ -29,6 +29,7 @@ code of in de chat plaatsen; `.env.local` staat in `.gitignore`.
 | `NEXT_PUBLIC_SUPABASE_URL` | Fase 2 | Supabase → Project Settings → API |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Fase 2 | Supabase → API (publishable/anon key) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Fase 2 | Supabase → API (secret/service_role, geheim) |
+| `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` | Fase 3 | Reddit → prefs/apps (gratis "script" app) |
 | `YOUTUBE_API_KEY` | Fase 3 | Google Cloud Console → Credentials |
 | `ADMIN_PASSWORD` | Fase 4 | zelf verzinnen |
 | `CRON_SECRET` | Fase 3/5 | zelf verzinnen (lange willekeurige tekst) |
