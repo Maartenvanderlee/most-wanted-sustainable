@@ -153,9 +153,11 @@ score = 0.45 * norm(googleTrendsGroei)
   commercieel gebruik van Reddit-data zonder schriftelijke toestemming. Omdat
   het product een commercieel model heeft, gebruiken we Reddit pas na een
   goedgekeurde aanvraag. De adaptercode blijft klaarstaan voor dat moment.
-- **Google Trends** gebruikt een onofficiële API en wordt snel gerate-limit
-  (429). De adapter degradeert netjes (lege lijst); voor productie is een
-  robuustere/officiële bron aan te raden.
+- **Google Trends** gebruikt een onofficiële API. Kale verzoeken worden
+  geblokkeerd (429); de adapter haalt daarom eerst een sessie-cookie op en
+  pauzeert kort vóór de dataronde, waardoor de meeste zoekwoorden wél data
+  opleveren. Blijft best-effort (Google kan de aanpak wijzigen); een
+  ontbrekend zoekwoord wordt netjes overgeslagen.
 - De **cache** is een bestandscache (`.cache/`), prima voor ontwikkeling. Op
   Vercel is het bestandssysteem vluchtig; overweeg de Supabase-tabel
   `raw_cache` uit de skill voor productie.

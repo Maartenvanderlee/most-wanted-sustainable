@@ -6,6 +6,8 @@ Nieuwste bovenaan.
 
 ## [Fase 4] — Rest van de MVP
 
+- Google Trends werkt nu: cookie-priming + korte pauze omzeilt de 429-blokkade,
+  waardoor de meeste zoekwoorden echte interesse-data opleveren (best-effort).
 - Per product: foto (`image_url`), koop-/affiliate-link en erkende keurmerken.
   Keurmerken (B Corp, Fairtrade, FSC, …) via aankruislijst in de admin,
   opgeslagen als tags en op de site apart getoond als keurmerk-badges
