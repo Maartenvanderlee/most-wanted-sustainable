@@ -39,13 +39,16 @@ export default async function StatsPage() {
 
   const [{ data: pvRows }, { data: clickRows }, { data: recentSubs }] =
     await Promise.all([
-      supabase.from("events").select("path").eq("type", "page_view").order("created_at", { ascending: false }).limit(SAMPLE),
+      supabase.from("events").select("path, visitor_id").eq("type", "page_view").order("created_at", { ascending: false }).limit(SAMPLE),
       supabase.from("events").select("label, type").in("type", ["click", "outbound"]).order("created_at", { ascending: false }).limit(SAMPLE),
       supabase.from("newsletter_subscribers").select("email, created_at").order("created_at", { ascending: false }).limit(8),
     ]);
 
   const topPages = topBy(pvRows ?? [], "path");
   const topLinks = topBy(clickRows ?? [], "label");
+  const uniqueVisitors = new Set(
+    (pvRows ?? []).map((r) => r.visitor_id).filter(Boolean)
+  ).size;
 
   return (
     <main className="mx-auto max-w-4xl px-5 py-10">
@@ -57,10 +60,11 @@ export default async function StatsPage() {
       </div>
 
       {/* Kerncijfers */}
-      <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatTile value={pageViews ?? 0} label="Paginabezoeken" />
+        <StatTile value={uniqueVisitors} label="Unieke bezoekers" />
         <StatTile value={clickCount ?? 0} label="Link-kliks" />
-        <StatTile value={subscriberCount ?? 0} label="Nieuwsbrief-inschrijvingen" />
+        <StatTile value={subscriberCount ?? 0} label="Inschrijvingen" />
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -96,9 +100,11 @@ export default async function StatsPage() {
       </section>
 
       <p className="mt-8 text-xs text-on-surface-variant">
-        Kerncijfers zijn totalen; de top-lijsten zijn gebaseerd op de laatste{" "}
-        {SAMPLE.toLocaleString("nl-NL")} gebeurtenissen. Geen persoonsgegevens,
-        geen cookies.
+        Paginabezoeken, kliks en inschrijvingen zijn totalen. Unieke bezoekers en
+        de top-lijsten zijn gebaseerd op de laatste{" "}
+        {SAMPLE.toLocaleString("nl-NL")} gebeurtenissen. Unieke bezoekers worden
+        geteld via een willekeurig, anoniem ID in de browser — geen
+        persoonsgegevens, geen tracking-cookies.
       </p>
     </main>
   );

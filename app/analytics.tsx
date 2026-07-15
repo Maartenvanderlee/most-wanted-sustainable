@@ -5,7 +5,27 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-type Payload = { type: "page_view" | "click" | "outbound"; path: string; label?: string };
+type Payload = {
+  type: "page_view" | "click" | "outbound";
+  path: string;
+  label?: string;
+  visitorId?: string;
+};
+
+// Haalt (of maakt) een willekeurig, anoniem bezoekers-ID in de browser.
+// Geen persoonsgegevens; alleen om unieke bezoekers te tellen.
+function getVisitorId(): string | undefined {
+  try {
+    let id = localStorage.getItem("mw_vid");
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem("mw_vid", id);
+    }
+    return id;
+  } catch {
+    return undefined;
+  }
+}
 
 function send(payload: Payload) {
   try {
@@ -31,7 +51,7 @@ export function Analytics() {
   // Paginabezoek registreren bij elke navigatie (behalve de admin).
   useEffect(() => {
     if (pathname.startsWith("/admin")) return;
-    send({ type: "page_view", path: pathname });
+    send({ type: "page_view", path: pathname, visitorId: getVisitorId() });
   }, [pathname]);
 
   // Link-kliks registreren via één gedeelde luisteraar.
@@ -53,6 +73,7 @@ export function Analytics() {
         type: isExternal ? "outbound" : "click",
         path: pathname,
         label: isExternal ? href : text || href,
+        visitorId: getVisitorId(),
       });
     }
 

@@ -103,6 +103,7 @@ export type Database = {
           type: EventType;
           path: string;
           label: string | null;
+          visitor_id: string | null;
           created_at: string;
         };
         Insert: {
@@ -110,6 +111,7 @@ export type Database = {
           type: EventType;
           path: string;
           label?: string | null;
+          visitor_id?: string | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["events"]["Insert"]>;
