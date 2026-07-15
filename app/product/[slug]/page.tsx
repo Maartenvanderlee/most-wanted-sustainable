@@ -12,8 +12,8 @@ export const dynamic = "force-dynamic";
 
 const SOURCE_LABELS: Record<SourceName, string> = {
   google_trends: "Google Trends",
-  reddit: "Reddit",
   youtube: "YouTube",
+  reddit: "Reddit",
 };
 
 function formatMeasurement(m: SourceMeasurement): string {
