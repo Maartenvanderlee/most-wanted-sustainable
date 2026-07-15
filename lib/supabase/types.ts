@@ -6,6 +6,7 @@
 
 export type ProductStatus = "pending" | "approved" | "rejected";
 export type SourceName = "google_trends" | "reddit" | "youtube";
+export type EventType = "page_view" | "click" | "outbound";
 
 // Handige verkorting voor de "in te voegen rij"-vorm van een tabel.
 export type TablesInsert<T extends keyof Database["public"]["Tables"]> =
@@ -96,12 +97,31 @@ export type Database = {
         >;
         Relationships: [];
       };
+      events: {
+        Row: {
+          id: string;
+          type: EventType;
+          path: string;
+          label: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          type: EventType;
+          path: string;
+          label?: string | null;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["events"]["Insert"]>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
     Enums: {
       product_status: ProductStatus;
       source_name: SourceName;
+      event_type: EventType;
     };
     CompositeTypes: Record<string, never>;
   };

@@ -46,11 +46,19 @@ export default async function AdminPage() {
     <main className="mx-auto max-w-4xl px-5 py-10">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="font-display text-headline-md text-on-background">Admin</h1>
-        <form action={logout}>
-          <button className="text-sm text-on-surface-variant hover:text-primary">
-            Uitloggen
-          </button>
-        </form>
+        <div className="flex items-center gap-4">
+          <a
+            href="/admin/stats"
+            className="text-sm font-medium text-primary hover:underline"
+          >
+            Statistieken
+          </a>
+          <form action={logout}>
+            <button className="text-sm text-on-surface-variant hover:text-primary">
+              Uitloggen
+            </button>
+          </form>
+        </div>
       </div>
 
       <p className="mb-6 text-body-md text-on-surface-variant">

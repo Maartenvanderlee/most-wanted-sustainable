@@ -6,6 +6,7 @@ import {
   Manrope,
 } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "./analytics";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -52,6 +53,7 @@ export default function RootLayout({
       </head>
       <body className="bg-background font-body text-on-surface antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   );

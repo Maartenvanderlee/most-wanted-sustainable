@@ -6,6 +6,11 @@ Nieuwste bovenaan.
 
 ## [Fase 4] — Rest van de MVP
 
+- Eigen, privacy-vriendelijke statistieken (geen cookies, geen persoonsgegevens):
+  `events`-tabel + `/api/track` registreren paginabezoeken en link-kliks; het
+  admin-dashboard `/admin/stats` toont bezoeken, populairste links en het aantal
+  nieuwsbrief-inschrijvingen. Migratie `0003_events.sql`.
+- Merklogo (driehoek + woordmerk, Manrope) in menubalk en footer.
 - Google Trends werkt nu: cookie-priming + korte pauze omzeilt de 429-blokkade,
   waardoor de meeste zoekwoorden echte interesse-data opleveren (best-effort).
 - Per product: foto (`image_url`), koop-/affiliate-link en erkende keurmerken.
