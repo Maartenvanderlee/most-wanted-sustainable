@@ -45,6 +45,7 @@ const config: Config = {
         display: ["var(--font-jakarta)", "sans-serif"],
         body: ["var(--font-vietnam)", "sans-serif"],
         label: ["var(--font-grotesk)", "sans-serif"],
+        logo: ["var(--font-manrope)", "sans-serif"],
       },
       fontSize: {
         "display-lg": ["56px", { lineHeight: "64px", letterSpacing: "-0.02em", fontWeight: "800" }],

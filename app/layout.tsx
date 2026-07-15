@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Be_Vietnam_Pro, Space_Grotesk } from "next/font/google";
+import {
+  Plus_Jakarta_Sans,
+  Be_Vietnam_Pro,
+  Space_Grotesk,
+  Manrope,
+} from "next/font/google";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -17,6 +22,11 @@ const grotesk = Space_Grotesk({
   weight: ["600"],
   variable: "--font-grotesk",
 });
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-manrope",
+});
 
 export const metadata: Metadata = {
   title: "Most Wanted Sustainable — trending duurzame producten",
@@ -32,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="nl"
-      className={`${jakarta.variable} ${vietnam.variable} ${grotesk.variable} scroll-smooth`}
+      className={`${jakarta.variable} ${vietnam.variable} ${grotesk.variable} ${manrope.variable} scroll-smooth`}
     >
       <head>
         <link

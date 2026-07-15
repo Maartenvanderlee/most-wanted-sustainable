@@ -1,13 +1,14 @@
 // Gedeelde navigatiebalk en footer voor alle pagina's.
 import Link from "next/link";
+import { Logo } from "./logo";
 
 export function SiteNav() {
   return (
     <nav className="glass-morphism fixed top-0 z-50 w-full shadow-sm">
-      <div className="mx-auto flex max-w-container items-center justify-between px-5 py-4 md:px-16">
+      <div className="mx-auto flex max-w-container items-center justify-between px-5 py-3 md:px-16">
         <div className="flex items-center gap-8">
-          <Link href="/" className="font-display text-[22px] font-extrabold text-primary">
-            Most&nbsp;Wanted
+          <Link href="/" aria-label="Most Wanted Sustainable — home">
+            <Logo size="nav" />
           </Link>
           <div className="hidden items-center gap-6 md:flex">
             <Link href="/" className="text-on-surface-variant transition-colors hover:text-primary">
@@ -37,9 +38,7 @@ export function SiteFooter() {
     <footer className="mt-auto w-full border-t border-outline-variant bg-surface-container-low">
       <div className="mx-auto flex max-w-container flex-col items-center justify-between gap-8 px-5 py-12 md:flex-row md:px-16">
         <div className="flex flex-col items-center gap-4 md:items-start">
-          <span className="font-display text-headline-md font-black text-primary">
-            Most Wanted Sustainable
-          </span>
+          <Logo size="footer" />
           <p className="max-w-xs text-center font-body text-on-surface-variant md:text-left">
             De onafhankelijke ranglijst van duurzame producten die in
             populariteit versnellen.
