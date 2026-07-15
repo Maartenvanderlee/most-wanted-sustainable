@@ -2,6 +2,7 @@
 // Beveiligd met CRON_SECRET: geef de sleutel mee als
 //   Authorization: Bearer <CRON_SECRET>   of   ?secret=<CRON_SECRET>
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { runPipeline } from "@/lib/pipeline/run";
 
 export const runtime = "nodejs";
@@ -30,6 +31,10 @@ async function handle(req: NextRequest) {
 
   try {
     const result = await runPipeline({ limit });
+    // Ververs de gecachete publieke pagina's zodat nieuwe scores direct zichtbaar zijn.
+    revalidatePath("/");
+    revalidatePath("/product/[slug]", "page");
+    revalidatePath("/trending/[category]", "page");
     return NextResponse.json({ ok: true, result });
   } catch (err) {
     return NextResponse.json(

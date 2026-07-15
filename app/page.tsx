@@ -4,7 +4,9 @@ import { SiteNav, SiteFooter } from "./site-chrome";
 import { HomeGrid } from "./home-grid";
 import { NewsletterForm } from "./newsletter/form";
 
-export const dynamic = "force-dynamic";
+// ISR: pagina wordt gecachet en maximaal elk uur opnieuw opgebouwd.
+// Admin-acties en de pipeline verversen de cache direct via revalidatePath.
+export const revalidate = 3600;
 
 export default async function HomePage() {
   const products = await getRankedProducts();

@@ -13,7 +13,8 @@ import {
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 import { ProductCards } from "@/app/home-grid";
 
-export const dynamic = "force-dynamic";
+// ISR: pagina wordt gecachet en maximaal elk uur opnieuw opgebouwd.
+export const revalidate = 3600;
 
 const MONTHS = [
   "januari", "februari", "maart", "april", "mei", "juni",

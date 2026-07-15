@@ -8,7 +8,15 @@ import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 import type { SourceName } from "@/lib/supabase/types";
 
-export const dynamic = "force-dynamic";
+// ISR: pagina wordt gecachet en maximaal elk uur opnieuw opgebouwd.
+export const revalidate = 3600;
+
+// Bouw alle goedgekeurde productpagina's vooraf; nieuwe slugs worden
+// bij het eerste bezoek gegenereerd en daarna gecachet.
+export async function generateStaticParams() {
+  const slugs = await getApprovedSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
 
 const SOURCE_LABELS: Record<SourceName, string> = {
   google_trends: "Google Trends",
