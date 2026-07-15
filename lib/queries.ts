@@ -5,6 +5,7 @@
 import { createServerClient } from "./supabase/server";
 import type { Category } from "./categories";
 import type { ProductStatus, SourceName } from "./supabase/types";
+import { WEIGHTS } from "./scoring/version";
 
 export type ProductRow = {
   id: string;
@@ -82,7 +83,8 @@ export type ProductDetail = {
   measurements: SourceMeasurement[]; // laatste ruwe meting per bron
 };
 
-const ALL_SOURCES: SourceName[] = ["google_trends", "reddit", "youtube"];
+// Bronnen die meewegen in de score (leidt af uit de formule-weging).
+const ALL_SOURCES = Object.keys(WEIGHTS) as SourceName[];
 
 // Eén goedgekeurd product met scorehistorie en de laatste meting per bron.
 export async function getProductBySlug(

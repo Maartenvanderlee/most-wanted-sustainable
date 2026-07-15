@@ -34,24 +34,20 @@ export default function MethodologiePage() {
 
           <section>
             <h2 className="mb-2 font-display text-headline-md-mobile text-on-background">
-              Onze drie databronnen
+              Onze databronnen
             </h2>
             <p className="mb-3">
-              Elke dag verzamelen we publieke signalen uit drie bronnen. Elke
-              bron telt met een vast gewicht mee in de eindscore:
+              Elke dag verzamelen we publieke signalen. Elke bron telt met een
+              vast gewicht mee in de eindscore:
             </p>
             <ul className="space-y-2">
               <li>
                 <strong>Google Trends</strong> — de zoekinteresse in een product
-                ({Math.round(WEIGHTS.google_trends * 100)}%)
-              </li>
-              <li>
-                <strong>Reddit</strong> — hoe vaak een product wordt besproken
-                ({Math.round(WEIGHTS.reddit * 100)}%)
+                ({Math.round((WEIGHTS.google_trends ?? 0) * 100)}%)
               </li>
               <li>
                 <strong>YouTube</strong> — het aantal weergaven van recente
-                video&apos;s ({Math.round(WEIGHTS.youtube * 100)}%)
+                video&apos;s ({Math.round((WEIGHTS.youtube ?? 0) * 100)}%)
               </li>
             </ul>
             <p className="mt-3">

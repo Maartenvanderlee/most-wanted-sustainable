@@ -6,6 +6,11 @@ Nieuwste bovenaan.
 
 ## [Fase 4] — Rest van de MVP
 
+- Trendscore-formule **v2**: Reddit (tijdelijk) uit de weging gehaald omdat het
+  anonieme toegang blokkeert en goedkeuring vereist voor commercieel gebruik.
+  Zijn gewicht is herverdeeld over de werkende bronnen: Google Trends 65%,
+  YouTube 35%. De site beweegt automatisch mee (methodologie, detailpagina,
+  homepage-teller). Reddit kan later als v3 terugkeren.
 - Eigen, privacy-vriendelijke statistieken (geen cookies, geen persoonsgegevens):
   `events`-tabel + `/api/track` registreren paginabezoeken en link-kliks; het
   admin-dashboard `/admin/stats` toont bezoeken, populairste links en het aantal

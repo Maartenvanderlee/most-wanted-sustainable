@@ -105,7 +105,7 @@ export async function computeAndStoreScores(
     .map((productId) => {
       let score = 0;
       for (const source of SOURCES) {
-        score += WEIGHTS[source] * (normBySource.get(source)!.get(productId) ?? 0);
+        score += (WEIGHTS[source] ?? 0) * (normBySource.get(source)!.get(productId) ?? 0);
       }
       return { productId, score: Math.round(score * 100) / 100 };
     })

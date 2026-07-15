@@ -205,7 +205,7 @@ export default async function ProductPage({
                 </div>
                 <div className="text-right">
                   <div className="font-display text-headline-md-mobile text-primary">
-                    {Math.round(WEIGHTS[m.source] * 100)}%
+                    {Math.round((WEIGHTS[m.source] ?? 0) * 100)}%
                   </div>
                   <div className="text-[10px] uppercase text-on-surface-variant">
                     weging

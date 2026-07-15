@@ -1,4 +1,5 @@
 import { getRankedProducts } from "@/lib/queries";
+import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "./site-chrome";
 import { HomeGrid } from "./home-grid";
 import { NewsletterForm } from "./newsletter/form";
@@ -47,7 +48,7 @@ function Hero({ count }: { count: number }) {
       </div>
       <div className="flex gap-4">
         <StatCard value={count > 0 ? String(count) : "—"} label="PRODUCTEN" accent="text-primary" />
-        <StatCard value="3" label="DATABRONNEN" accent="text-tertiary" />
+        <StatCard value={String(Object.keys(WEIGHTS).length)} label="DATABRONNEN" accent="text-tertiary" />
       </div>
     </section>
   );
