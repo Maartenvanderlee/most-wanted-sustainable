@@ -7,7 +7,7 @@ import { runPipeline } from "@/lib/pipeline/run";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const maxDuration = 60; // seconden
+export const maxDuration = 300; // seconden; volledige run past niet in 60s
 
 function isAuthorized(req: NextRequest): boolean {
   const secret = process.env.CRON_SECRET;
