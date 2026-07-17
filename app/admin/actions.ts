@@ -100,6 +100,37 @@ export async function updateDetails(formData: FormData): Promise<void> {
     .eq("id", id);
   if (error) throw new Error(error.message);
 
+  // Bewijs per aangevinkt keurmerk (registratienummer + link naar register).
+  const evidenceRows = certifications.map((cert) => ({
+    product_id: id,
+    certification: cert,
+    registration_number:
+      String(formData.get(`evidence_number__${cert}`) ?? "").trim() || null,
+    evidence_url:
+      String(formData.get(`evidence_url__${cert}`) ?? "").trim() || null,
+    updated_at: new Date().toISOString(),
+  }));
+
+  if (evidenceRows.length > 0) {
+    const { error: evidenceError } = await supabase
+      .from("product_certifications")
+      .upsert(evidenceRows, { onConflict: "product_id,certification" });
+    if (evidenceError) throw new Error(evidenceError.message);
+  }
+
+  // Bewijs opruimen van keurmerken die niet meer aangevinkt zijn.
+  const { error: cleanupError } = await supabase
+    .from("product_certifications")
+    .delete()
+    .eq("product_id", id)
+    .not(
+      "certification",
+      "in",
+      `(${certifications.length > 0 ? certifications.map((c) => `"${c}"`).join(",") : '""'})`
+    );
+  if (cleanupError) throw new Error(cleanupError.message);
+
   revalidatePath("/admin");
   revalidatePath("/");
+  revalidatePath("/product/[slug]", "page");
 }

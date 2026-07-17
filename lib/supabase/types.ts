@@ -97,6 +97,32 @@ export type Database = {
         >;
         Relationships: [];
       };
+      product_certifications: {
+        Row: {
+          id: string;
+          product_id: string;
+          certification: string;
+          registration_number: string | null;
+          evidence_url: string | null;
+          notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          product_id: string;
+          certification: string;
+          registration_number?: string | null;
+          evidence_url?: string | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<
+          Database["public"]["Tables"]["product_certifications"]["Insert"]
+        >;
+        Relationships: [];
+      };
       events: {
         Row: {
           id: string;

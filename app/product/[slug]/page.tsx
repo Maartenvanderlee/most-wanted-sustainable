@@ -68,7 +68,10 @@ export default async function ProductPage({
   const detail = await getProductBySlug(params.slug);
   if (!detail) notFound();
 
-  const { product, latest, history, measurements } = detail;
+  const { product, latest, history, measurements, certificationEvidence } =
+    detail;
+  const evidenceFor = (cert: string) =>
+    certificationEvidence.find((e) => e.certification === cert);
   const { certifications, characteristics } = splitTags(
     product.sustainability_tags
   );
@@ -151,17 +154,34 @@ export default async function ProductPage({
               <p className="mb-2 text-sm text-on-surface-variant">
                 Erkende keurmerken:
               </p>
-              <div className="flex flex-wrap gap-2">
-                {certifications.map((c) => (
-                  <span
-                    key={c}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-primary-container/25 px-3 py-1 text-sm font-medium text-primary"
-                  >
-                    <span aria-hidden="true">✓</span>
-                    {certificationLabel(c)}
-                  </span>
-                ))}
-              </div>
+              <ul className="space-y-2">
+                {certifications.map((c) => {
+                  const ev = evidenceFor(c);
+                  return (
+                    <li key={c} className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-container/25 px-3 py-1 text-sm font-medium text-primary">
+                        <span aria-hidden="true">✓</span>
+                        {certificationLabel(c)}
+                      </span>
+                      {ev?.registration_number && (
+                        <span className="text-xs text-on-surface-variant">
+                          reg.nr. {ev.registration_number}
+                        </span>
+                      )}
+                      {ev?.evidence_url && (
+                        <a
+                          href={ev.evidence_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-primary underline"
+                        >
+                          controleer in het register ↗
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           )}
 

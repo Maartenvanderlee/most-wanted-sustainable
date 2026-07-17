@@ -76,11 +76,18 @@ export type SourceMeasurement = {
   measuredAt: string | null;
 };
 
+export type CertificationEvidence = {
+  certification: string;
+  registration_number: string | null;
+  evidence_url: string | null;
+};
+
 export type ProductDetail = {
   product: ProductRow;
   latest: LatestScore | null;
   history: { snapshot_date: string; score: number }[]; // laatste 30 dagen
   measurements: SourceMeasurement[]; // laatste ruwe meting per bron
+  certificationEvidence: CertificationEvidence[]; // bewijs per keurmerk
 };
 
 // Bronnen die meewegen in de score (leidt af uit de formule-weging).
@@ -138,7 +145,19 @@ export async function getProductBySlug(
     };
   });
 
-  return { product: p, latest, history, measurements };
+  // Bewijs per keurmerk (registratienummer + link naar openbaar register).
+  const { data: evidence } = await supabase
+    .from("product_certifications")
+    .select("certification, registration_number, evidence_url")
+    .eq("product_id", p.id);
+
+  return {
+    product: p,
+    latest,
+    history,
+    measurements,
+    certificationEvidence: evidence ?? [],
+  };
 }
 
 // Alle slugs van goedgekeurde producten (voor sitemap en statische paden).
