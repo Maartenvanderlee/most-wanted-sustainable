@@ -20,6 +20,8 @@ import {
 import { LoginForm } from "./login-form";
 
 export const dynamic = "force-dynamic";
+// Ruime limiet: "Foto's automatisch invullen" doet tot 100 zoekopdrachten.
+export const maxDuration = 300;
 
 const STATUS_BADGE: Record<string, string> = {
   pending: "bg-secondary-container/40 text-on-secondary-container",
