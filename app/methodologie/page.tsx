@@ -61,13 +61,36 @@ export default function MethodologiePage() {
 
           <section>
             <h2 className="mb-2 font-display text-headline-md-mobile text-on-background">
-              Onafhankelijk van geld
+              Hoe we geld verdienen — en wat dat wél en niet beïnvloedt
             </h2>
+            <p className="mb-3">
+              Volledige openheid: deze site is ook een bedrijf. We verdienen (of
+              willen gaan verdienen) op deze manieren:
+            </p>
+            <ul className="mb-3 list-disc space-y-2 pl-5">
+              <li>
+                <strong>Affiliate-links.</strong> Koop je een product via een
+                &quot;Koop dit product&quot;-knop, dan ontvangen wij soms een
+                kleine commissie. Dat kost jou niets extra en staat altijd bij de
+                link vermeld.
+              </li>
+              <li>
+                <strong>Sponsoring en advertenties.</strong> Mogelijk werken we in
+                de toekomst met gesponsorde uitingen. Die herken je dan altijd aan
+                een duidelijk label als &quot;gesponsord&quot; — en ze staan nooit
+                vermomd tussen de ranglijst.
+              </li>
+            </ul>
             <p>
-              De trendscore staat volledig los van affiliate-links of
-              sponsoring. Geen enkel bedrijf kan een hogere plek kopen. Verdienen
-              we iets aan een link, dan zie je dat duidelijk aangegeven — maar het
-              raakt de score nooit.
+              Wat er ook gebeurt, één regel is onaantastbaar:{" "}
+              <strong>
+                de trendscore en de rangorde zijn nooit te koop
+              </strong>
+              . De score komt uit publieke data en een vaste formule; ook de
+              beoordeling of een product duurzaam genoeg is voor de lijst staat
+              volledig los van commerciële afspraken. Een merk kan dus wél bij ons
+              adverteren, maar niet hoger op de lijst komen — die twee werelden
+              raken elkaar niet.
             </p>
           </section>
 

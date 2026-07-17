@@ -5,10 +5,18 @@ import { CATEGORY_LABELS, isCategory } from "@/lib/categories";
 import {
   CERTIFICATIONS,
   CERTIFICATION_LABELS,
+  CERTIFICATION_REGISTRIES,
+  isCertification,
   splitTags,
 } from "@/lib/certifications";
 import type { ProductRow } from "@/lib/queries";
-import { isAuthenticated, logout, setStatus, updateDetails } from "./actions";
+import {
+  fillMissingImages,
+  isAuthenticated,
+  logout,
+  setStatus,
+  updateDetails,
+} from "./actions";
 import { LoginForm } from "./login-form";
 
 export const dynamic = "force-dynamic";
@@ -78,10 +86,17 @@ export default async function AdminPage() {
         </div>
       </div>
 
-      <p className="mb-6 text-body-md text-on-surface-variant">
-        {counts.pending} in behandeling · {counts.approved} goedgekeurd ·{" "}
-        {counts.rejected} afgewezen
-      </p>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-body-md text-on-surface-variant">
+          {counts.pending} in behandeling · {counts.approved} goedgekeurd ·{" "}
+          {counts.rejected} afgewezen
+        </p>
+        <form action={fillMissingImages}>
+          <button className="rounded-full border border-primary px-4 py-1.5 text-sm font-medium text-primary hover:bg-primary-container/10">
+            Foto&apos;s automatisch invullen
+          </button>
+        </form>
+      </div>
 
       <CurationGuide />
 
@@ -219,8 +234,18 @@ function ProductCard({
                 const ev = evidenceFor(cert);
                 return (
                   <div key={cert}>
-                    <p className="mb-1 text-xs font-semibold text-on-background">
+                    <p className="mb-1 flex items-center gap-2 text-xs font-semibold text-on-background">
                       {CERTIFICATION_LABELS[cert as keyof typeof CERTIFICATION_LABELS] ?? cert}
+                      {isCertification(cert) && (
+                        <a
+                          href={CERTIFICATION_REGISTRIES[cert]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-normal text-primary underline"
+                        >
+                          open register ↗
+                        </a>
+                      )}
                     </p>
                     <div className="flex flex-col gap-2 sm:flex-row">
                       <input

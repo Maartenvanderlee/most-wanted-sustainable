@@ -33,6 +33,22 @@ export const CERTIFICATION_LABELS: Record<Certification, string> = {
   "msc-asc": "MSC/ASC",
 };
 
+// Openbaar register per keurmerk, om claims op te zoeken en te bewijzen.
+// Gebruikt in de admin als hulplink bij het invullen van certificaat-bewijs.
+export const CERTIFICATION_REGISTRIES: Record<Certification, string> = {
+  "b-corp": "https://www.bcorporation.net/en-us/find-a-b-corp/",
+  fairtrade: "https://www.flocert.net/about-flocert/customer-search/",
+  gots: "https://www.global-standard.org/certification-and-labelling/who-is-certified",
+  "eu-ecolabel": "https://eu-ecolabel.ec.europa.eu/products-groups-and-criteria/product-catalogue_en",
+  fsc: "https://search.fsc.org/en/",
+  "cradle-to-cradle": "https://c2ccertified.org/the-registry",
+  "oeko-tex": "https://www.oeko-tex.com/en/label-check",
+  "energy-star": "https://www.energystar.gov/productfinder/",
+  "rainforest-alliance": "https://www.rainforest-alliance.org/find-certified/",
+  demeter: "https://demeter.net/",
+  "msc-asc": "https://fisheries.msc.org/en/fisheries/",
+};
+
 export function isCertification(tag: string): tag is Certification {
   return (CERTIFICATIONS as readonly string[]).includes(tag);
 }

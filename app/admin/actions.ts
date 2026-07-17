@@ -6,6 +6,7 @@
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
+import { findImageFor, hasPexelsKey } from "@/lib/images";
 import type { ProductStatus } from "@/lib/supabase/types";
 
 const COOKIE = "mw_admin";
@@ -72,6 +73,36 @@ export async function setStatus(formData: FormData): Promise<void> {
 
   revalidatePath("/admin");
   revalidatePath("/");
+}
+
+// Zoekt via Pexels automatisch een foto voor elk product dat er nog geen
+// heeft. Idempotent: bestaande (ook handmatig gekozen) foto's blijven staan.
+export async function fillMissingImages(): Promise<void> {
+  assertAuthed();
+  if (!hasPexelsKey()) {
+    throw new Error(
+      "PEXELS_API_KEY ontbreekt. Maak een gratis sleutel op pexels.com/api en " +
+        "zet die in .env.local en in de Vercel environment variables."
+    );
+  }
+
+  const supabase = createServerClient();
+  const { data: products, error } = await supabase
+    .from("products")
+    .select("id, name")
+    .is("image_url", null);
+  if (error) throw new Error(error.message);
+
+  for (const p of products ?? []) {
+    const imageUrl = await findImageFor(p.name);
+    if (!imageUrl) continue; // niets gevonden: overslaan, later opnieuw te proberen
+    await supabase.from("products").update({ image_url: imageUrl }).eq("id", p.id);
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/");
+  revalidatePath("/product/[slug]", "page");
+  revalidatePath("/trending/[category]", "page");
 }
 
 // Werk foto, keurmerken, kenmerken en koop-/affiliate-link bij (los van goedkeuren).
