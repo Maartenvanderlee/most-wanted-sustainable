@@ -161,6 +161,35 @@ export async function updateDetails(formData: FormData): Promise<void> {
     );
   if (cleanupError) throw new Error(cleanupError.message);
 
+  // Verkoopkanalen (max 3): ingevulde rijen opslaan, leeggemaakte verwijderen.
+  for (const position of [1, 2, 3]) {
+    const retailer = String(
+      formData.get(`offer_retailer__${position}`) ?? ""
+    ).trim();
+    const url = String(formData.get(`offer_url__${position}`) ?? "").trim();
+
+    if (retailer && url) {
+      const { error: offerError } = await supabase.from("product_offers").upsert(
+        {
+          product_id: id,
+          position,
+          retailer,
+          url,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "product_id,position" }
+      );
+      if (offerError) throw new Error(offerError.message);
+    } else {
+      const { error: offerDelete } = await supabase
+        .from("product_offers")
+        .delete()
+        .eq("product_id", id)
+        .eq("position", position);
+      if (offerDelete) throw new Error(offerDelete.message);
+    }
+  }
+
   revalidatePath("/admin");
   revalidatePath("/");
   revalidatePath("/product/[slug]", "page");

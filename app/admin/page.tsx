@@ -53,6 +53,17 @@ export default async function AdminPage() {
     evidenceByProduct.set(row.product_id, list);
   }
 
+  // Verkoopkanalen (max 3 per product), gegroepeerd per product.
+  const { data: offerData } = await supabase
+    .from("product_offers")
+    .select("product_id, position, retailer, url");
+  const offersByProduct = new Map<string, Offer[]>();
+  for (const row of offerData ?? []) {
+    const list = offersByProduct.get(row.product_id) ?? [];
+    list.push(row);
+    offersByProduct.set(row.product_id, list);
+  }
+
   // Pending eerst, dan approved, dan rejected.
   const order: Record<string, number> = { pending: 0, approved: 1, rejected: 2 };
   products.sort((a, b) => order[a.status] - order[b.status]);
@@ -108,6 +119,7 @@ export default async function AdminPage() {
             key={p.id}
             product={p}
             evidence={evidenceByProduct.get(p.id) ?? []}
+            offers={offersByProduct.get(p.id) ?? []}
           />
         ))}
       </div>
@@ -157,12 +169,21 @@ type CertEvidence = {
   evidence_url: string | null;
 };
 
+type Offer = {
+  product_id: string;
+  position: number;
+  retailer: string;
+  url: string;
+};
+
 function ProductCard({
   product,
   evidence,
+  offers,
 }: {
   product: ProductRow;
   evidence: CertEvidence[];
+  offers: Offer[];
 }) {
   const categoryLabel = isCategory(product.category)
     ? CATEGORY_LABELS[product.category]
@@ -172,6 +193,8 @@ function ProductCard({
   );
   const evidenceFor = (cert: string) =>
     evidence.find((e) => e.certification === cert);
+  const offerAt = (position: number) =>
+    offers.find((o) => o.position === position);
 
   return (
     <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm">
@@ -284,8 +307,39 @@ function ProductCard({
           />
         </label>
 
+        <fieldset className="rounded-lg border border-outline-variant/30 bg-surface-container-low/50 p-3">
+          <legend className="px-1 text-xs text-on-surface-variant">
+            Verkoopkanalen (max 3, elk met eigen affiliate-link)
+          </legend>
+          <div className="space-y-2">
+            {[1, 2, 3].map((position) => {
+              const offer = offerAt(position);
+              return (
+                <div key={position} className="flex flex-col gap-2 sm:flex-row">
+                  <input
+                    name={`offer_retailer__${position}`}
+                    defaultValue={offer?.retailer ?? ""}
+                    placeholder={`Winkel ${position} (bv. Bol, Amazon)`}
+                    className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-1/3"
+                  />
+                  <input
+                    name={`offer_url__${position}`}
+                    defaultValue={offer?.url ?? ""}
+                    placeholder="Affiliate-link (https://...)"
+                    className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-2/3"
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <p className="mt-2 text-[11px] text-on-surface-variant">
+            Beide velden invullen om een knop te tonen; maak ze leeg om een
+            kanaal te verwijderen.
+          </p>
+        </fieldset>
+
         <label className="block text-xs text-on-surface-variant">
-          Koop-/affiliate-link
+          Oude enkele koop-link (fallback als er geen verkoopkanalen zijn)
           <input
             name="affiliate_url"
             defaultValue={product.affiliate_url ?? ""}

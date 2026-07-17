@@ -12,7 +12,11 @@ import {
   CATEGORY_EMOJI,
   type Category,
 } from "@/lib/categories";
-import { splitTags, certificationLabel } from "@/lib/certifications";
+import {
+  splitTags,
+  certificationLabel,
+  certificationIcon,
+} from "@/lib/certifications";
 import type { RankedProduct } from "@/lib/queries";
 
 export function HomeGrid({ products }: { products: RankedProduct[] }) {
@@ -237,7 +241,7 @@ function TagRow({ tags }: { tags: string[] }) {
           key={c}
           className="inline-flex items-center gap-1 rounded-full bg-primary-container/25 px-2 py-0.5 text-[11px] font-medium text-primary"
         >
-          <span aria-hidden="true">✓</span>
+          <span aria-hidden="true">{certificationIcon(c)}</span>
           {certificationLabel(c)}
         </span>
       ))}

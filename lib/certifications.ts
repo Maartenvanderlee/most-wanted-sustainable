@@ -49,6 +49,26 @@ export const CERTIFICATION_REGISTRIES: Record<Certification, string> = {
   "msc-asc": "https://fisheries.msc.org/en/fisheries/",
 };
 
+// Herkenbaar symbool per keurmerk. Bewust géén officiële logo's: die zijn
+// merkenrechtelijk beschermd en mogen alleen met licentie gevoerd worden.
+export const CERTIFICATION_ICONS: Record<Certification, string> = {
+  "b-corp": "🌍",
+  fairtrade: "🤝",
+  gots: "🧵",
+  "eu-ecolabel": "🇪🇺",
+  fsc: "🌳",
+  "cradle-to-cradle": "♻️",
+  "oeko-tex": "🧪",
+  "energy-star": "⚡",
+  "rainforest-alliance": "🐸",
+  demeter: "🌱",
+  "msc-asc": "🐟",
+};
+
+export function certificationIcon(tag: string): string {
+  return isCertification(tag) ? CERTIFICATION_ICONS[tag] : "✓";
+}
+
 export function isCertification(tag: string): tag is Certification {
   return (CERTIFICATIONS as readonly string[]).includes(tag);
 }

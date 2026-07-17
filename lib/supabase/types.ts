@@ -123,6 +123,30 @@ export type Database = {
         >;
         Relationships: [];
       };
+      product_offers: {
+        Row: {
+          id: string;
+          product_id: string;
+          position: number;
+          retailer: string;
+          url: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          product_id: string;
+          position: number;
+          retailer: string;
+          url: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<
+          Database["public"]["Tables"]["product_offers"]["Insert"]
+        >;
+        Relationships: [];
+      };
       events: {
         Row: {
           id: string;

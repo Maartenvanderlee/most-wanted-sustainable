@@ -82,12 +82,19 @@ export type CertificationEvidence = {
   evidence_url: string | null;
 };
 
+export type ProductOffer = {
+  position: number;
+  retailer: string;
+  url: string;
+};
+
 export type ProductDetail = {
   product: ProductRow;
   latest: LatestScore | null;
   history: { snapshot_date: string; score: number }[]; // laatste 30 dagen
   measurements: SourceMeasurement[]; // laatste ruwe meting per bron
   certificationEvidence: CertificationEvidence[]; // bewijs per keurmerk
+  offers: ProductOffer[]; // verkoopkanalen (max 3), op positie
 };
 
 // Bronnen die meewegen in de score (leidt af uit de formule-weging).
@@ -151,12 +158,20 @@ export async function getProductBySlug(
     .select("certification, registration_number, evidence_url")
     .eq("product_id", p.id);
 
+  // Verkoopkanalen (max 3), gesorteerd op positie.
+  const { data: offers } = await supabase
+    .from("product_offers")
+    .select("position, retailer, url")
+    .eq("product_id", p.id)
+    .order("position", { ascending: true });
+
   return {
     product: p,
     latest,
     history,
     measurements,
     certificationEvidence: evidence ?? [],
+    offers: offers ?? [],
   };
 }
 

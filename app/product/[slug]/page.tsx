@@ -3,7 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getApprovedSlugs, type SourceMeasurement } from "@/lib/queries";
 import { CATEGORY_LABELS, categoryToSlug, isCategory } from "@/lib/categories";
-import { splitTags, certificationLabel } from "@/lib/certifications";
+import {
+  splitTags,
+  certificationLabel,
+  certificationIcon,
+} from "@/lib/certifications";
 import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 import type { SourceName } from "@/lib/supabase/types";
@@ -68,8 +72,21 @@ export default async function ProductPage({
   const detail = await getProductBySlug(params.slug);
   if (!detail) notFound();
 
-  const { product, latest, history, measurements, certificationEvidence } =
-    detail;
+  const {
+    product,
+    latest,
+    history,
+    measurements,
+    certificationEvidence,
+    offers,
+  } = detail;
+  // Fallback: geen aparte verkoopkanalen, maar wel de oude enkele kooplink.
+  const buyLinks =
+    offers.length > 0
+      ? offers
+      : product.affiliate_url
+        ? [{ position: 1, retailer: "Bekijk dit product", url: product.affiliate_url }]
+        : [];
   const evidenceFor = (cert: string) =>
     certificationEvidence.find((e) => e.certification === cert);
   const { certifications, characteristics } = splitTags(
@@ -125,19 +142,27 @@ export default async function ProductPage({
           </div>
         )}
 
-        {product.affiliate_url && (
+        {buyLinks.length > 0 && (
           <div className="mt-6">
-            <a
-              href={product.affiliate_url}
-              target="_blank"
-              rel="nofollow sponsored noopener"
-              className="inline-flex items-center gap-2 rounded-full bg-primary-container px-6 py-3 font-semibold text-on-primary shadow-md transition hover:opacity-90"
-            >
-              Koop dit product
-              <span aria-hidden="true">→</span>
-            </a>
+            <p className="mb-3 text-sm font-semibold text-on-background">
+              Hier online te koop:
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {buyLinks.map((offer) => (
+                <a
+                  key={offer.position}
+                  href={offer.url}
+                  target="_blank"
+                  rel="nofollow sponsored noopener"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary-container px-6 py-3 font-semibold text-on-primary shadow-md transition hover:opacity-90"
+                >
+                  {offer.retailer}
+                  <span aria-hidden="true">→</span>
+                </a>
+              ))}
+            </div>
             <p className="mt-2 text-xs text-on-surface-variant">
-              Affiliate-link — we verdienen mogelijk een kleine commissie. Dit
+              Affiliate-links — we verdienen mogelijk een kleine commissie. Dit
               heeft geen invloed op de trendscore.
             </p>
           </div>
@@ -160,7 +185,7 @@ export default async function ProductPage({
                   return (
                     <li key={c} className="flex flex-wrap items-center gap-2">
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-container/25 px-3 py-1 text-sm font-medium text-primary">
-                        <span aria-hidden="true">✓</span>
+                        <span aria-hidden="true">{certificationIcon(c)}</span>
                         {certificationLabel(c)}
                       </span>
                       {ev?.registration_number && (
