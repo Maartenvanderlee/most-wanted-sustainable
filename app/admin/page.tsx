@@ -32,6 +32,17 @@ export default async function AdminPage() {
     .order("name", { ascending: true }); // stabiele volgorde bij gelijke timestamps
   const products = (data ?? []) as ProductRow[];
 
+  // Bewijs per keurmerk, gegroepeerd per product.
+  const { data: evidenceData } = await supabase
+    .from("product_certifications")
+    .select("product_id, certification, registration_number, evidence_url");
+  const evidenceByProduct = new Map<string, CertEvidence[]>();
+  for (const row of evidenceData ?? []) {
+    const list = evidenceByProduct.get(row.product_id) ?? [];
+    list.push(row);
+    evidenceByProduct.set(row.product_id, list);
+  }
+
   // Pending eerst, dan approved, dan rejected.
   const order: Record<string, number> = { pending: 0, approved: 1, rejected: 2 };
   products.sort((a, b) => order[a.status] - order[b.status]);
@@ -53,6 +64,12 @@ export default async function AdminPage() {
           >
             Statistieken
           </a>
+          <a
+            href="/admin/subscribers"
+            className="text-sm font-medium text-primary hover:underline"
+          >
+            Aanmeldingen
+          </a>
           <form action={logout}>
             <button className="text-sm text-on-surface-variant hover:text-primary">
               Uitloggen
@@ -70,7 +87,11 @@ export default async function AdminPage() {
 
       <div className="space-y-4">
         {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
+          <ProductCard
+            key={p.id}
+            product={p}
+            evidence={evidenceByProduct.get(p.id) ?? []}
+          />
         ))}
       </div>
     </main>
@@ -112,13 +133,28 @@ function CurationGuide() {
   );
 }
 
-function ProductCard({ product }: { product: ProductRow }) {
+type CertEvidence = {
+  product_id: string;
+  certification: string;
+  registration_number: string | null;
+  evidence_url: string | null;
+};
+
+function ProductCard({
+  product,
+  evidence,
+}: {
+  product: ProductRow;
+  evidence: CertEvidence[];
+}) {
   const categoryLabel = isCategory(product.category)
     ? CATEGORY_LABELS[product.category]
     : product.category;
   const { certifications, characteristics } = splitTags(
     product.sustainability_tags
   );
+  const evidenceFor = (cert: string) =>
+    evidence.find((e) => e.certification === cert);
 
   return (
     <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm">
@@ -171,6 +207,45 @@ function ProductCard({ product }: { product: ProductRow }) {
             ))}
           </div>
         </fieldset>
+
+        {certifications.length > 0 && (
+          <fieldset className="rounded-lg border border-outline-variant/30 bg-surface-container-low/50 p-3">
+            <legend className="px-1 text-xs text-on-surface-variant">
+              Bewijs per keurmerk (registratienummer en/of link naar het
+              openbare register)
+            </legend>
+            <div className="space-y-3">
+              {certifications.map((cert) => {
+                const ev = evidenceFor(cert);
+                return (
+                  <div key={cert}>
+                    <p className="mb-1 text-xs font-semibold text-on-background">
+                      {CERTIFICATION_LABELS[cert as keyof typeof CERTIFICATION_LABELS] ?? cert}
+                    </p>
+                    <div className="flex flex-col gap-2 sm:flex-row">
+                      <input
+                        name={`evidence_number__${cert}`}
+                        defaultValue={ev?.registration_number ?? ""}
+                        placeholder="Registratienummer (bv. FSC-C012345)"
+                        className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-1/2"
+                      />
+                      <input
+                        name={`evidence_url__${cert}`}
+                        defaultValue={ev?.evidence_url ?? ""}
+                        placeholder="Link naar registervermelding"
+                        className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-1/2"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-2 text-[11px] text-on-surface-variant">
+              Nieuw keurmerk aangevinkt? Sla eerst op — daarna verschijnen hier
+              de bewijs-velden voor dat keurmerk.
+            </p>
+          </fieldset>
+        )}
 
         <label className="block text-xs text-on-surface-variant">
           Overige kenmerken (komma-gescheiden)
