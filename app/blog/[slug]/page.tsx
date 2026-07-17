@@ -54,6 +54,12 @@ export default async function BlogPostPage({
   const post = await getPostBySlug(params.slug);
   if (!post) notFound();
 
+  // Buurartikelen op datum: nieuwer (erna) en ouder (ervoor).
+  const posts = await getAllPosts(); // nieuwste eerst
+  const index = posts.findIndex((p) => p.slug === post.slug);
+  const newer = index > 0 ? posts[index - 1] : null;
+  const older = index < posts.length - 1 ? posts[index + 1] : null;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -108,6 +114,39 @@ export default async function BlogPostPage({
             .
           </p>
         </div>
+
+        {(older || newer) && (
+          <nav aria-label="Meer artikelen" className="mt-8 grid gap-4 sm:grid-cols-2">
+            {older ? (
+              <Link
+                href={`/blog/${older.slug}`}
+                className="eco-shadow-hover group rounded-xl border border-outline-variant/20 bg-surface-container-lowest p-5"
+              >
+                <span className="font-label text-label-caps text-on-surface-variant">
+                  ← Eerder verschenen
+                </span>
+                <span className="mt-1 block font-display text-headline-md-mobile text-on-background group-hover:text-primary">
+                  {older.title}
+                </span>
+              </Link>
+            ) : (
+              <span aria-hidden="true" />
+            )}
+            {newer && (
+              <Link
+                href={`/blog/${newer.slug}`}
+                className="eco-shadow-hover group rounded-xl border border-outline-variant/20 bg-surface-container-lowest p-5 sm:text-right"
+              >
+                <span className="font-label text-label-caps text-on-surface-variant">
+                  Later verschenen →
+                </span>
+                <span className="mt-1 block font-display text-headline-md-mobile text-on-background group-hover:text-primary">
+                  {newer.title}
+                </span>
+              </Link>
+            )}
+          </nav>
+        )}
       </main>
       <SiteFooter />
     </>
