@@ -35,6 +35,39 @@ body {
   border-top: 4px solid #fed01b;
 }
 
+/* Opmaak voor blogartikelen (gerenderde markdown) */
+.prose-blog {
+  @apply text-body-lg text-on-surface-variant;
+}
+.prose-blog p {
+  @apply mb-5 leading-relaxed;
+}
+.prose-blog h2 {
+  @apply mb-3 mt-10 font-display text-headline-md-mobile text-on-background;
+}
+.prose-blog h3 {
+  @apply mb-2 mt-8 font-semibold text-on-background;
+}
+.prose-blog a {
+  @apply text-primary underline;
+}
+.prose-blog strong {
+  @apply font-semibold text-on-background;
+}
+.prose-blog ul,
+.prose-blog ol {
+  @apply mb-5 ml-6 list-disc space-y-2;
+}
+.prose-blog ol {
+  @apply list-decimal;
+}
+.prose-blog code {
+  @apply rounded bg-surface-container px-1.5 py-0.5 text-sm;
+}
+.prose-blog blockquote {
+  @apply mb-5 border-l-4 border-primary-container pl-4 italic;
+}
+
 /* Material Symbols icoon-lettertype */
 .material-symbols-outlined {
   font-family: "Material Symbols Outlined";

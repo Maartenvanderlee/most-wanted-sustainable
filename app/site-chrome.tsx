@@ -20,6 +20,12 @@ export function SiteNav() {
             >
               Methodologie
             </Link>
+            <Link
+              href="/blog"
+              className="text-on-surface-variant transition-colors hover:text-primary"
+            >
+              Blog
+            </Link>
           </div>
         </div>
         <Link
@@ -55,6 +61,12 @@ export function SiteFooter() {
               className="text-on-surface-variant transition-colors hover:text-primary"
             >
               Methodologie
+            </Link>
+            <Link
+              href="/blog"
+              className="text-on-surface-variant transition-colors hover:text-primary"
+            >
+              Blog
             </Link>
           </div>
         </div>
