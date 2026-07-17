@@ -68,17 +68,26 @@ export const adapter: SourceAdapter = {
     const measuredAt = new Date().toISOString();
     const signals: Signal[] = [];
 
-    for (const keyword of keywords) {
-      try {
-        const value = await viewsForKeyword(keyword, apiKey);
-        if (value !== null) {
-          signals.push({ keyword, source: "youtube", value, measuredAt });
-        }
-        await sleep(DELAY_MS);
-      } catch (err) {
-        console.error(`[youtube] mislukt voor "${keyword}":`, err);
-        // Doorgaan met het volgende zoekwoord.
-      }
+    // In groepjes van 5 tegelijk: de officiële API kan dat aan, en het
+    // scheelt veel tijd binnen de Vercel-functielimiet.
+    const CHUNK = 5;
+    for (let i = 0; i < keywords.length; i += CHUNK) {
+      const chunk = keywords.slice(i, i + CHUNK);
+      const results = await Promise.all(
+        chunk.map(async (keyword): Promise<Signal | null> => {
+          try {
+            const value = await viewsForKeyword(keyword, apiKey);
+            return value !== null
+              ? { keyword, source: "youtube", value, measuredAt }
+              : null;
+          } catch (err) {
+            console.error(`[youtube] mislukt voor "${keyword}":`, err);
+            return null; // doorgaan met de rest
+          }
+        })
+      );
+      signals.push(...results.filter((s): s is Signal => s !== null));
+      await sleep(DELAY_MS);
     }
 
     return signals;

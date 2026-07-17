@@ -28,9 +28,11 @@ async function handle(req: NextRequest) {
 
   const limitParam = req.nextUrl.searchParams.get("limit");
   const limit = limitParam ? Number(limitParam) : undefined;
+  const offsetParam = req.nextUrl.searchParams.get("offset");
+  const offset = offsetParam ? Number(offsetParam) : undefined;
 
   try {
-    const result = await runPipeline({ limit });
+    const result = await runPipeline({ limit, offset });
     // Ververs de gecachete publieke pagina's zodat nieuwe scores direct zichtbaar zijn.
     revalidatePath("/");
     revalidatePath("/product/[slug]", "page");

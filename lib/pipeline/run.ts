@@ -11,7 +11,9 @@ import { loadSeedKeywords, slugify } from "../keywords";
 import { computeAndStoreScores } from "../scoring/score";
 import { createPipelineClient } from "./supabase";
 
-export type PipelineOptions = { limit?: number };
+// offset + limit maken batches mogelijk: de dagelijkse run is gesplitst in
+// twee cron-aanroepen zodat elke helft binnen de Vercel-tijdslimiet blijft.
+export type PipelineOptions = { limit?: number; offset?: number };
 
 export type PipelineResult = {
   keywords: number;
@@ -29,8 +31,10 @@ export async function runPipeline(
   const supabase = createPipelineClient();
   const errors: string[] = [];
 
-  // 1. Zoekwoorden inlezen (optioneel beperkt voor een snelle testrun).
+  // 1. Zoekwoorden inlezen (optioneel een deelvenster voor batches/testruns).
   let seeds = await loadSeedKeywords();
+  const offset = options.offset && options.offset > 0 ? options.offset : 0;
+  if (offset > 0) seeds = seeds.slice(offset);
   if (options.limit && options.limit > 0) seeds = seeds.slice(0, options.limit);
   const keywords = seeds.map((s) => s.keyword);
 
@@ -56,18 +60,23 @@ export async function runPipeline(
   if (readError) errors.push(`Producten lezen: ${readError.message}`);
   const idBySlug = new Map((products ?? []).map((p) => [p.slug, p.id]));
 
-  // 3. Alle adapters draaien. Eén falende bron mag de rest niet stoppen.
+  // 3. Alle adapters parallel draaien (scheelt veel tijd; elke bron heeft
+  //    intern zijn eigen tempo). Eén falende bron mag de rest niet stoppen.
   const signalsBySource: Record<string, number> = {};
   const allSignals: Signal[] = [];
-  for (const adapter of adapters) {
-    try {
-      const signals = await adapter.fetchSignals(keywords);
-      signalsBySource[adapter.name] = signals.length;
-      allSignals.push(...signals);
-    } catch (err) {
-      signalsBySource[adapter.name] = 0;
-      errors.push(`Bron ${adapter.name}: ${(err as Error).message}`);
-    }
+  const adapterResults = await Promise.all(
+    adapters.map(async (adapter) => {
+      try {
+        return { name: adapter.name, signals: await adapter.fetchSignals(keywords) };
+      } catch (err) {
+        errors.push(`Bron ${adapter.name}: ${(err as Error).message}`);
+        return { name: adapter.name, signals: [] as Signal[] };
+      }
+    })
+  );
+  for (const result of adapterResults) {
+    signalsBySource[result.name] = result.signals.length;
+    allSignals.push(...result.signals);
   }
 
   // 4. Ruwe signalen opslaan (append-only).
