@@ -107,13 +107,23 @@ if (productError) throw new Error(productError.message);
 const idByName = new Map(products.map((p) => [p.name, p.id]));
 
 // Oudste bestaande google_trends-meting per product (om duplicaten te voorkomen).
-const { data: existing, error: existingError } = await supabase
-  .from("signals")
-  .select("product_id, measured_at")
-  .eq("source", "google_trends");
-if (existingError) throw new Error(existingError.message);
+// Let op: met paginering — Supabase geeft standaard maximaal 1000 rijen per
+// aanroep, en zonder paginering zou de duplicaatcontrole stilletjes falen.
+const existing = [];
+const PAGE = 1000;
+for (let from = 0; ; from += PAGE) {
+  const { data, error: existingError } = await supabase
+    .from("signals")
+    .select("product_id, measured_at")
+    .eq("source", "google_trends")
+    .order("id", { ascending: true })
+    .range(from, from + PAGE - 1);
+  if (existingError) throw new Error(existingError.message);
+  existing.push(...(data ?? []));
+  if (!data || data.length < PAGE) break;
+}
 const earliestByProduct = new Map();
-for (const s of existing ?? []) {
+for (const s of existing) {
   const cur = earliestByProduct.get(s.product_id);
   if (!cur || s.measured_at < cur) earliestByProduct.set(s.product_id, s.measured_at);
 }

@@ -1,16 +1,15 @@
-// Blogartikel. Volledig statisch gebouwd; onbekende slugs geven een 404.
+// English blog article. Fully static; unknown slugs return a 404.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug, getTranslationMap } from "@/lib/blog";
+import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { pexelsSized } from "@/lib/pexels";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
-// Alleen de artikelen die tijdens de build bestaan; geen runtime-rendering.
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts("en");
   return posts.map((p) => ({ slug: p.slug }));
 }
 
@@ -19,18 +18,17 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
-  if (!post) return { title: "Artikel niet gevonden | Most Wanted Sustainable" };
-  const enSlug = (await getTranslationMap()).get(post.slug);
+  const post = await getPostBySlug(params.slug, "en");
+  if (!post) return { title: "Article not found | Most Wanted Sustainable" };
   const title = `${post.title} | Most Wanted`;
   return {
     title: title.slice(0, 60),
     description: post.description.slice(0, 155),
     alternates: {
-      canonical: `/blog/${post.slug}`,
+      canonical: `/en/blog/${post.slug}`,
       languages: {
-        nl: `/blog/${post.slug}`,
-        ...(enSlug ? { en: `/en/blog/${enSlug}` } : {}),
+        ...(post.nlSlug ? { nl: `/blog/${post.nlSlug}` } : {}),
+        en: `/en/blog/${post.slug}`,
       },
     },
     openGraph: {
@@ -49,25 +47,23 @@ export async function generateMetadata({
 }
 
 function formatDate(date: string): string {
-  return new Date(date + "T00:00:00").toLocaleDateString("nl-NL", {
+  return new Date(date + "T00:00:00").toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 }
 
-export default async function BlogPostPage({
+export default async function EnglishBlogPostPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const post = await getPostBySlug(params.slug);
+  const post = await getPostBySlug(params.slug, "en");
   if (!post) notFound();
 
-  const enSlug = (await getTranslationMap()).get(post.slug);
-
-  // Buurartikelen op datum: nieuwer (erna) en ouder (ervoor).
-  const posts = await getAllPosts(); // nieuwste eerst
+  // Neighbouring articles by date: newer (after) and older (before).
+  const posts = await getAllPosts("en"); // newest first
   const index = posts.findIndex((p) => p.slug === post.slug);
   const newer = index > 0 ? posts[index - 1] : null;
   const older = index < posts.length - 1 ? posts[index + 1] : null;
@@ -78,13 +74,13 @@ export default async function BlogPostPage({
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    inLanguage: "nl",
+    inLanguage: "en",
     publisher: { "@type": "Organization", name: "Most Wanted Sustainable" },
   };
 
   return (
     <>
-      <SiteNav />
+      <SiteNav locale="en" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -92,17 +88,17 @@ export default async function BlogPostPage({
       <main className="mx-auto max-w-3xl px-5 pb-24 pt-32 md:px-8">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Link
-            href="/blog"
+            href="/en/blog"
             className="text-sm text-on-surface-variant hover:text-primary"
           >
-            ← Alle artikelen
+            ← All articles
           </Link>
-          {enSlug && (
+          {post.nlSlug && (
             <Link
-              href={`/en/blog/${enSlug}`}
+              href={`/blog/${post.nlSlug}`}
               className="text-sm text-primary underline"
             >
-              Read in English
+              Lees in het Nederlands
             </Link>
           )}
         </div>
@@ -135,27 +131,27 @@ export default async function BlogPostPage({
 
         <div className="mt-12 rounded-xl border border-outline-variant/30 bg-surface-container-low p-6">
           <p className="text-body-md text-on-surface-variant">
-            Benieuwd welke duurzame producten nú versnellen?{" "}
+            Curious which sustainable products are accelerating right now?{" "}
             <Link href="/" className="font-medium text-primary underline">
-              Bekijk de ranglijst
+              See the ranking
             </Link>{" "}
-            of lees{" "}
+            or read{" "}
             <Link href="/methodologie" className="font-medium text-primary underline">
-              hoe de trendscore werkt
+              how the trend score works
             </Link>
             .
           </p>
         </div>
 
         {(older || newer) && (
-          <nav aria-label="Meer artikelen" className="mt-8 grid gap-4 sm:grid-cols-2">
+          <nav aria-label="More articles" className="mt-8 grid gap-4 sm:grid-cols-2">
             {older ? (
               <Link
-                href={`/blog/${older.slug}`}
+                href={`/en/blog/${older.slug}`}
                 className="eco-shadow-hover group rounded-xl border border-outline-variant/20 bg-surface-container-lowest p-5"
               >
                 <span className="font-label text-label-caps text-on-surface-variant">
-                  ← Eerder verschenen
+                  ← Published earlier
                 </span>
                 <span className="mt-1 block font-display text-headline-md-mobile text-on-background group-hover:text-primary">
                   {older.title}
@@ -166,11 +162,11 @@ export default async function BlogPostPage({
             )}
             {newer && (
               <Link
-                href={`/blog/${newer.slug}`}
+                href={`/en/blog/${newer.slug}`}
                 className="eco-shadow-hover group rounded-xl border border-outline-variant/20 bg-surface-container-lowest p-5 sm:text-right"
               >
                 <span className="font-label text-label-caps text-on-surface-variant">
-                  Later verschenen →
+                  Published later →
                 </span>
                 <span className="mt-1 block font-display text-headline-md-mobile text-on-background group-hover:text-primary">
                   {newer.title}
@@ -180,7 +176,7 @@ export default async function BlogPostPage({
           </nav>
         )}
       </main>
-      <SiteFooter />
+      <SiteFooter locale="en" />
     </>
   );
 }

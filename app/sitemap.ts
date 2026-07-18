@@ -8,6 +8,7 @@ import { SITE_URL as BASE } from "@/lib/site";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = await getApprovedSlugs();
   const posts = await getAllPosts();
+  const postsEn = await getAllPosts("en");
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${BASE}/`, changeFrequency: "daily", priority: 1 },
@@ -21,6 +22,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
+  const blogPagesEn: MetadataRoute.Sitemap = [
+    { url: `${BASE}/en/blog`, changeFrequency: "weekly", priority: 0.6 },
+    ...postsEn.map((p) => ({
+      url: `${BASE}/en/blog/${p.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
+
   const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((c) => ({
     url: `${BASE}/trending/${CATEGORY_SLUGS[c]}`,
     changeFrequency: "daily",
@@ -33,5 +43,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages, ...categoryPages, ...productPages];
+  return [
+    ...staticPages,
+    ...blogPages,
+    ...blogPagesEn,
+    ...categoryPages,
+    ...productPages,
+  ];
 }
