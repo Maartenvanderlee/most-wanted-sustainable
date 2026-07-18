@@ -1,27 +1,36 @@
 "use client";
 
 // Grid met filters op categorie en tag. Krijgt de al opgehaalde producten
-// als props (server-side geladen) en filtert client-side.
+// als props (server-side geladen) en filtert client-side. Taalbewust (nl/en).
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   CATEGORIES,
-  CATEGORY_LABELS,
   CATEGORY_GRADIENTS,
   CATEGORY_ACCENT,
   CATEGORY_EMOJI,
   type Category,
 } from "@/lib/categories";
+import { splitTags, certificationLabel, certificationIcon } from "@/lib/certifications";
 import {
-  splitTags,
-  certificationLabel,
-  certificationIcon,
-} from "@/lib/certifications";
+  UI,
+  localePath,
+  translateTag,
+  categoryLabel,
+  type Locale,
+} from "@/lib/i18n";
 import { formatPriceRange } from "@/lib/price";
 import { pexelsSized } from "@/lib/pexels";
 import type { RankedProduct } from "@/lib/queries";
 
-export function HomeGrid({ products }: { products: RankedProduct[] }) {
+export function HomeGrid({
+  products,
+  locale = "nl",
+}: {
+  products: RankedProduct[];
+  locale?: Locale;
+}) {
+  const ui = UI[locale];
   const [category, setCategory] = useState<Category | "all">("all");
   const [tag, setTag] = useState<string | null>(null);
 
@@ -37,15 +46,13 @@ export function HomeGrid({ products }: { products: RankedProduct[] }) {
       (tag === null || p.sustainability_tags.includes(tag))
   );
 
-  const [featured, ...rest] = filtered;
-
   return (
     <section>
       {/* Filters */}
       <div className="mb-6 space-y-3">
         <div className="flex flex-wrap gap-2">
           <FilterChip active={category === "all"} onClick={() => setCategory("all")}>
-            Alle categorieën
+            {ui.allCategories}
           </FilterChip>
           {CATEGORIES.map((c) => (
             <FilterChip
@@ -53,18 +60,18 @@ export function HomeGrid({ products }: { products: RankedProduct[] }) {
               active={category === c}
               onClick={() => setCategory(c)}
             >
-              {CATEGORY_LABELS[c]}
+              {categoryLabel(c, locale)}
             </FilterChip>
           ))}
         </div>
         {allTags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             <FilterChip active={tag === null} onClick={() => setTag(null)}>
-              Alle tags
+              {ui.allTags}
             </FilterChip>
             {allTags.map((t) => (
               <FilterChip key={t} active={tag === t} onClick={() => setTag(t)}>
-                {t}
+                {translateTag(t, locale)}
               </FilterChip>
             ))}
           </div>
@@ -73,27 +80,33 @@ export function HomeGrid({ products }: { products: RankedProduct[] }) {
 
       {filtered.length === 0 ? (
         <p className="rounded-xl border border-outline-variant/30 bg-surface-container-low p-8 text-center text-on-surface-variant">
-          Geen producten voor deze filter.
+          {ui.noneForFilter}
         </p>
       ) : (
-        <ProductCards products={filtered} />
+        <ProductCards products={filtered} locale={locale} />
       )}
     </section>
   );
 }
 
 // Herbruikbaar: uitgelichte kaart + grid. Ook gebruikt op categoriepagina's.
-export function ProductCards({ products }: { products: RankedProduct[] }) {
+export function ProductCards({
+  products,
+  locale = "nl",
+}: {
+  products: RankedProduct[];
+  locale?: Locale;
+}) {
   const [featured, ...rest] = products;
   return (
     <>
       <div className="mb-5">
-        <FeaturedCard product={featured} />
+        <FeaturedCard product={featured} locale={locale} />
       </div>
       {rest.length > 0 && (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {rest.map((p) => (
-            <StandardCard key={p.id} product={p} />
+            <StandardCard key={p.id} product={p} locale={locale} />
           ))}
         </div>
       )}
@@ -124,12 +137,12 @@ function FilterChip({
   );
 }
 
-function ScoreBadge({ product }: { product: RankedProduct }) {
+function ScoreBadge({ product, locale }: { product: RankedProduct; locale: Locale }) {
   const accent = CATEGORY_ACCENT[product.category];
   if (!product.latest) {
     return (
       <span className="rounded-lg bg-surface-container px-3 py-1 text-xs font-medium text-on-surface-variant">
-        nieuw
+        {UI[locale].isNew}
       </span>
     );
   }
@@ -140,32 +153,33 @@ function ScoreBadge({ product }: { product: RankedProduct }) {
   );
 }
 
-function FeaturedCard({ product }: { product: RankedProduct }) {
+function FeaturedCard({ product, locale }: { product: RankedProduct; locale: Locale }) {
+  const ui = UI[locale];
   return (
     <Link
-      href={`/product/${product.slug}`}
+      href={localePath(locale, `/product/${product.slug}`)}
       className="card-featured-border eco-shadow eco-shadow-hover group flex flex-col overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-lowest md:flex-row"
     >
       <div className="flex flex-1 flex-col justify-between p-8">
         <div>
           <div className="mb-4 flex items-center gap-2">
             <span className="rounded bg-primary-fixed px-2 py-1 font-label text-[10px] text-on-primary-fixed-variant">
-              UITGELICHT
+              {ui.featured}
             </span>
             <span className="font-label text-label-caps text-on-surface-variant">
-              {CATEGORY_LABELS[product.category].toUpperCase()}
+              {categoryLabel(product.category, locale).toUpperCase()}
             </span>
           </div>
           <h2 className="mb-3 font-display text-headline-md text-on-background">
             {product.name}
           </h2>
-          <TagRow tags={product.sustainability_tags} />
+          <TagRow tags={product.sustainability_tags} locale={locale} />
         </div>
         <div className="mt-6 flex items-center justify-between">
           <span className="font-label text-label-caps text-on-surface-variant">
-            {product.latest ? `#${product.latest.rank} in de ranglijst` : "nog geen score"}
+            {product.latest ? ui.inRanking(product.latest.rank) : ui.noScoreYet}
           </span>
-          <ScoreBadge product={product} />
+          <ScoreBadge product={product} locale={locale} />
         </div>
       </div>
       <div
@@ -194,10 +208,10 @@ function FeaturedCard({ product }: { product: RankedProduct }) {
   );
 }
 
-function StandardCard({ product }: { product: RankedProduct }) {
+function StandardCard({ product, locale }: { product: RankedProduct; locale: Locale }) {
   return (
     <Link
-      href={`/product/${product.slug}`}
+      href={localePath(locale, `/product/${product.slug}`)}
       className="eco-shadow eco-shadow-hover group flex flex-col overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-lowest"
     >
       <div
@@ -229,21 +243,21 @@ function StandardCard({ product }: { product: RankedProduct }) {
         <div className="mb-3 flex items-start justify-between gap-2">
           <div>
             <span className="font-label text-label-caps uppercase text-on-surface-variant">
-              {CATEGORY_LABELS[product.category]}
+              {categoryLabel(product.category, locale)}
             </span>
             <h3 className="mt-1 font-display text-headline-md-mobile text-on-background">
               {product.name}
             </h3>
           </div>
-          <ScoreBadge product={product} />
+          <ScoreBadge product={product} locale={locale} />
         </div>
-        <TagRow tags={product.sustainability_tags} />
+        <TagRow tags={product.sustainability_tags} locale={locale} />
       </div>
     </Link>
   );
 }
 
-function TagRow({ tags }: { tags: string[] }) {
+function TagRow({ tags, locale }: { tags: string[]; locale: Locale }) {
   const { certifications, characteristics } = splitTags(tags);
   if (tags.length === 0) return null;
   return (
@@ -262,7 +276,7 @@ function TagRow({ tags }: { tags: string[] }) {
           key={t}
           className="rounded-full bg-surface-container px-2 py-0.5 text-[11px] text-on-surface-variant"
         >
-          {t}
+          {translateTag(t, locale)}
         </span>
       ))}
     </div>

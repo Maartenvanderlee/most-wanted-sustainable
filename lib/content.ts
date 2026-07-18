@@ -46,6 +46,29 @@ export const CONTENT_SECTIONS: ContentSection[] = [
       multiline: true,
     })),
   },
+  {
+    title: "Homepage (Engels)",
+    previewPath: "/en",
+    fields: [
+      { key: "en.home.hero.badge", label: "Badge above the title" },
+      {
+        key: "en.home.hero.title",
+        label: "Main title (wrap the highlighted word in *asterisks*)",
+      },
+      { key: "en.home.hero.intro", label: "Intro text", multiline: true },
+      { key: "en.home.newsletter.title", label: "Newsletter title" },
+      { key: "en.home.newsletter.text", label: "Newsletter text", multiline: true },
+    ],
+  },
+  {
+    title: "Categorie-intro's (Engels)",
+    previewPath: `/en/trending/${CATEGORY_SLUGS[CATEGORIES[0]]}`,
+    fields: CATEGORIES.map((c) => ({
+      key: `en.trending.${CATEGORY_SLUGS[c]}.intro`,
+      label: `Intro (EN) — ${CATEGORY_LABELS[c]}`,
+      multiline: true,
+    })),
+  },
 ];
 
 export const CONTENT_DEFAULTS: Record<string, string> = {
@@ -64,7 +87,32 @@ export const CONTENT_DEFAULTS: Record<string, string> = {
       CATEGORY_INTROS[c],
     ])
   ),
+  // Engelse standaardteksten (aanpasbaar via het CMS onder "…(Engels)").
+  "en.home.hero.badge": "INDEPENDENT RANKING",
+  "en.home.hero.title": "The fastest-rising *sustainable* products.",
+  "en.home.hero.intro":
+    "We measure acceleration, not volume. Recalculated every day from " +
+    "public data sources — 100% independent from affiliate or sponsorship.",
+  "en.home.newsletter.title": "Stay ahead of the trends",
+  "en.home.newsletter.text":
+    "Get the biggest risers in sustainable products in your inbox every " +
+    "week. No spam, unsubscribe anytime.",
+  "en.trending.home.intro":
+    "Sustainable products for in and around the house that are rising in popularity right now — from reusable basics to energy-saving solutions.",
+  "en.trending.personal-care.intro":
+    "Personal care without needless plastic or throwaways: the fastest-rising sustainable alternatives for your daily routine.",
+  "en.trending.fashion.intro":
+    "Clothing and accessories with a smaller footprint — recycled, organic and circular items gaining popularity.",
+  "en.trending.tech.intro":
+    "Tech that lasts longer or runs on renewable energy: the sustainable gadgets demand is growing for.",
+  "en.trending.food.intro":
+    "Food and kitchen essentials with less waste and packaging — the sustainable trends emerging right now.",
 };
+
+// Sleutel voor een tekst in de gevraagde taal (Engelse sleutels: 'en.'-prefix).
+export function contentKey(locale: "nl" | "en", base: string): string {
+  return locale === "en" ? `en.${base}` : base;
+}
 
 export type SiteContent = Record<string, string>;
 

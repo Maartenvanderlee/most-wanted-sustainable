@@ -7,12 +7,16 @@ export const metadata: Metadata = {
   title: "Methodologie — zo werkt onze trendscore | Most Wanted",
   description:
     "Uitleg in gewone taal: hoe we duurzame producten rangschikken op versnelling (niet volume), welke bronnen we gebruiken en hoe we greenwashing voorkomen.",
+  alternates: {
+    canonical: "/methodologie",
+    languages: { nl: "/methodologie", en: "/en/methodology" },
+  },
 };
 
 export default function MethodologiePage() {
   return (
     <>
-      <SiteNav />
+      <SiteNav switchHref="/en/methodology" />
       <main className="mx-auto max-w-2xl px-5 pb-24 pt-32 md:px-8">
         <h1 className="mb-6 font-display text-headline-md text-on-background md:text-display-lg-mobile">
           Zo werkt onze ranglijst

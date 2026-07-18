@@ -12,7 +12,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${BASE}/`, changeFrequency: "daily", priority: 1 },
+    { url: `${BASE}/en`, changeFrequency: "daily", priority: 0.9 },
     { url: `${BASE}/methodologie`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE}/en/methodology`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/blog`, changeFrequency: "weekly", priority: 0.6 },
   ];
 
@@ -31,17 +33,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
-  const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((c) => ({
-    url: `${BASE}/trending/${CATEGORY_SLUGS[c]}`,
-    changeFrequency: "daily",
-    priority: 0.8,
-  }));
+  const categoryPages: MetadataRoute.Sitemap = CATEGORIES.flatMap((c) => [
+    {
+      url: `${BASE}/trending/${CATEGORY_SLUGS[c]}`,
+      changeFrequency: "daily" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/en/trending/${CATEGORY_SLUGS[c]}`,
+      changeFrequency: "daily" as const,
+      priority: 0.7,
+    },
+  ]);
 
-  const productPages: MetadataRoute.Sitemap = slugs.map((slug) => ({
-    url: `${BASE}/product/${slug}`,
-    changeFrequency: "daily",
-    priority: 0.7,
-  }));
+  const productPages: MetadataRoute.Sitemap = slugs.flatMap((slug) => [
+    {
+      url: `${BASE}/product/${slug}`,
+      changeFrequency: "daily" as const,
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/en/product/${slug}`,
+      changeFrequency: "daily" as const,
+      priority: 0.6,
+    },
+  ]);
 
   return [
     ...staticPages,

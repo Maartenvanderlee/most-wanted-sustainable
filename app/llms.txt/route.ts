@@ -39,6 +39,12 @@ en bewuster kopen.
 - [Blog](${BASE}/blog): nuchtere columns over CO2 besparen met duurzame
   producten, zonder groene marketingpraat
 
+## English version
+
+The full site is also available in English:
+- [Ranking](${BASE}/en) · [Methodology](${BASE}/en/methodology) · [Blog](${BASE}/en/blog)
+- All twelve blog columns have English translations, linked via hreflang.
+
 ## Categorieën
 
 ${CATEGORIES.map(

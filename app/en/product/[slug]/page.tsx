@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { getProductBySlug, getApprovedSlugs } from "@/lib/queries";
-import { CATEGORY_LABELS, isCategory } from "@/lib/categories";
+import { isCategory } from "@/lib/categories";
+import { CATEGORY_LABELS_EN } from "@/lib/i18n";
 import { ProductView } from "@/app/product-view";
 
-// ISR: pagina wordt gecachet en maximaal elk uur opnieuw opgebouwd.
+// ISR, identiek aan de Nederlandse productpagina's.
 export const revalidate = 3600;
 
-// Bouw alle goedgekeurde productpagina's vooraf; nieuwe slugs worden
-// bij het eerste bezoek gegenereerd en daarna gecachet.
 export async function generateStaticParams() {
   const slugs = await getApprovedSlugs();
   return slugs.map((slug) => ({ slug }));
@@ -19,20 +18,20 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const detail = await getProductBySlug(params.slug);
-  if (!detail) return { title: "Product niet gevonden | Most Wanted Sustainable" };
+  if (!detail) return { title: "Product not found | Most Wanted Sustainable" };
 
   const { product } = detail;
   const label = isCategory(product.category)
-    ? CATEGORY_LABELS[product.category]
+    ? CATEGORY_LABELS_EN[product.category]
     : product.category;
-  const title = `${product.name} — trending duurzaam | Most Wanted`;
-  const description = `${product.name} in de categorie ${label}. Bekijk de trendscore, de opbouw per databron en waarom dit product op onze lijst staat.`;
+  const title = `${product.name} — trending sustainable | Most Wanted`;
+  const description = `${product.name} in the ${label.toLowerCase()} category. See the trend score, the breakdown per data source and why this product made our list.`;
 
   return {
     title: title.slice(0, 60),
     description: description.slice(0, 155),
     alternates: {
-      canonical: `/product/${params.slug}`,
+      canonical: `/en/product/${params.slug}`,
       languages: {
         nl: `/product/${params.slug}`,
         en: `/en/product/${params.slug}`,
@@ -43,6 +42,10 @@ export async function generateMetadata({
   };
 }
 
-export default function ProductPage({ params }: { params: { slug: string } }) {
-  return <ProductView slug={params.slug} locale="nl" />;
+export default function EnglishProductPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  return <ProductView slug={params.slug} locale="en" />;
 }

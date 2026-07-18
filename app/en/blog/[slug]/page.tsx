@@ -80,7 +80,10 @@ export default async function EnglishBlogPostPage({
 
   return (
     <>
-      <SiteNav locale="en" />
+      <SiteNav
+        locale="en"
+        switchHref={post.nlSlug ? `/blog/${post.nlSlug}` : "/blog"}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

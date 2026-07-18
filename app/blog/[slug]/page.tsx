@@ -84,7 +84,7 @@ export default async function BlogPostPage({
 
   return (
     <>
-      <SiteNav />
+      <SiteNav switchHref={enSlug ? `/en/blog/${enSlug}` : "/en/blog"} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

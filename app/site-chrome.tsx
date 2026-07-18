@@ -12,7 +12,12 @@ const NAV = {
     methodology: "Methodologie",
     blog: "Blog",
     newsletter: "Nieuwsbrief",
+    homeHref: "/",
+    methodologyHref: "/methodologie",
     blogHref: "/blog",
+    newsletterHref: "/#nieuwsbrief",
+    switchLabel: "EN",
+    switchTitle: "Read this site in English",
     tagline:
       "De onafhankelijke ranglijst van duurzame producten die in populariteit versnellen.",
     product: "Product",
@@ -24,7 +29,12 @@ const NAV = {
     methodology: "Methodology",
     blog: "Blog",
     newsletter: "Newsletter",
+    homeHref: "/en",
+    methodologyHref: "/en/methodology",
     blogHref: "/en/blog",
+    newsletterHref: "/en#nieuwsbrief",
+    switchLabel: "NL",
+    switchTitle: "Lees deze site in het Nederlands",
     tagline:
       "The independent ranking of sustainable products accelerating in popularity.",
     product: "Product",
@@ -33,21 +43,32 @@ const NAV = {
   },
 } as const;
 
-export function SiteNav({ locale = "nl" }: { locale?: Locale }) {
+export function SiteNav({
+  locale = "nl",
+  switchHref,
+}: {
+  locale?: Locale;
+  // Link naar dezelfde pagina in de andere taal; standaard de homepage.
+  switchHref?: string;
+}) {
   const t = NAV[locale];
+  const otherLocaleHref = switchHref ?? (locale === "en" ? "/" : "/en");
   return (
     <nav className="glass-morphism fixed top-0 z-50 w-full shadow-sm">
       <div className="mx-auto flex max-w-container items-center justify-between px-5 py-3 md:px-16">
         <div className="flex items-center gap-8">
-          <Link href="/" aria-label="Most Wanted Sustainable — home">
+          <Link href={t.homeHref} aria-label="Most Wanted Sustainable — home">
             <Logo size="nav" />
           </Link>
           <div className="hidden items-center gap-6 md:flex">
-            <Link href="/" className="text-on-surface-variant transition-colors hover:text-primary">
+            <Link
+              href={t.homeHref}
+              className="text-on-surface-variant transition-colors hover:text-primary"
+            >
               {t.ranking}
             </Link>
             <Link
-              href="/methodologie"
+              href={t.methodologyHref}
               className="text-on-surface-variant transition-colors hover:text-primary"
             >
               {t.methodology}
@@ -60,12 +81,21 @@ export function SiteNav({ locale = "nl" }: { locale?: Locale }) {
             </Link>
           </div>
         </div>
-        <Link
-          href="/#nieuwsbrief"
-          className="rounded-full bg-primary-container px-6 py-2.5 font-semibold text-on-primary shadow-md transition-all hover:opacity-90"
-        >
-          {t.newsletter}
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href={otherLocaleHref}
+            title={t.switchTitle}
+            className="rounded-full border border-outline-variant/50 px-3 py-1.5 text-sm font-semibold text-on-surface-variant transition-colors hover:text-primary"
+          >
+            {t.switchLabel}
+          </Link>
+          <Link
+            href={t.newsletterHref}
+            className="rounded-full bg-primary-container px-6 py-2.5 font-semibold text-on-primary shadow-md transition-all hover:opacity-90"
+          >
+            {t.newsletter}
+          </Link>
+        </div>
       </div>
     </nav>
   );
@@ -85,11 +115,11 @@ export function SiteFooter({ locale = "nl" }: { locale?: Locale }) {
         <div className="grid grid-cols-2 gap-8 text-center md:flex md:gap-12 md:text-left">
           <div className="flex flex-col gap-3">
             <span className="font-bold text-primary">{t.product}</span>
-            <Link href="/" className="text-on-surface-variant transition-colors hover:text-primary">
+            <Link href={t.homeHref} className="text-on-surface-variant transition-colors hover:text-primary">
               {t.ranking}
             </Link>
             <Link
-              href="/methodologie"
+              href={t.methodologyHref}
               className="text-on-surface-variant transition-colors hover:text-primary"
             >
               {t.methodology}

@@ -30,7 +30,7 @@ export default async function BlogIndexPage() {
 
   return (
     <>
-      <SiteNav />
+      <SiteNav switchHref="/en/blog" />
       <main className="mx-auto max-w-3xl px-5 pb-24 pt-32 md:px-8">
         <h1 className="mb-3 font-display text-display-lg-mobile text-on-background md:text-display-lg">
           Blog
