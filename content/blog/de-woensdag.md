@@ -2,6 +2,7 @@
 title: De woensdag
 description: Tussen rundvlees en plantaardig zit soms een factor twintig in CO2. Eén vaste wisseldag per week doet meer dan het klinkt — zonder bekering aan tafel.
 date: 2026-07-08
+image: https://images.pexels.com/photos/5728281/pexels-photo-5728281.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een ouder die elke avond voor drie meningen kookt.*

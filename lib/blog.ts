@@ -14,6 +14,7 @@ export type BlogPost = {
   title: string;
   description: string;
   date: string; // 'YYYY-MM-DD'
+  image: string | null; // stockfoto (Pexels-URL) boven het artikel
   html: string;
 };
 
@@ -43,6 +44,7 @@ async function readPost(filename: string): Promise<BlogPost | null> {
     title: meta.title,
     description: meta.description ?? "",
     date: meta.date,
+    image: meta.image || null,
     html: await marked.parse(body),
   };
 }

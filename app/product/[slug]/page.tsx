@@ -247,6 +247,31 @@ export default async function ProductPage({
           )}
         </section>
 
+        {/* Levensduur en afdankfase */}
+        {(product.lifespan || product.end_of_life) && (
+          <section className="mt-8 rounded-xl border border-outline-variant/30 bg-surface-container-low p-6">
+            <h2 className="mb-3 font-semibold text-on-background">
+              Levensduur &amp; recycling
+            </h2>
+            <dl className="space-y-2 text-body-md text-on-surface-variant">
+              {product.lifespan && (
+                <div className="flex flex-wrap gap-2">
+                  <dt className="font-medium text-on-background">
+                    Gemiddelde levensduur:
+                  </dt>
+                  <dd>{product.lifespan}</dd>
+                </div>
+              )}
+              {product.end_of_life && (
+                <div className="flex flex-wrap gap-2">
+                  <dt className="font-medium text-on-background">Na gebruik:</dt>
+                  <dd>{product.end_of_life}</dd>
+                </div>
+              )}
+            </dl>
+          </section>
+        )}
+
         {/* Score-opbouw per bron */}
         <section className="mt-10">
           <h2 className="mb-1 font-display text-headline-md-mobile text-on-background">

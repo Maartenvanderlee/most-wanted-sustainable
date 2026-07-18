@@ -2,6 +2,7 @@
 title: De energietransitie hangt bij de buren aan het balkon
 description: Balkonpanelen zijn het meest democratische stukje energietransitie — geen dak, geen installateur, geen offerte nodig. Wat levert het echt op?
 date: 2026-07-05
+image: https://images.pexels.com/photos/15389268/pexels-photo-15389268.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een ouder die alles zelf regelt, dus ook dit.*

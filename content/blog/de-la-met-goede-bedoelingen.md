@@ -2,6 +2,7 @@
 title: De la met goede bedoelingen
 description: Een herbruikbaar product wordt geboren met een CO2-schuld die pas in het gebruik wordt ingelost. Drie vragen voorkomen dat hij in de la belandt.
 date: 2026-07-09
+image: https://images.pexels.com/photos/5274533/pexels-photo-5274533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een ouder die die la ook heeft.*

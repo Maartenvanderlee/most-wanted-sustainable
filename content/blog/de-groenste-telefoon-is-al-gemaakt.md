@@ -2,6 +2,7 @@
 title: De groenste telefoon is al gemaakt
 description: 70 tot 85 procent van de klimaatimpact van een telefoon is al gemaakt vóór de doos opengaat. Langer gebruiken en refurbished kopen doorbreekt het ritme.
 date: 2026-07-07
+image: https://images.pexels.com/photos/6755075/pexels-photo-6755075.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een student wiens laptop belangrijker is dan zijn bed.*

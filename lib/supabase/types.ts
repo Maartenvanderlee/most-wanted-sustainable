@@ -26,6 +26,8 @@ export type Database = {
           sustainability_tags: string[];
           status: ProductStatus;
           rejection_reason: string | null;
+          lifespan: string | null;
+          end_of_life: string | null;
           created_at: string;
         };
         Insert: {
@@ -38,6 +40,8 @@ export type Database = {
           sustainability_tags?: string[];
           status?: ProductStatus;
           rejection_reason?: string | null;
+          lifespan?: string | null;
+          end_of_life?: string | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["products"]["Insert"]>;

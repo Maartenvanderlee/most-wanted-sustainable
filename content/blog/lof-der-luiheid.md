@@ -2,6 +2,7 @@
 title: Lof der luiheid
 description: De duurzaamste maatregelen vragen geen wilskracht maar maken gedrag overbodig. De waterbesparende douchekop is er het schoolvoorbeeld van.
 date: 2026-07-11
+image: https://images.pexels.com/photos/5977771/pexels-photo-5977771.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een ouder die 's ochtends drie mensen door één badkamer loodst.*

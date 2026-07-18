@@ -304,6 +304,27 @@ function ProductCard({
           </fieldset>
         )}
 
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <label className="block w-full text-xs text-on-surface-variant sm:w-1/2">
+            Gemiddelde levensduur (bv. &quot;5-10 jaar&quot;)
+            <input
+              name="lifespan"
+              defaultValue={product.lifespan ?? ""}
+              placeholder="bv. 3 maanden / 5-10 jaar"
+              className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </label>
+          <label className="block w-full text-xs text-on-surface-variant sm:w-1/2">
+            Na gebruik (recycling/afdanken)
+            <input
+              name="end_of_life"
+              defaultValue={product.end_of_life ?? ""}
+              placeholder="bv. Composteerbaar (GFT) / inleveren als e-waste"
+              className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </label>
+        </div>
+
         <label className="block text-xs text-on-surface-variant">
           Overige kenmerken (komma-gescheiden)
           <input

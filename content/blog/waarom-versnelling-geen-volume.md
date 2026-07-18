@@ -2,6 +2,7 @@
 title: Waarom wij versnelling meten, en geen volume
 description: De meeste trendlijstjes tonen wat al populair is. Wij zoeken wat aan het opkomen is — en dat vraagt een andere rekensom.
 date: 2026-07-15
+image: https://images.pexels.com/photos/401213/pexels-photo-401213.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 Zoek op "trending duurzame producten" en je vindt vooral lijstjes met bekende namen: de bamboe tandenborstel, de herbruikbare waterfles. Prima producten — maar niet trending. Ze zijn al jaren populair. Dat is **volume**.

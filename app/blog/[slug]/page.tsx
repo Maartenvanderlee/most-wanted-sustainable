@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { pexelsSized } from "@/lib/pexels";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 // Alleen de artikelen die tijdens de build bestaan; geen runtime-rendering.
@@ -29,6 +30,7 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       publishedTime: post.date,
+      ...(post.image ? { images: [{ url: post.image }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
@@ -86,6 +88,16 @@ export default async function BlogPostPage({
         </Link>
 
         <article className="mt-4">
+          {post.image && (
+            <div className="mb-8 overflow-hidden rounded-2xl border border-outline-variant/20">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={pexelsSized(post.image, 1200, 500)}
+                alt=""
+                className="max-h-[320px] w-full object-cover"
+              />
+            </div>
+          )}
           <time
             dateTime={post.date}
             className="font-label text-label-caps text-on-surface-variant"

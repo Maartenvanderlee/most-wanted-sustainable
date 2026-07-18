@@ -111,6 +111,8 @@ export async function updateDetails(formData: FormData): Promise<void> {
   const id = String(formData.get("id"));
   const affiliate = String(formData.get("affiliate_url") ?? "").trim() || null;
   const imageUrl = String(formData.get("image_url") ?? "").trim() || null;
+  const lifespan = String(formData.get("lifespan") ?? "").trim() || null;
+  const endOfLife = String(formData.get("end_of_life") ?? "").trim() || null;
 
   // Aangevinkte keurmerken + los ingevoerde kenmerken samenvoegen tot tags.
   const certifications = formData.getAll("cert").map((c) => String(c));
@@ -127,6 +129,8 @@ export async function updateDetails(formData: FormData): Promise<void> {
       sustainability_tags: tags,
       affiliate_url: affiliate,
       image_url: imageUrl,
+      lifespan,
+      end_of_life: endOfLife,
     })
     .eq("id", id);
   if (error) throw new Error(error.message);

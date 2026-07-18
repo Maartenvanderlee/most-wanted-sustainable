@@ -2,6 +2,7 @@
 title: De meterstand is van niemand
 description: In een studentenhuis is energie tweemaal onzichtbaar — de rekening zit in de huur, de meter achter de fietsen. Een meetstekker van een tientje verandert dat.
 date: 2026-07-13
+image: https://images.pexels.com/photos/11924298/pexels-photo-11924298.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een student in een huis waar niemand de energierekening ooit heeft gezien.*

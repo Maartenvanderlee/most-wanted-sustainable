@@ -2,6 +2,7 @@
 title: De accuvraag
 description: Noem een e-bike en iemand begint over de accu. De rekensom past op een half A4'tje — en valt al jaren dezelfde kant op uit.
 date: 2026-07-06
+image: https://images.pexels.com/photos/15884318/pexels-photo-15884318.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een student die hem vaker heeft gehoord dan hem lief is.*

@@ -2,6 +2,7 @@
 title: Wat betekenen keurmerken als FSC, GOTS en B Corp eigenlijk?
 description: Een nuchtere uitleg van de bekendste duurzaamheidskeurmerken — wat ze wel en niet garanderen, en hoe je ze zelf controleert.
 date: 2026-07-16
+image: https://images.pexels.com/photos/4406826/pexels-photo-4406826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 Op onze ranglijst zie je bij veel producten keurmerk-badges staan. Maar wat zegt zo'n keurmerk nu echt? Een korte, eerlijke uitleg van de labels die je bij ons het vaakst tegenkomt.

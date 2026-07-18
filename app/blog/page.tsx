@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
+import { pexelsSized } from "@/lib/pexels";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
@@ -49,20 +50,31 @@ export default async function BlogIndexPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="eco-shadow eco-shadow-hover block rounded-xl border border-outline-variant/20 bg-surface-container-lowest p-6"
+                className="eco-shadow eco-shadow-hover block overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-lowest"
               >
-                <time
-                  dateTime={post.date}
-                  className="font-label text-label-caps text-on-surface-variant"
-                >
-                  {formatDate(post.date)}
-                </time>
-                <h2 className="mb-2 mt-1 font-display text-headline-md-mobile text-on-background">
-                  {post.title}
-                </h2>
-                <p className="text-body-md text-on-surface-variant">
-                  {post.description}
-                </p>
+                {post.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={pexelsSized(post.image, 900, 400)}
+                    alt=""
+                    loading="lazy"
+                    className="h-44 w-full object-cover"
+                  />
+                )}
+                <div className="p-6">
+                  <time
+                    dateTime={post.date}
+                    className="font-label text-label-caps text-on-surface-variant"
+                  >
+                    {formatDate(post.date)}
+                  </time>
+                  <h2 className="mb-2 mt-1 font-display text-headline-md-mobile text-on-background">
+                    {post.title}
+                  </h2>
+                  <p className="text-body-md text-on-surface-variant">
+                    {post.description}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>

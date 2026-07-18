@@ -2,6 +2,7 @@
 title: "Maar AI vervuilt toch ook"
 description: Datacenters verbruiken echt stroom, en toch klopt de conclusie niet die er meestal op volgt. Over verhoudingen, apparaten en wat er wél te doen valt.
 date: 2026-07-12
+image: https://images.pexels.com/photos/37730212/pexels-photo-37730212.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een student die de vraag ook zichzelf stelt.*

@@ -2,6 +2,7 @@
 title: Wat de wasmand weet
 description: Zeventig procent van de uitstoot van een wasbeurt zit in het opwarmen van water. De duurzaamste knop van het huishouden is gratis — en zit op de wasmachine.
 date: 2026-07-10
+image: https://images.pexels.com/photos/8774642/pexels-photo-8774642.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een ouder die weet dat de wasmand nooit leeg is.*

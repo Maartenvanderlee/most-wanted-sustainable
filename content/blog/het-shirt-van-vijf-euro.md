@@ -2,6 +2,7 @@
 title: Het shirt van vijf euro
 description: Prijs gedeeld door draagbeurten maakt het goedkoopste shirt geregeld het duurste kledingstuk. Over tweedehands als de enige modekritiek die telt.
 date: 2026-07-14
+image: https://images.pexels.com/photos/31826316/pexels-photo-31826316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
 *Column — vanuit het perspectief van een student die er goed uit wil zien van weinig.*
