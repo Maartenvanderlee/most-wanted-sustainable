@@ -167,6 +167,12 @@ export async function updateDetails(formData: FormData): Promise<void> {
       formData.get(`offer_retailer__${position}`) ?? ""
     ).trim();
     const url = String(formData.get(`offer_url__${position}`) ?? "").trim();
+    // Prijs: optioneel; accepteert zowel "14,99" als "14.99".
+    const priceRaw = String(formData.get(`offer_price__${position}`) ?? "")
+      .trim()
+      .replace(",", ".");
+    const priceNum = Number(priceRaw);
+    const price = priceRaw && Number.isFinite(priceNum) && priceNum > 0 ? priceNum : null;
 
     if (retailer && url) {
       const { error: offerError } = await supabase.from("product_offers").upsert(
@@ -175,6 +181,7 @@ export async function updateDetails(formData: FormData): Promise<void> {
           position,
           retailer,
           url,
+          price,
           updated_at: new Date().toISOString(),
         },
         { onConflict: "product_id,position" }

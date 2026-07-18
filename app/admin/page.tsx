@@ -56,7 +56,7 @@ export default async function AdminPage() {
   // Verkoopkanalen (max 3 per product), gegroepeerd per product.
   const { data: offerData } = await supabase
     .from("product_offers")
-    .select("product_id, position, retailer, url");
+    .select("product_id, position, retailer, url, price");
   const offersByProduct = new Map<string, Offer[]>();
   for (const row of offerData ?? []) {
     const list = offersByProduct.get(row.product_id) ?? [];
@@ -90,6 +90,12 @@ export default async function AdminPage() {
             className="text-sm font-medium text-primary hover:underline"
           >
             Aanmeldingen
+          </a>
+          <a
+            href="/admin/content"
+            className="text-sm font-medium text-primary hover:underline"
+          >
+            Teksten
           </a>
           <form action={logout}>
             <button className="text-sm text-on-surface-variant hover:text-primary">
@@ -174,6 +180,7 @@ type Offer = {
   position: number;
   retailer: string;
   url: string;
+  price: number | null;
 };
 
 function ProductCard({
@@ -320,21 +327,29 @@ function ProductCard({
                     name={`offer_retailer__${position}`}
                     defaultValue={offer?.retailer ?? ""}
                     placeholder={`Winkel ${position} (bv. Bol, Amazon)`}
-                    className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-1/3"
+                    className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-1/4"
                   />
                   <input
                     name={`offer_url__${position}`}
                     defaultValue={offer?.url ?? ""}
                     placeholder="Affiliate-link (https://...)"
-                    className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-2/3"
+                    className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-1/2"
+                  />
+                  <input
+                    name={`offer_price__${position}`}
+                    defaultValue={offer?.price ?? ""}
+                    placeholder="Prijs (bv. 14,99)"
+                    inputMode="decimal"
+                    className="w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary sm:w-1/4"
                   />
                 </div>
               );
             })}
           </div>
           <p className="mt-2 text-[11px] text-on-surface-variant">
-            Beide velden invullen om een knop te tonen; maak ze leeg om een
-            kanaal te verwijderen.
+            Winkel + link invullen om een knop te tonen; maak ze leeg om een
+            kanaal te verwijderen. De prijs is optioneel en voedt de
+            prijsindicatie bij de foto.
           </p>
         </fieldset>
 

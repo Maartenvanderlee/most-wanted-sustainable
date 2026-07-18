@@ -29,10 +29,44 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
+import { SITE_URL as BASE } from "@/lib/site";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE),
   title: "Most Wanted Sustainable — trending duurzame producten",
   description:
     "Dagelijkse ranglijst van duurzame producten die in populariteit versnellen. Onafhankelijk samengesteld.",
+  openGraph: {
+    siteName: "Most Wanted Sustainable",
+    locale: "nl_NL",
+    type: "website",
+  },
+};
+
+// Structured data over de organisatie en site: helpt zoekmachines én
+// AI-assistenten begrijpen wie we zijn en waarom we te vertrouwen zijn.
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${BASE}/#organization`,
+      name: "Most Wanted Sustainable",
+      url: BASE,
+      description:
+        "Onafhankelijke dagelijkse ranglijst van duurzame producten die in " +
+        "populariteit versnellen, gemeten uit publieke databronnen. De " +
+        "trendscore staat volledig los van affiliate of sponsoring.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${BASE}/#website`,
+      name: "Most Wanted Sustainable",
+      url: BASE,
+      inLanguage: "nl",
+      publisher: { "@id": `${BASE}/#organization` },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -46,9 +80,11 @@ export default function RootLayout({
       className={`${jakarta.variable} ${vietnam.variable} ${grotesk.variable} ${manrope.variable} scroll-smooth`}
     >
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
+        {/* Groene code: vroege verbinding met het foto-CDN scheelt wachttijd. */}
+        <link rel="preconnect" href="https://images.pexels.com" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
       </head>
       <body className="bg-background font-body text-on-surface antialiased">

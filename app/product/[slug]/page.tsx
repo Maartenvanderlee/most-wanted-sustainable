@@ -8,6 +8,7 @@ import {
   certificationLabel,
   certificationIcon,
 } from "@/lib/certifications";
+import { pexelsSized } from "@/lib/pexels";
 import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 import type { SourceName } from "@/lib/supabase/types";
@@ -85,7 +86,14 @@ export default async function ProductPage({
     offers.length > 0
       ? offers
       : product.affiliate_url
-        ? [{ position: 1, retailer: "Bekijk dit product", url: product.affiliate_url }]
+        ? [
+            {
+              position: 1,
+              retailer: "Bekijk dit product",
+              url: product.affiliate_url,
+              price: null,
+            },
+          ]
         : [];
   const evidenceFor = (cert: string) =>
     certificationEvidence.find((e) => e.certification === cert);
@@ -135,7 +143,7 @@ export default async function ProductPage({
           <div className="mt-6 overflow-hidden rounded-2xl border border-outline-variant/20">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={product.image_url}
+              src={pexelsSized(product.image_url, 1200, 800)}
               alt={product.name}
               className="max-h-[420px] w-full object-cover"
             />
@@ -157,13 +165,19 @@ export default async function ProductPage({
                   className="inline-flex items-center gap-2 rounded-full bg-primary-container px-6 py-3 font-semibold text-on-primary shadow-md transition hover:opacity-90"
                 >
                   {offer.retailer}
+                  {offer.price ? (
+                    <span className="text-sm font-normal opacity-90">
+                      ±€{Math.round(offer.price)}
+                    </span>
+                  ) : null}
                   <span aria-hidden="true">→</span>
                 </a>
               ))}
             </div>
             <p className="mt-2 text-xs text-on-surface-variant">
               Affiliate-links — we verdienen mogelijk een kleine commissie. Dit
-              heeft geen invloed op de trendscore.
+              heeft geen invloed op de trendscore. Prijzen zijn een indicatie en
+              kunnen bij de winkel afwijken.
             </p>
           </div>
         )}

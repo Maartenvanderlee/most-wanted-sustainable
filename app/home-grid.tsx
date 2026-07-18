@@ -17,6 +17,8 @@ import {
   certificationLabel,
   certificationIcon,
 } from "@/lib/certifications";
+import { formatPriceRange } from "@/lib/price";
+import { pexelsSized } from "@/lib/pexels";
 import type { RankedProduct } from "@/lib/queries";
 
 export function HomeGrid({ products }: { products: RankedProduct[] }) {
@@ -167,12 +169,12 @@ function FeaturedCard({ product }: { product: RankedProduct }) {
         </div>
       </div>
       <div
-        className={`flex min-h-[200px] items-center justify-center overflow-hidden bg-gradient-to-br md:w-1/2 ${CATEGORY_GRADIENTS[product.category]} transition-transform duration-700 group-hover:scale-105`}
+        className={`relative flex min-h-[200px] items-center justify-center overflow-hidden bg-gradient-to-br md:w-1/2 ${CATEGORY_GRADIENTS[product.category]} transition-transform duration-700 group-hover:scale-105`}
       >
         {product.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={product.image_url}
+            src={pexelsSized(product.image_url, 900, 600)}
             alt={product.name}
             loading="lazy"
             className="h-full w-full object-cover"
@@ -180,6 +182,11 @@ function FeaturedCard({ product }: { product: RankedProduct }) {
         ) : (
           <span className="text-7xl" aria-hidden="true">
             {CATEGORY_EMOJI[product.category]}
+          </span>
+        )}
+        {product.priceRange && (
+          <span className="absolute bottom-2 left-2 rounded bg-black/55 px-1.5 py-0.5 text-[11px] font-medium text-white">
+            {formatPriceRange(product.priceRange)}
           </span>
         )}
       </div>
@@ -194,12 +201,12 @@ function StandardCard({ product }: { product: RankedProduct }) {
       className="eco-shadow eco-shadow-hover group flex flex-col overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-lowest"
     >
       <div
-        className={`flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br ${CATEGORY_GRADIENTS[product.category]}`}
+        className={`relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br ${CATEGORY_GRADIENTS[product.category]}`}
       >
         {product.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={product.image_url}
+            src={pexelsSized(product.image_url, 600, 400)}
             alt={product.name}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -210,6 +217,11 @@ function StandardCard({ product }: { product: RankedProduct }) {
             aria-hidden="true"
           >
             {CATEGORY_EMOJI[product.category]}
+          </span>
+        )}
+        {product.priceRange && (
+          <span className="absolute bottom-2 left-2 rounded bg-black/55 px-1.5 py-0.5 text-[11px] font-medium text-white">
+            {formatPriceRange(product.priceRange)}
           </span>
         )}
       </div>

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { draftMode } from "next/headers";
 import { getRankedProducts } from "@/lib/queries";
+import { getContent } from "@/lib/content";
 import {
   CATEGORIES,
   CATEGORY_LABELS,
@@ -52,7 +54,13 @@ export default async function CategoryPage({
   const category = slugToCategory(params.category);
   if (!category) notFound();
 
-  const products = await getRankedProducts({ category });
+  const { isEnabled: preview } = draftMode();
+  const [products, content] = await Promise.all([
+    getRankedProducts({ category }),
+    getContent(preview),
+  ]);
+  const intro =
+    content[`trending.${params.category}.intro`] ?? CATEGORY_INTROS[category];
   const related = CATEGORIES.filter((c) => c !== category).slice(0, 3);
 
   const jsonLd = {
@@ -80,7 +88,7 @@ export default async function CategoryPage({
           Trending duurzame {CATEGORY_LABELS[category].toLowerCase()}
         </h1>
         <p className="mb-8 max-w-2xl text-body-lg text-on-surface-variant">
-          {CATEGORY_INTROS[category]}
+          {intro}
         </p>
 
         {products.length === 0 ? (

@@ -130,6 +130,7 @@ export type Database = {
           position: number;
           retailer: string;
           url: string;
+          price: number | null;
           created_at: string;
           updated_at: string;
         };
@@ -139,11 +140,30 @@ export type Database = {
           position: number;
           retailer: string;
           url: string;
+          price?: number | null;
           created_at?: string;
           updated_at?: string;
         };
         Update: Partial<
           Database["public"]["Tables"]["product_offers"]["Insert"]
+        >;
+        Relationships: [];
+      };
+      site_content: {
+        Row: {
+          key: string;
+          published: string | null;
+          draft: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          key: string;
+          published?: string | null;
+          draft?: string | null;
+          updated_at?: string;
+        };
+        Update: Partial<
+          Database["public"]["Tables"]["site_content"]["Insert"]
         >;
         Relationships: [];
       };

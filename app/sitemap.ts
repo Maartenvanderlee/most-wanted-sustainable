@@ -3,7 +3,7 @@ import { getApprovedSlugs } from "@/lib/queries";
 import { getAllPosts } from "@/lib/blog";
 import { CATEGORIES, CATEGORY_SLUGS } from "@/lib/categories";
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL as BASE } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = await getApprovedSlugs();

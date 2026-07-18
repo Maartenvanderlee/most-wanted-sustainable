@@ -68,16 +68,3 @@ body {
   @apply mb-5 border-l-4 border-primary-container pl-4 italic;
 }
 
-/* Material Symbols icoon-lettertype */
-.material-symbols-outlined {
-  font-family: "Material Symbols Outlined";
-  font-weight: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  direction: ltr;
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-}

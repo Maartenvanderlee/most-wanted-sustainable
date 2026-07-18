@@ -6,6 +6,7 @@ import { createServerClient } from "./supabase/server";
 import type { Category } from "./categories";
 import type { ProductStatus, SourceName } from "./supabase/types";
 import { WEIGHTS } from "./scoring/version";
+import { priceRangeFrom, type PriceRange } from "./price";
 
 export type ProductRow = {
   id: string;
@@ -22,7 +23,10 @@ export type ProductRow = {
 
 export type LatestScore = { score: number; rank: number; snapshot_date: string };
 
-export type RankedProduct = ProductRow & { latest: LatestScore | null };
+export type RankedProduct = ProductRow & {
+  latest: LatestScore | null;
+  priceRange: PriceRange | null; // indicatie uit de verkoopkanalen
+};
 
 // Pakt per product de meest recente scorerij.
 function latestScoreByProduct(
@@ -60,8 +64,23 @@ export async function getRankedProducts(filter?: {
     .select("product_id, score, rank, snapshot_date");
   const latest = latestScoreByProduct(scores ?? []);
 
+  // Prijzen uit de verkoopkanalen voor de prijsindicatie per kaart.
+  const { data: offerPrices } = await supabase
+    .from("product_offers")
+    .select("product_id, price");
+  const pricesByProduct = new Map<string, (number | null)[]>();
+  for (const o of offerPrices ?? []) {
+    const list = pricesByProduct.get(o.product_id) ?? [];
+    list.push(o.price);
+    pricesByProduct.set(o.product_id, list);
+  }
+
   return (products ?? [])
-    .map((p) => ({ ...(p as ProductRow), latest: latest.get(p.id) ?? null }))
+    .map((p) => ({
+      ...(p as ProductRow),
+      latest: latest.get(p.id) ?? null,
+      priceRange: priceRangeFrom(pricesByProduct.get(p.id) ?? []),
+    }))
     .sort((a, b) => {
       if (a.latest && b.latest) return a.latest.rank - b.latest.rank;
       if (a.latest) return -1;
@@ -86,6 +105,7 @@ export type ProductOffer = {
   position: number;
   retailer: string;
   url: string;
+  price: number | null;
 };
 
 export type ProductDetail = {
@@ -161,7 +181,7 @@ export async function getProductBySlug(
   // Verkoopkanalen (max 3), gesorteerd op positie.
   const { data: offers } = await supabase
     .from("product_offers")
-    .select("position, retailer, url")
+    .select("position, retailer, url, price")
     .eq("product_id", p.id)
     .order("position", { ascending: true });
 
