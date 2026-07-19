@@ -55,30 +55,56 @@ API-route `app/api/pipeline/run/route.ts` (voor de cron in fase 5).
 
 ```
 app/                     Next.js pagina's en API-routes
-  page.tsx               homepage: ranglijst + filters (echte data)
-  trending/[category]/   categoriepagina's (SEO)
-  product/[slug]/        productdetail: score-opbouw + 30-dagen-grafiek
-  methodologie/          uitleg trendscore in gewone taal
-  admin/                 beheer (wachtwoord via ADMIN_PASSWORD), server actions
-  newsletter/            nieuwsbrief-aanmelding (server action + formulier)
-  sitemap.ts, robots.ts  gegenereerd uit de database
-  api/pipeline/run/      handmatige/cron-trigger voor de pipeline
+  page.tsx / en/page.tsx        homepage (nl/en) — dunne route, delegeert naar home-view.tsx
+  home-view.tsx                 gedeelde homepage-inhoud (beide talen)
+  trending/[category]/, en/…    categoriepagina's (SEO) — dunne routes
+  category-view.tsx             gedeelde categoriepagina-inhoud
+  product/[slug]/, en/product/  productdetail — dunne routes
+  product-view.tsx              gedeelde productpagina-inhoud (score, keurmerken,
+                                 CO2/duurzame-winst-blok, verkoopkanalen, 30-dagen-grafiek)
+  methodologie/, en/methodology/  uitleg trendscore + verdienmodel, per taal
+  blog/, en/blog/                blogoverzicht + artikel, per taal (leest content/blog(-en)/*.md)
+  admin/                 beheer (wachtwoord via ADMIN_PASSWORD): producten curateren,
+                          content/ (CMS), subscribers/ (nieuwsbrief-export), stats/
+  newsletter/             nieuwsbrief-aanmelding (server action + formulier, taalbewust)
+  site-chrome.tsx          gedeelde nav/footer, taalbewust (SiteNav/SiteFooter)
+  sitemap.ts, robots.ts, llms.txt/   gegenereerd uit de database/content, taalbewust
+  api/pipeline/run/       handmatige/cron-trigger voor de pipeline (CRON_SECRET)
+  api/preview/, api/preview/exit/   Draft Mode aan/uit voor CMS-preview (admin-only)
+  api/track/              anonieme page_view/click-events
 lib/
-  queries.ts             server-side data voor publieke pagina's (filtert op approved)
-  adapters/              één bestand per databron + gedeelde helpers
-    types.ts             het verplichte Signal/SourceAdapter-contract
-    http.ts              fetch met retry/backoff
-    cache.ts             12u bestandscache (spaart API-quota in ontwikkeling)
-    index.ts             register van alle adapters
-    __tests__/           gemockte tests per adapter
-  scoring/               de trendscore-formule (versnelling, niet volume)
-    version.ts           formuleversie + weging per bron
-    score.ts             groei, normalisatie, rangschikking
-  pipeline/              orkestratie + eigen Supabase-client
-  supabase/              types + browser-/serverclients
-  keywords.ts            seed-keywords inlezen + slugify
-scripts/                 losse commando's (check-db, run-pipeline)
+  queries.ts              server-side data voor publieke pagina's (filtert op approved)
+  i18n.ts                 alle interfaceteksten (UI.nl/UI.en), categorie-labels,
+                          tag-vertalingen, maandnamen — één bron per taal
+  content.ts              CMS: leest site_content, valt terug op hardcoded defaults
+  blog.ts, blog-parsing.ts  blogartikelen lezen (frontmatter + markdown), pad-validatie
+  certifications.ts       keurmerken, iconen, labels; splitst tags in keurmerk/kenmerk
+  price.ts                prijsbandbreedte uit product_offers
+  pexels.ts               foto-URL op maat per weergavecontext (kaart vs. detail)
+  categories.ts           categorieën, slugs, kleuren, NL-labels, SEO-intro's
+  admin-auth.ts           timing-safe login-check + sessiecookie (nooit het wachtwoord zelf)
+  rate-limit.ts           IP-gebaseerde vertraging van mislukte inlogpogingen
+  safe-redirect.ts        whitelist voor interne redirect-paden (voorkomt open-redirect)
+  json-ld.ts              escaped JSON-LD-serialisatie (voorkomt </script>-injectie)
+  images.ts               Pexels-zoekopdracht voor "Foto's automatisch invullen"
+  adapters/               één bestand per databron + gedeelde helpers
+    types.ts              het verplichte Signal/SourceAdapter-contract
+    http.ts                fetch met retry/backoff
+    cache.ts               12u bestandscache (spaart API-quota in ontwikkeling)
+    index.ts                register van alle adapters
+    __tests__/              gemockte tests per adapter
+  scoring/                de trendscore-formule (versnelling, niet volume)
+    version.ts             formuleversie + weging per bron
+    score.ts                groei, normalisatie, rangschikking
+  pipeline/               orkestratie + eigen Supabase-client
+  supabase/               types + browser-/serverclients
+  keywords.ts             seed-keywords inlezen + slugify
+content/blog/, content/blog-en/  blogartikelen als markdown, per taal; een EN-artikel
+                                  verwijst met `nl: <slug>` naar het origineel (hreflang)
+scripts/                 losse commando's (check-db, run-pipeline, backfill-trends,
+                          seed-product-info)
 supabase/migrations/     genummerde SQL-migraties (de bron van het schema)
+.github/workflows/ci.yml  tests + typecheck + audit bij elke push/PR naar main
 docs/                    dit document
 ```
 
@@ -124,6 +150,114 @@ score = 0.45 * norm(googleTrendsGroei)
 3. de versie meeschrijven bij elke score (gebeurt al)
 4. de wijziging noteren in `CHANGELOG.md`
 
+## Curatie (greenwashing-poort)
+
+Nieuwe producten uit de pipeline landen op status `pending`. Alleen een mens
+zet ze op `approved` of `rejected` via `/admin` — nooit automatisch. Regels
+staan in `.claude/skills/sustainability-curation/SKILL.md`: een product moet
+slagen voor **poort 1** (erkend keurmerk) of **poort 2** (checklist, 3 van 5
+ja), en altijd voor **poort 3** (uitsluitingslijst). Keurmerk-claims zijn
+verifieerbaar: `product_certifications` koppelt per keurmerk een
+registratienummer en een link naar het openbare register van de
+certificeerder, ingevuld via `/admin`.
+
+Sinds migratie `0010` heeft elk product ook optionele redactionele velden
+(`description`, `why_sustainable`, `co2_note`, elk met een `_en`-variant):
+een korte beschrijving/toepassing, waarom het duurzamer is dan het gangbare
+alternatief, en een **indicatieve** CO2-besparing als bandbreedte. De
+CO2-tekst is bewust nooit een harde claim ("bespaart X kg") maar een
+schatting met disclaimer (`ui.co2Disclaimer` in `lib/i18n.ts`) — conform de
+EU Green Claims-regels uit de curatie-skill. `scripts/seed-product-info.mjs`
+vult deze velden voor de seed-catalogus in (idempotent: overschrijft nooit
+een handmatig ingevulde waarde).
+
+## Twee-talige site (nl/en)
+
+De site bestaat in het Nederlands (root) en Engels (`/en`-prefix). Om
+duplicatie te voorkomen delen beide talen dezelfde React-componenten:
+
+- `app/home-view.tsx`, `app/product-view.tsx`, `app/category-view.tsx` bevatten
+  de daadwerkelijke pagina-inhoud, met een `locale: "nl" | "en"` prop.
+- De routes onder `app/` (nl) en `app/en/` zijn dunne schillen: ze regelen
+  alleen metadata (title/description/`alternates.languages` voor hreflang) en
+  roepen de gedeelde view aan.
+- `lib/i18n.ts` bevat alle interfaceteksten (`UI.nl`/`UI.en`), Engelse
+  categorie-labels, kenmerk-tag-vertalingen en maandnamen.
+- Blogartikelen zijn losse markdown-bestanden per taal (`content/blog/*.md`
+  resp. `content/blog-en/*.md`, gelezen via `lib/blog.ts`). Een Engels
+  artikel verwijst met `nl: <slug>` in de frontmatter naar het Nederlandse
+  origineel, waaruit de hreflang-koppeling in beide richtingen wordt afgeleid.
+- `app/site-chrome.tsx` (SiteNav/SiteFooter) is taalbewust; de taalwisselaar
+  linkt via een `switchHref`-prop naar de daadwerkelijke tegenhanger van de
+  huidige pagina, niet enkel naar de homepage.
+- CMS-teksten (zie hieronder) hebben een eigen Engelse sleutel-namespace
+  (`en.home.hero.title`, `en.trending.food.intro`, …) in dezelfde
+  `site_content`-tabel.
+
+## CMS (concept → preview → publiceren)
+
+`/admin/content` laat de homepage-teksten en categorie-intro's (nl + en)
+bewerken zonder een deploy:
+
+- Teksten staan in `site_content` (`published`/`draft`); ontbrekende sleutels
+  vallen terug op de hardcoded default in `lib/content.ts`, dus de site werkt
+  ook met een lege tabel.
+- "Opslaan als concept" schrijft alleen `draft` — bezoekers zien niets.
+- "Preview bekijken" zet Next.js **Draft Mode** aan (`/api/preview`, alleen
+  voor ingelogde admins via `isAdminRequestAuthed()`); de publieke pagina
+  rendert dan dynamisch met de concepttekst, zonder de ISR-cache voor
+  bezoekers te raken.
+- "Publiceren" kopieert naar `published` en revalidate't de gecachete paden
+  direct (`revalidatePath`).
+
+## SEO en AI-vindbaarheid (GEO)
+
+- Elke publieke pagina heeft unieke title/description, Open Graph en JSON-LD
+  (`Product`/`ItemList`/`Article`/`Organization`, `lib/json-ld.ts` escaped de
+  serialisatie), plus hreflang via `alternates.languages`.
+- `/llms.txt` (`app/llms.txt/route.ts`) is een leeswijzer voor AI-assistenten:
+  legt de unieke positionering uit (versnelling i.p.v. volume, onafhankelijke
+  score, verifieerbare keurmerken) met links naar kernpagina's.
+- `robots.txt` staat AI-crawlers (GPTBot, ChatGPT-User, ClaudeBot,
+  PerplexityBot, Google-Extended, Applebot-Extended, CCBot, …) expliciet toe,
+  naast de reguliere `*`-regel.
+- `/sitemap.xml` neemt producten, categorieën, blogartikelen en beide talen
+  automatisch mee.
+
+## Prestaties ("groene code")
+
+- Publieke pagina's zijn ISR (`export const revalidate = 3600`), niet
+  server-rendered per bezoek; admin-acties en de pipeline revalidaten gericht
+  de paden die veranderd zijn.
+- Productfoto's (via Pexels) worden per weergavecontext in de juiste maat
+  opgevraagd (`lib/pexels.ts`: klein voor kaarten, groot voor de detailpagina)
+  in plaats van overal de grootste variant te laden.
+
+## Beveiliging
+
+- **Login** (`lib/admin-auth.ts`): timing-safe wachtwoordvergelijking
+  (voorkomt timing-aanvallen), de cookie bevat een afgeleide sessiewaarde —
+  nooit het wachtwoord zelf — zodat een gestolen cookie het wachtwoord niet
+  blootgeeft.
+- **Rate limiting** (`lib/rate-limit.ts`, tabel `admin_login_attempts`):
+  mislukte inlogpogingen worden per IP geteld en na te veel pogingen tijdelijk
+  geblokkeerd, ter vertraging van brute-force.
+- **Open-redirect-bescherming** (`lib/safe-redirect.ts`): de preview-routes
+  (`/api/preview`, `/api/preview/exit`) accepteren alleen interne paden — geen
+  scheme-relative `//evil.com`-achtige waarden.
+- **JSON-LD-hardening** (`lib/json-ld.ts`): `<`/`>` worden geëscaped in de
+  JSON-serialisatie, zodat een productnaam met `</script>` geen script uit de
+  structured-data-tag kan laten breken.
+- **Query-building**: waarden die in een handgebouwde PostgREST-filterstring
+  belanden (de `product_certifications`-opschoonfilter in
+  `app/admin/actions.ts`) worden eerst tegen een bekende allowlist gevalideerd
+  (`isCertification()`) voordat ze in de querystring terechtkomen.
+- **Blog-pad-validatie** (`lib/blog-parsing.ts`): alleen slugs die aan
+  `^[a-z0-9-]+$` voldoen worden van schijf gelezen — geen path traversal via
+  de URL.
+- RLS staat aan op elke tabel; zie `.claude/skills/db-conventions/SKILL.md`
+  voor het volledige actuele schema en het toegangsbeleid per tabel.
+
 ## Een databron toevoegen (bijv. eBay, Bol, TikTok)
 
 1. Kopieer `.claude/skills/source-adapter/template.ts` naar
@@ -136,13 +270,23 @@ score = 0.45 * norm(googleTrendsGroei)
 6. Herbalanceer de weging in `lib/scoring/version.ts`, verhoog de formuleversie
    en werk `/methodologie` en `CHANGELOG.md` bij.
 
-## Tests
+## Tests en CI
 
-`npm test` (Vitest). Huidige dekking:
+`npm test` (Vitest, 12 testbestanden). Huidige dekking:
 - Elke adapter: correcte parsing + geïsoleerde fout (lege lijst).
 - Scoring: groei-berekening (positief/negatief/te weinig historie/deling door nul)
   en normalisatie (schaling + gelijke waarden).
 - Zoekwoorden: parsing van `data/seed-keywords.md` + slugify.
+- Beveiligingshulpjes: `lib/admin-auth.ts` (timing-safe compare), `lib/rate-limit.ts`,
+  `lib/safe-redirect.ts` (open-redirect-preventie), `lib/json-ld.ts` (escaping).
+- `lib/blog-parsing.ts`: frontmatter-parsing en slug-validatie (path traversal).
+
+`.github/workflows/ci.yml` draait bij elke push/PR naar `main`: `npm test`,
+`npx tsc --noEmit` (typecheck), en `npm audit --audit-level=high` (meldt,
+blokkeert de build niet). Vercel doet de echte productie-build al bij elke
+push naar main (met de live database); CI is de snelle, geheimloze check
+ervoor — nieuwe adapters of security-gevoelige code krijgen hier verplicht
+een test bij.
 
 ## Bekende beperkingen / verbeterpunten
 
@@ -153,18 +297,23 @@ score = 0.45 * norm(googleTrendsGroei)
   commercieel gebruik van Reddit-data zonder schriftelijke toestemming. Omdat
   het product een commercieel model heeft, gebruiken we Reddit pas na een
   goedgekeurde aanvraag. De adaptercode blijft klaarstaan voor dat moment.
+  De trendscore-formule (v2) weegt daarom alleen Google Trends (65%) en
+  YouTube (35%).
 - **Google Trends** gebruikt een onofficiële API. Kale verzoeken worden
   geblokkeerd (429); de adapter haalt daarom eerst een sessie-cookie op en
   pauzeert kort vóór de dataronde, waardoor de meeste zoekwoorden wél data
   opleveren. Blijft best-effort (Google kan de aanpak wijzigen); een
-  ontbrekend zoekwoord wordt netjes overgeslagen.
+  ontbrekend zoekwoord wordt netjes overgeslagen. Een eenmalige backfill
+  (`scripts/backfill-trends.mjs`) heeft 12 maanden historie opgehaald voor
+  bewijsvoering richting eventuele data-afnemers.
 - De **cache** is een bestandscache (`.cache/`), prima voor ontwikkeling. Op
   Vercel is het bestandssysteem vluchtig; overweeg de Supabase-tabel
   `raw_cache` uit de skill voor productie.
-- Publieke pagina's renderen server-side met de service-role client en
-  filteren expliciet op `status = 'approved'`; RLS + anon-sleutel zijn de
-  tweede beschermlaag. Zie `lib/queries.ts`.
-- De pipeline-route heeft `maxDuration = 60s`; een volledige run over 100
-  zoekwoorden kan langer duren. Voor de cron in fase 5 evt. opsplitsen of de
-  limiet op het Vercel-plan verhogen.
+- Publieke pagina's renderen met de service-role client en filteren expliciet
+  op `status = 'approved'`; RLS + anon-sleutel zijn de tweede beschermlaag.
+  Zie `lib/queries.ts`.
+- De pipeline-route heeft `maxDuration = 300s` (verhoogd van 60s) en de
+  dagelijkse cron (`vercel.json`) splitst de 100 zoekwoorden in twee batches
+  (`offset=0&limit=50` om 06:00 UTC, `offset=50` om 06:40 UTC) zodat elke
+  batch ruim binnen de tijdslimiet blijft.
 ```

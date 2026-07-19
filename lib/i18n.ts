@@ -91,6 +91,10 @@ export const UI = {
     lifespanTitle: "Levensduur & recycling",
     avgLifespan: "Gemiddelde levensduur:",
     afterUse: "Na gebruik:",
+    greenGainTitle: "Duurzamer dan het gangbare alternatief",
+    co2Label: "Geschatte CO2-besparing:",
+    co2Disclaimer:
+      "Indicatieve schatting op basis van openbare levenscyclusstudies, inclusief productie en transport — geen gecertificeerde meting. De werkelijke besparing hangt af van gebruik en van wat je ermee vervangt.",
     scoreBreakdown: "Score-opbouw per bron",
     scoreBreakdownText: "De trendscore meet versnelling, geen volume. Elke bron weegt anders mee.",
     howItWorks: "Zo werkt het",
@@ -146,6 +150,10 @@ export const UI = {
     lifespanTitle: "Lifespan & recycling",
     avgLifespan: "Average lifespan:",
     afterUse: "After use:",
+    greenGainTitle: "More sustainable than the conventional alternative",
+    co2Label: "Estimated CO2 saving:",
+    co2Disclaimer:
+      "Indicative estimate based on public life-cycle studies, including production and transport — not a certified measurement. Actual savings depend on usage and on what you replace.",
     scoreBreakdown: "Score breakdown per source",
     scoreBreakdownText: "The trend score measures acceleration, not volume. Each source has its own weight.",
     howItWorks: "How it works",

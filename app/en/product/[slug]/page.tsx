@@ -25,7 +25,9 @@ export async function generateMetadata({
     ? CATEGORY_LABELS_EN[product.category]
     : product.category;
   const title = `${product.name} — trending sustainable | Most Wanted`;
-  const description = `${product.name} in the ${label.toLowerCase()} category. See the trend score, the breakdown per data source and why this product made our list.`;
+  const description =
+    product.description_en ??
+    `${product.name} in the ${label.toLowerCase()} category. See the trend score, the breakdown per data source and why this product made our list.`;
 
   return {
     title: title.slice(0, 60),

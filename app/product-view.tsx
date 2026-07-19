@@ -82,6 +82,19 @@ export async function ProductView({
     ? categoryLabel(product.category, locale)
     : product.category;
 
+  // Redactionele teksten in de paginataal; Engels valt terug op Nederlands
+  // zolang er nog geen vertaling is ingevuld.
+  const description =
+    locale === "en"
+      ? product.description_en ?? product.description
+      : product.description;
+  const whySustainable =
+    locale === "en"
+      ? product.why_sustainable_en ?? product.why_sustainable
+      : product.why_sustainable;
+  const co2Note =
+    locale === "en" ? product.co2_note_en ?? product.co2_note : product.co2_note;
+
   // JSON-LD: alleen velden die we echt hebben (geen verzonnen prijs/reviews).
   const jsonLd = {
     "@context": "https://schema.org",
@@ -116,6 +129,12 @@ export async function ProductView({
           </h1>
           <ScoreDisplay latest={latest} ui={ui} />
         </div>
+
+        {description && (
+          <p className="mt-4 max-w-2xl text-body-lg text-on-surface-variant">
+            {description}
+          </p>
+        )}
 
         {product.image_url && (
           <div className="mt-6 overflow-hidden rounded-2xl border border-outline-variant/20">
@@ -222,6 +241,29 @@ export async function ProductView({
             <p className="text-body-md text-on-surface-variant">{ui.tagsSoon}</p>
           )}
         </section>
+
+        {/* Duurzame winst t.o.v. het gangbare alternatief */}
+        {(whySustainable || co2Note) && (
+          <section className="mt-8 rounded-xl border border-primary-container/60 bg-primary-container/10 p-6">
+            <h2 className="mb-3 font-semibold text-on-background">
+              {ui.greenGainTitle}
+            </h2>
+            {whySustainable && (
+              <p className="mb-3 text-body-md text-on-surface-variant">
+                {whySustainable}
+              </p>
+            )}
+            {co2Note && (
+              <p className="text-body-md text-on-surface-variant">
+                <strong className="text-primary">{ui.co2Label}</strong>{" "}
+                {co2Note}
+              </p>
+            )}
+            <p className="mt-3 text-xs text-on-surface-variant">
+              {ui.co2Disclaimer}
+            </p>
+          </section>
+        )}
 
         {/* Levensduur en afdankfase */}
         {(product.lifespan || product.end_of_life) && (

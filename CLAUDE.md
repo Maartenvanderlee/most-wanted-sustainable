@@ -12,10 +12,13 @@ Dashboard van trending duurzame producten, gebouwd door een niet-technische foun
 
 ## Wat dit product is
 
-- Publieke ranglijst (top 50) van duurzame producten, gerangschikt op een trendscore die VERSNELLING meet, niet volume
-- Bronnen (MVP): Google Trends, Reddit (publieke JSON API), YouTube Data API — via modulaire adapters
-- Duurzaamheid geborgd via certificeringen + handmatige curatie + uitsluitingslijst
-- Verdienmodel: affiliate eerst, later premium en B2B-rapporten
+- Publieke, tweetalige (nl/en) ranglijst van duurzame producten, gerangschikt op een trendscore die VERSNELLING meet, niet volume
+- Bronnen: Google Trends + YouTube Data API actief; Reddit-adapter klaar maar uitgesteld (zie CHANGELOG.md, Fase 3)
+- Duurzaamheid geborgd via certificeringen (met verifieerbaar registerbewijs) + handmatige curatie + uitsluitingslijst
+- Per product: redactionele beschrijving, duurzame winst t.o.v. het gangbare alternatief, indicatieve CO2-besparing (nl+en)
+- Content: blog (nl+en, met hreflang-koppeling), CMS met concept/preview/publiceren voor homepage- en categorieteksten
+- Verdienmodel: affiliate (max. 3 verkoopkanalen per product) eerst, later premium en B2B-rapporten
+- Zie `docs/architecture.md` voor de volledige systeemopzet en `.claude/skills/db-conventions/SKILL.md` voor het actuele databaseschema
 
 ## Stack
 

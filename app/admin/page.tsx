@@ -325,6 +325,77 @@ function ProductCard({
           </label>
         </div>
 
+        <fieldset className="rounded-lg border border-outline-variant/30 bg-surface-container-low/50 p-3">
+          <legend className="px-1 text-xs text-on-surface-variant">
+            Redactionele tekst (NL + EN) — beschrijving, duurzame winst en
+            CO2-indicatie
+          </legend>
+          <div className="space-y-3">
+            <label className="block text-xs text-on-surface-variant">
+              Beschrijving &amp; toepassing (NL)
+              <textarea
+                name="description"
+                defaultValue={product.description ?? ""}
+                rows={2}
+                placeholder="Wat is het en waarvoor gebruik je het?"
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+            <label className="block text-xs text-on-surface-variant">
+              Description &amp; use (EN)
+              <textarea
+                name="description_en"
+                defaultValue={product.description_en ?? ""}
+                rows={2}
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+            <label className="block text-xs text-on-surface-variant">
+              Waarom duurzamer dan het gangbare alternatief (NL)
+              <textarea
+                name="why_sustainable"
+                defaultValue={product.why_sustainable ?? ""}
+                rows={2}
+                placeholder="Concreet en controleerbaar; geen absolute claims."
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+            <label className="block text-xs text-on-surface-variant">
+              Why more sustainable (EN)
+              <textarea
+                name="why_sustainable_en"
+                defaultValue={product.why_sustainable_en ?? ""}
+                rows={2}
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+            <label className="block text-xs text-on-surface-variant">
+              Geschatte CO2-besparing (NL) — altijd als bandbreedte
+              <textarea
+                name="co2_note"
+                defaultValue={product.co2_note ?? ""}
+                rows={2}
+                placeholder="bv. Naar schatting 5-10 kg CO2 per jaar t.o.v. ..."
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+            <label className="block text-xs text-on-surface-variant">
+              Estimated CO2 saving (EN)
+              <textarea
+                name="co2_note_en"
+                defaultValue={product.co2_note_en ?? ""}
+                rows={2}
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+          </div>
+          <p className="mt-2 text-[11px] text-on-surface-variant">
+            De site toont de CO2-regel altijd met de disclaimer
+            &quot;indicatieve schatting&quot;. Engels leeg? Dan valt de pagina
+            terug op de Nederlandse tekst.
+          </p>
+        </fieldset>
+
         <label className="block text-xs text-on-surface-variant">
           Overige kenmerken (komma-gescheiden)
           <input
