@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug, getTranslationMap } from "@/lib/blog";
+import { safeJsonLd } from "@/lib/json-ld";
 import { pexelsSized } from "@/lib/pexels";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
@@ -87,7 +88,7 @@ export default async function BlogPostPage({
       <SiteNav switchHref={enSlug ? `/en/blog/${enSlug}` : "/en/blog"} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       <main className="mx-auto max-w-3xl px-5 pb-24 pt-32 md:px-8">
         <div className="flex flex-wrap items-center justify-between gap-2">

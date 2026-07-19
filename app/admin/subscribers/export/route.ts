@@ -1,16 +1,10 @@
 // CSV-export van nieuwsbrief-aanmeldingen. Zelfde cookie-beveiliging als de
 // admin-pagina's; zonder geldige login een 401.
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase/server";
+import { isAdminRequestAuthed } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
-
-function isAuthed(): boolean {
-  const pw = process.env.ADMIN_PASSWORD;
-  if (!pw) return false;
-  return cookies().get("mw_admin")?.value === pw;
-}
 
 // Waarden met komma's/aanhalingstekens veilig in CSV zetten.
 function csvField(value: string): string {
@@ -18,7 +12,7 @@ function csvField(value: string): string {
 }
 
 export async function GET() {
-  if (!isAuthed()) {
+  if (!isAdminRequestAuthed()) {
     return NextResponse.json({ error: "Niet ingelogd." }, { status: 401 });
   }
 

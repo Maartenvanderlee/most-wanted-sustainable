@@ -1,14 +1,15 @@
 // Zet previewmodus (Draft Mode) aan: de publieke pagina's tonen dan
 // conceptteksten uit het CMS. Alleen voor ingelogde admins.
 import { NextRequest, NextResponse } from "next/server";
-import { cookies, draftMode } from "next/headers";
+import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
+import { isAdminRequestAuthed } from "@/lib/admin-auth";
+import { safeInternalPath } from "@/lib/safe-redirect";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  const pw = process.env.ADMIN_PASSWORD;
-  if (!pw || cookies().get("mw_admin")?.value !== pw) {
+  if (!isAdminRequestAuthed()) {
     return NextResponse.json(
       { error: "Niet ingelogd. Log eerst in op /admin." },
       { status: 401 }
@@ -16,6 +17,6 @@ export async function GET(req: NextRequest) {
   }
 
   draftMode().enable();
-  const path = req.nextUrl.searchParams.get("path") ?? "/";
-  redirect(path.startsWith("/") ? path : "/");
+  // Alleen interne paden toestaan (voorkomt open-redirect via ?path=//evil.com).
+  redirect(safeInternalPath(req.nextUrl.searchParams.get("path")));
 }

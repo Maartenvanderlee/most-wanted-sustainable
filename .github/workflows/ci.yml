@@ -1,0 +1,36 @@
+name: CI
+
+# Draait bij elke push en elke pull request naar main: automated tests, een
+# TypeScript-controle en een check op bekende kwetsbaarheden in
+# afhankelijkheden. Vercel doet de echte productie-build al bij elke push
+# (die heeft de live database nodig); deze workflow is de snelle,
+# geheimloze veiligheidscontrole ervoor.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run automated tests
+        run: npm test
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Audit dependencies for known vulnerabilities
+        run: npm audit --audit-level=high
+        continue-on-error: true # meldt kwetsbaarheden zonder de build te blokkeren

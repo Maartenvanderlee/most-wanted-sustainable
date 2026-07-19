@@ -19,6 +19,7 @@ import {
   type UIStrings,
 } from "@/lib/i18n";
 import { pexelsSized } from "@/lib/pexels";
+import { safeJsonLd } from "@/lib/json-ld";
 import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
@@ -98,7 +99,7 @@ export async function ProductView({
       <SiteNav locale={locale} switchHref={switchHref} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
 
       <main className="mx-auto max-w-3xl px-5 pb-24 pt-32 md:px-8">

@@ -1,31 +1,29 @@
 "use server";
 
 // Server-acties voor de admin. Beveiligd met een wachtwoord uit ADMIN_PASSWORD
-// (server-side env). Na inloggen staat er een httpOnly-cookie; die is niet
-// leesbaar vanuit de browser-JavaScript.
-import { cookies } from "next/headers";
+// (server-side env). Na inloggen staat er een httpOnly-cookie met een
+// afgeleide sessiewaarde (nooit het wachtwoord zelf) — zo lekt een gestolen
+// cookie niet het wachtwoord. Mislukte pogingen worden per IP vertraagd.
+import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
 import { findImageFor, hasPexelsKey } from "@/lib/images";
+import { isRateLimited, recordFailedAttempt, clientIp } from "@/lib/rate-limit";
+import { isCertification } from "@/lib/certifications";
+import {
+  ADMIN_COOKIE,
+  sessionValue,
+  timingSafeStringEqual,
+  isAdminRequestAuthed,
+} from "@/lib/admin-auth";
 import type { ProductStatus } from "@/lib/supabase/types";
 
-const COOKIE = "mw_admin";
-
-function expectedToken(): string {
-  const pw = process.env.ADMIN_PASSWORD;
-  if (!pw) throw new Error("ADMIN_PASSWORD ontbreekt in .env.local.");
-  return pw;
-}
-
 export async function isAuthenticated(): Promise<boolean> {
-  const pw = process.env.ADMIN_PASSWORD;
-  if (!pw) return false;
-  return cookies().get(COOKIE)?.value === pw;
+  return isAdminRequestAuthed();
 }
 
 function assertAuthed() {
-  const pw = process.env.ADMIN_PASSWORD;
-  if (!pw || cookies().get(COOKIE)?.value !== pw) {
+  if (!isAdminRequestAuthed()) {
     throw new Error("Niet ingelogd.");
   }
 }
@@ -34,11 +32,21 @@ export async function login(
   _prev: string | null,
   formData: FormData
 ): Promise<string | null> {
+  const pw = process.env.ADMIN_PASSWORD;
+  if (!pw) throw new Error("ADMIN_PASSWORD ontbreekt in .env.local.");
+
+  const ip = clientIp(headers());
+  if (await isRateLimited(ip)) {
+    return "Te veel mislukte pogingen. Probeer het over 15 minuten opnieuw.";
+  }
+
   const password = String(formData.get("password") ?? "");
-  if (password !== expectedToken()) {
+  if (!timingSafeStringEqual(password, pw)) {
+    await recordFailedAttempt(ip);
     return "Onjuist wachtwoord.";
   }
-  cookies().set(COOKIE, password, {
+
+  cookies().set(ADMIN_COOKIE, sessionValue(pw), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -50,7 +58,7 @@ export async function login(
 }
 
 export async function logout(): Promise<void> {
-  cookies().delete(COOKIE);
+  cookies().delete(ADMIN_COOKIE);
   revalidatePath("/admin");
 }
 
@@ -115,7 +123,12 @@ export async function updateDetails(formData: FormData): Promise<void> {
   const endOfLife = String(formData.get("end_of_life") ?? "").trim() || null;
 
   // Aangevinkte keurmerken + los ingevoerde kenmerken samenvoegen tot tags.
-  const certifications = formData.getAll("cert").map((c) => String(c));
+  // Alleen bekende keurmerk-slugs toestaan: dit voorkomt dat een onverwachte
+  // waarde in de handmatig opgebouwde SQL-filter hieronder terechtkomt.
+  const certifications = formData
+    .getAll("cert")
+    .map((c) => String(c))
+    .filter(isCertification);
   const characteristics = String(formData.get("tags") ?? "")
     .split(",")
     .map((t) => t.trim().toLowerCase())

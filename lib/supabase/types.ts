@@ -101,6 +101,14 @@ export type Database = {
         >;
         Relationships: [];
       };
+      admin_login_attempts: {
+        Row: { id: string; ip: string; created_at: string };
+        Insert: { id?: string; ip: string; created_at?: string };
+        Update: Partial<
+          Database["public"]["Tables"]["admin_login_attempts"]["Insert"]
+        >;
+        Relationships: [];
+      };
       product_certifications: {
         Row: {
           id: string;

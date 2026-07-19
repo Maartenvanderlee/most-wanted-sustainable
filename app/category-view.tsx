@@ -11,6 +11,7 @@ import {
   slugToCategory,
 } from "@/lib/categories";
 import { UI, localePath, categoryLabel, type Locale } from "@/lib/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 import { ProductCards } from "@/app/home-grid";
 
@@ -57,7 +58,7 @@ export async function CategoryView({
       <SiteNav locale={locale} switchHref={switchHref} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
 
       <main className="mx-auto max-w-container px-5 pb-24 pt-32 md:px-16">

@@ -4,6 +4,7 @@ import { draftMode } from "next/headers";
 import { getRankedProducts } from "@/lib/queries";
 import { getContent, contentKey, type SiteContent } from "@/lib/content";
 import { UI, localePath, type Locale } from "@/lib/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "./site-chrome";
 import { HomeGrid } from "./home-grid";
@@ -60,7 +61,7 @@ export async function HomeView({ locale }: { locale: Locale }) {
       <SiteNav locale={locale} switchHref={locale === "en" ? "/" : "/en"} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
 
       <main className="mx-auto max-w-container px-5 pb-24 pt-32 md:px-16">

@@ -8,6 +8,7 @@ import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { marked } from "marked";
+import { isSafeSlug, parseFrontmatter } from "./blog-parsing";
 
 export type BlogLocale = "nl" | "en";
 
@@ -25,22 +26,6 @@ export type BlogPost = {
   nlSlug: string | null; // alleen bij Engelse artikelen: slug van het origineel
   html: string;
 };
-
-// Leest het blok tussen --- en --- bovenaan het bestand (frontmatter).
-function parseFrontmatter(raw: string): {
-  meta: Record<string, string>;
-  body: string;
-} {
-  const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
-  if (!match) return { meta: {}, body: raw };
-  const meta: Record<string, string> = {};
-  for (const line of match[1].split(/\r?\n/)) {
-    const idx = line.indexOf(":");
-    if (idx === -1) continue;
-    meta[line.slice(0, idx).trim()] = line.slice(idx + 1).trim();
-  }
-  return { meta, body: raw.slice(match[0].length) };
-}
 
 async function readPost(
   filename: string,
@@ -85,7 +70,7 @@ export async function getPostBySlug(
   locale: BlogLocale = "nl"
 ): Promise<BlogPost | null> {
   // Alleen veilige slugs toestaan (geen paden buiten de blogmap).
-  if (!/^[a-z0-9-]+$/.test(slug)) return null;
+  if (!isSafeSlug(slug)) return null;
   try {
     return await readPost(`${slug}.md`, locale);
   } catch {

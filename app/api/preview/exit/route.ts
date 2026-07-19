@@ -2,11 +2,12 @@
 import { NextRequest } from "next/server";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
+import { safeInternalPath } from "@/lib/safe-redirect";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   draftMode().disable();
-  const path = req.nextUrl.searchParams.get("path") ?? "/";
-  redirect(path.startsWith("/") ? path : "/");
+  // Alleen interne paden toestaan (voorkomt open-redirect via ?path=//evil.com).
+  redirect(safeInternalPath(req.nextUrl.searchParams.get("path")));
 }

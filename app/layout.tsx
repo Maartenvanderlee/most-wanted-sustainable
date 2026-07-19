@@ -30,6 +30,7 @@ const manrope = Manrope({
 });
 
 import { SITE_URL as BASE } from "@/lib/site";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
@@ -84,7 +85,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.pexels.com" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(orgJsonLd) }}
         />
       </head>
       <body className="bg-background font-body text-on-surface antialiased">
