@@ -33,6 +33,12 @@ function formatMeasurement(m: SourceMeasurement, ui: UIStrings): string {
       return ui.mentionsWeek(n);
     case "google_trends":
       return ui.interest(n);
+    case "wikipedia":
+      return ui.pageviews30d(n);
+    case "gdelt_news":
+      return ui.articlesWeek(n);
+    case "ebay":
+      return ui.listings(n);
   }
 }
 

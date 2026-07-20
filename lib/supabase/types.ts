@@ -5,7 +5,13 @@
 // client-methodes terug op het type 'never'.
 
 export type ProductStatus = "pending" | "approved" | "rejected";
-export type SourceName = "google_trends" | "reddit" | "youtube";
+export type SourceName =
+  | "google_trends"
+  | "reddit"
+  | "youtube"
+  | "wikipedia"
+  | "gdelt_news"
+  | "ebay";
 export type EventType = "page_view" | "click" | "outbound";
 
 // Handige verkorting voor de "in te voegen rij"-vorm van een tabel.

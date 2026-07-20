@@ -4,3 +4,6 @@ node_modules/
 .env
 .cache/
 *.tsbuildinfo
+
+# Lokale data-exports/backups (scripts/export-archive.mjs)
+data/archive/

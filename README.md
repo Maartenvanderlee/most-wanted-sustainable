@@ -33,6 +33,7 @@ code of in de chat plaatsen; `.env.local` staat in `.gitignore`.
 | `SUPABASE_SERVICE_ROLE_KEY` | Fase 2 | Supabase → API (secret/service_role, geheim) |
 | `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` | Fase 3 | Reddit → prefs/apps (gratis "script" app) — bron nog niet actief, zie CLAUDE.md |
 | `YOUTUBE_API_KEY` | Fase 3 | Google Cloud Console → Credentials |
+| `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET` | optioneel | developer.ebay.com → productie-keyset (extra bron; Wikipedia + GDELT hebben géén sleutel nodig) |
 | `ADMIN_PASSWORD` | Fase 4 | zelf verzinnen (sterk wachtwoord) |
 | `CRON_SECRET` | Fase 3/5 | zelf verzinnen (lange willekeurige tekst) |
 | `NEXT_PUBLIC_SITE_URL` | Fase 4/5 | eigen domein, bv. `https://mostwanted.nl` (voor sitemap/robots/hreflang; leeg = localhost) |
@@ -63,6 +64,7 @@ Overige eenmalige/handmatige scripts:
 |---|---|
 | `node --env-file=.env.local scripts/backfill-trends.mjs` | Haalt 12 maanden Google Trends-historie op per zoekwoord |
 | `node --env-file=.env.local scripts/seed-product-info.mjs` | Vult per product de redactionele velden (beschrijving, duurzame winst, CO2-indicatie, nl+en) — vult alleen lege velden, overschrijft nooit handwerk |
+| `node --env-file=.env.local scripts/export-archive.mjs` | Exporteert alle tabellen naar gedateerde JSON-bestanden in `data/archive/<datum>/` — offline backup voor archivering en jaar-op-jaar rapportage |
 
 ## Database
 

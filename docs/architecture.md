@@ -35,10 +35,13 @@ data/seed-keywords.md          (100 zoektermen, per categorie)
   products (status 'pending')  ── upsert, bestaande producten blijven ongemoeid
         │
         ▼
-  adapters[].fetchSignals()    lib/adapters/{reddit,google-trends,youtube}.ts
+  adapters[].fetchSignals()    lib/adapters/{google-trends,youtube,wikipedia,
+        │                        gdelt,reddit,ebay}.ts
         │                        elke bron faalt geïsoleerd (nooit crashen)
         ▼
-  signals (append-only)        ruwe waarden, nooit genormaliseerd
+  signals (append-only)        ruwe waarden, nooit genormaliseerd; opslag
+        │                        gebeurt PER BRON (aparte insert), zodat een
+        │                        falende bron de rest niet meesleept
         │
         ▼
   computeAndStoreScores()      lib/scoring/score.ts
@@ -130,13 +133,20 @@ docs/                    dit document
 6. **Nieuwe producten krijgen pas een score na ≥2 weken historie.** Zonder
    genoeg metingen is week-op-week groei betekenisloos.
 
-## De trendscore-formule (v1)
+## De trendscore-formule (v3)
 
 ```
-score = 0.45 * norm(googleTrendsGroei)
-      + 0.30 * norm(redditMentionsGroei)
+score = 0.40 * norm(googleTrendsGroei)
       + 0.25 * norm(youtubeViewsGroei)
+      + 0.20 * norm(wikipediaPageviewsGroei)
+      + 0.15 * norm(gdeltNieuwsvolumeGroei)
 ```
+
+Bronspreiding is een bewuste keuze: valt Google Trends weg, dan komt nog 60%
+van het signaal uit YouTube, Wikipedia en GDELT. Wikipedia en GDELT vereisen
+geen API-sleutel. Reddit en eBay hebben werkende adapters maar staan op
+standby (sleutels nodig) en wegen pas mee vanaf v4. De actuele gewichten
+staan in `lib/scoring/version.ts` (`WEIGHTS`).
 
 - **Groei** = week-op-week procentuele verandering van de ruwe waarde.
 - **norm()** = min-max normalisatie naar 0–100 over de hele productset van die
@@ -306,6 +316,18 @@ een test bij.
   ontbrekend zoekwoord wordt netjes overgeslagen. Een eenmalige backfill
   (`scripts/backfill-trends.mjs`) heeft 12 maanden historie opgehaald voor
   bewijsvoering richting eventuele data-afnemers.
+- **Wikipedia** (geen sleutel nodig) is een stabiele bron met echte cijfers;
+  een zoekwoord zonder passend artikel levert simpelweg geen signaal (scoort
+  0 voor dat onderdeel). **GDELT** (geen sleutel nodig) is best-effort: de API
+  staat maximaal 1 verzoek per 5 seconden toe, dus de adapter draait strikt
+  serieel met een intern tijdsbudget en levert wat binnen dat budget past.
+  **eBay** en **Reddit** hebben werkende adapters maar slaan zichzelf over
+  zonder sleutels (standby).
+- **Lange-termijn databorging.** `signals` en `scores` zijn append-only, dus de
+  historie staat al vast in de database. Als extra verzekering dumpt
+  `scripts/export-archive.mjs` alle tabellen naar gedateerde JSON-bestanden in
+  `data/archive/<datum>/` (buiten git) — voor offline backup en jaar-op-jaar
+  rapportage: bewaar een export en vergelijk later met een verse.
 - De **cache** is een bestandscache (`.cache/`), prima voor ontwikkeling. Op
   Vercel is het bestandssysteem vluchtig; overweeg de Supabase-tabel
   `raw_cache` uit de skill voor productie.

@@ -7,7 +7,25 @@ description: Use when calculating, changing, or displaying the trend score, rank
 
 The score measures **acceleration, not volume**. A product climbing fast beats a product that is merely big. This principle is non-negotiable.
 
-## Formula (current version: v1)
+## Formula (current version: v3 — see lib/scoring/version.ts)
+
+```
+score = 0.40 * norm(googleTrendsGrowth)
+      + 0.25 * norm(youtubeViewsGrowth)
+      + 0.20 * norm(wikipediaPageviewsGrowth)
+      + 0.15 * norm(gdeltNewsVolumeGrowth)
+```
+
+Weights live in `lib/scoring/version.ts` (the `WEIGHTS` map — only active
+sources appear there, and they must sum to 1). History:
+- v1: Google Trends 45 / Reddit 30 / YouTube 25 (Reddit never went live).
+- v2: Reddit dropped (blocks anon + needs commercial approval); reweighted to
+  Google Trends 65 / YouTube 35.
+- v3: source diversification. Added Wikipedia and GDELT (both free, no key) so
+  the score survives if Google Trends breaks. Reddit and eBay adapters exist
+  but stay on standby (need keys) until v4 adds them to the weights.
+
+The original v1 formula, for reference:
 
 ```
 score = 0.45 * norm(googleTrendsGrowth)

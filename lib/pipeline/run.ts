@@ -79,25 +79,31 @@ export async function runPipeline(
     allSignals.push(...result.signals);
   }
 
-  // 4. Ruwe signalen opslaan (append-only).
-  const signalRows = allSignals
-    .map((sig): TablesInsert<"signals"> | null => {
-      const productId = idBySlug.get(slugify(sig.keyword));
-      if (!productId) return null;
-      return {
-        product_id: productId,
-        source: sig.source,
-        value: sig.value,
-        measured_at: sig.measuredAt,
-      };
-    })
-    .filter((r): r is TablesInsert<"signals"> => r !== null);
+  // 4. Ruwe signalen opslaan (append-only), PER BRON in een aparte insert.
+  //    Zo blijft een bron geïsoleerd: als één bron faalt bij het opslaan
+  //    (bijvoorbeeld een nieuwe enum-waarde die pas ná de deploy via een
+  //    migratie in de database komt), verliezen we alleen die bron en
+  //    blijven de andere bronnen gewoon bewaard.
+  const rowsBySource = new Map<string, TablesInsert<"signals">[]>();
+  for (const sig of allSignals) {
+    const productId = idBySlug.get(slugify(sig.keyword));
+    if (!productId) continue;
+    const row: TablesInsert<"signals"> = {
+      product_id: productId,
+      source: sig.source,
+      value: sig.value,
+      measured_at: sig.measuredAt,
+    };
+    const list = rowsBySource.get(sig.source) ?? [];
+    list.push(row);
+    rowsBySource.set(sig.source, list);
+  }
 
   let signalsStored = 0;
-  if (signalRows.length > 0) {
-    const { error: signalError } = await supabase.from("signals").insert(signalRows);
-    if (signalError) errors.push(`Signalen opslaan: ${signalError.message}`);
-    else signalsStored = signalRows.length;
+  for (const [source, rows] of rowsBySource) {
+    const { error: signalError } = await supabase.from("signals").insert(rows);
+    if (signalError) errors.push(`Signalen opslaan (${source}): ${signalError.message}`);
+    else signalsStored += rows.length;
   }
 
   // 5. Trendscore berekenen voor vandaag.

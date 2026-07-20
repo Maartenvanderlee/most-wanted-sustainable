@@ -4,6 +4,31 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Na livegang] — Bronspreiding en databorging
+
+- Trendscore-formule **v3**: bronspreiding om minder afhankelijk te zijn van
+  één (wankele) bron. Twee nieuwe, onafhankelijke gratis bronnen toegevoegd —
+  **Wikipedia** (paginaweergaven van het best passende artikel, 30 dagen) en
+  **GDELT** (wereldwijd nieuwsvolume over het zoekwoord, 1 week). Google Trends
+  weegt bewust minder zwaar (65% → 40%); nieuwe verdeling: Google Trends 40%,
+  YouTube 25%, Wikipedia 20%, GDELT 15%. Als Google Trends uitvalt, komt nog
+  60% van het signaal uit de andere drie bronnen. Wikipedia en GDELT hebben
+  geen API-sleutel nodig. Migratie `0012_new_sources.sql` breidt de
+  `source_name`-enum uit. Methodologie (nl+en) bijgewerkt.
+- **eBay-adapter** toegevoegd als vierde nieuwe bron (aantal actieve
+  aanbiedingen = commerce-signaal). Staat klaar maar weegt nog niet mee: hij
+  vereist gratis eBay-developersleutels (`EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET`)
+  en slaat zichzelf over zolang die ontbreken — net als de Reddit-adapter.
+- **Signalen worden nu per bron opgeslagen** (aparte insert per bron) i.p.v.
+  in één keer. Zo blijft een bron geïsoleerd: faalt het opslaan van één bron
+  (bijvoorbeeld een nieuwe enum-waarde die pas ná de deploy via een migratie
+  in de database komt), dan blijven de andere bronnen gewoon bewaard.
+- **Lange-termijn databorging**: `scripts/export-archive.mjs` dumpt de volledige
+  inhoud van products, signals, scores, curation_history en de overige tabellen
+  naar gedateerde JSON-bestanden in `data/archive/<datum>/` — een offline backup
+  naast de reeds append-only tabellen, voor archivering en jaar-op-jaar
+  rapportage. (De map staat in `.gitignore`.)
+
 ## [Na livegang] — Content, internationalisering, CMS en beveiliging
 
 - **Productinformatie per product** (migratie `0010`): korte beschrijving +

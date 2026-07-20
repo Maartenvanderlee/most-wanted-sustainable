@@ -53,7 +53,21 @@ export default function MethodologiePage() {
                 <strong>YouTube</strong> — het aantal weergaven van recente
                 video&apos;s ({Math.round((WEIGHTS.youtube ?? 0) * 100)}%)
               </li>
+              <li>
+                <strong>Wikipedia</strong> — de paginaweergaven van het best
+                passende artikel ({Math.round((WEIGHTS.wikipedia ?? 0) * 100)}%)
+              </li>
+              <li>
+                <strong>Nieuws (GDELT)</strong> — hoeveel de wereldwijde
+                nieuwsmedia over het product berichten (
+                {Math.round((WEIGHTS.gdelt_news ?? 0) * 100)}%)
+              </li>
             </ul>
+            <p className="mt-3">
+              We gebruiken meerdere onafhankelijke bronnen met opzet: valt er
+              eentje tijdelijk uit, dan blijft de score overeind op de overige.
+              Geen enkele bron bepaalt in z&apos;n eentje de uitkomst.
+            </p>
             <p className="mt-3">
               We vergelijken de meting van deze week met die van vorige week. Die
               groei zetten we per bron om naar een cijfer van 0 tot 100, tellen we

@@ -103,6 +103,9 @@ export const UI = {
     views30d: (n: string) => `${n} weergaven (30 dagen)`,
     mentionsWeek: (n: string) => `${n} vermeldingen (week)`,
     interest: (n: string) => `interesse ${n}/100`,
+    pageviews30d: (n: string) => `${n} paginaweergaven (30 dagen)`,
+    articlesWeek: (n: string) => `${n} nieuwsartikelen (week)`,
+    listings: (n: string) => `${n} aanbiedingen`,
     chartTitle: "Trendscore — laatste 30 dagen",
     chartEmpty: "De grafiek verschijnt zodra er meerdere dagen aan metingen zijn.",
     chartAria: "Trendscore over tijd",
@@ -162,6 +165,9 @@ export const UI = {
     views30d: (n: string) => `${n} views (30 days)`,
     mentionsWeek: (n: string) => `${n} mentions (week)`,
     interest: (n: string) => `interest ${n}/100`,
+    pageviews30d: (n: string) => `${n} page views (30 days)`,
+    articlesWeek: (n: string) => `${n} news articles (week)`,
+    listings: (n: string) => `${n} listings`,
     chartTitle: "Trend score — last 30 days",
     chartEmpty: "The chart appears once several days of measurements exist.",
     chartAria: "Trend score over time",
@@ -192,6 +198,9 @@ export function sourceLabel(source: SourceName): string {
     google_trends: "Google Trends",
     youtube: "YouTube",
     reddit: "Reddit",
+    wikipedia: "Wikipedia",
+    gdelt_news: "Nieuws (GDELT)",
+    ebay: "eBay",
   };
   return labels[source];
 }

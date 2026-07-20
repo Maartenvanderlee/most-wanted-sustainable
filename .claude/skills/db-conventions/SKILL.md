@@ -14,9 +14,11 @@ description: Use when creating or changing database tables, columns, migrations,
 
 ## Core schema
 
-Current as of migration `0010_product_description.sql`. Every table below is
-real — re-derived from `supabase/migrations/` on 2026-07-19; if you add a
-migration, update this block in the same change.
+Current as of migration `0012_new_sources.sql`. Every table below is
+real — re-derived from `supabase/migrations/`; if you add a
+migration, update this block in the same change. (0011 adds the
+`curation_history` table; 0012 adds `wikipedia`/`gdelt_news`/`ebay` to the
+`source_name` enum.)
 
 ```sql
 products (
@@ -46,7 +48,8 @@ products (
 signals (
   id uuid PK,
   product_id uuid REFERENCES products,
-  source source_name NOT NULL,       -- google_trends | youtube | reddit
+  source source_name NOT NULL,       -- google_trends | youtube | reddit |
+                                     -- wikipedia | gdelt_news | ebay   (0012)
   value numeric NOT NULL,            -- raw value, never normalized
   measured_at timestamptz NOT NULL
 )
@@ -114,6 +117,17 @@ admin_login_attempts (                -- brute-force throttle (0009)
   ip text NOT NULL,
   created_at timestamptz DEFAULT now()
 )
+
+curation_history (                    -- append-only curation log (0011)
+  id uuid PK,
+  product_slug text NOT NULL,
+  product_name text NOT NULL,
+  decision text NOT NULL,             -- approved | rejected
+  reason text,
+  decided_at timestamptz DEFAULT now()
+)
+-- Never overwritten: every approve/reject is a new row. Powers the "this was
+-- rejected before" warning in /admin. Service-role only, no anon policy.
 ```
 
 ## Rules

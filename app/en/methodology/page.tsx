@@ -55,7 +55,21 @@ export default function MethodologyPage() {
                 <strong>YouTube</strong> — views of recent videos (
                 {Math.round((WEIGHTS.youtube ?? 0) * 100)}%)
               </li>
+              <li>
+                <strong>Wikipedia</strong> — page views of the best-matching
+                article ({Math.round((WEIGHTS.wikipedia ?? 0) * 100)}%)
+              </li>
+              <li>
+                <strong>News (GDELT)</strong> — how much the world&apos;s news
+                media report on the product (
+                {Math.round((WEIGHTS.gdelt_news ?? 0) * 100)}%)
+              </li>
             </ul>
+            <p className="mt-3">
+              We deliberately use several independent sources: if one drops out
+              temporarily, the score holds up on the others. No single source
+              determines the outcome on its own.
+            </p>
             <p className="mt-3">
               We compare this week&apos;s measurement with last week&apos;s. That
               growth is converted per source to a figure from 0 to 100, added up

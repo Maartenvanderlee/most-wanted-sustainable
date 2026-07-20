@@ -4,5 +4,16 @@ import type { SourceAdapter } from "./types";
 import { adapter as googleTrends } from "./google-trends";
 import { adapter as reddit } from "./reddit";
 import { adapter as youtube } from "./youtube";
+import { adapter as wikipedia } from "./wikipedia";
+import { adapter as gdelt } from "./gdelt";
+import { adapter as ebay } from "./ebay";
 
-export const adapters: SourceAdapter[] = [googleTrends, reddit, youtube];
+// reddit en ebay slaan zichzelf over zonder API-sleutels (staan klaar).
+export const adapters: SourceAdapter[] = [
+  googleTrends,
+  youtube,
+  wikipedia,
+  gdelt,
+  reddit,
+  ebay,
+];
