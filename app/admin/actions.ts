@@ -121,6 +121,14 @@ export async function updateDetails(formData: FormData): Promise<void> {
   const imageUrl = String(formData.get("image_url") ?? "").trim() || null;
   const lifespan = String(formData.get("lifespan") ?? "").trim() || null;
   const endOfLife = String(formData.get("end_of_life") ?? "").trim() || null;
+  const textField = (name: string) =>
+    String(formData.get(name) ?? "").trim() || null;
+  const description = textField("description");
+  const descriptionEn = textField("description_en");
+  const whySustainable = textField("why_sustainable");
+  const whySustainableEn = textField("why_sustainable_en");
+  const co2Note = textField("co2_note");
+  const co2NoteEn = textField("co2_note_en");
 
   // Aangevinkte keurmerken + los ingevoerde kenmerken samenvoegen tot tags.
   // Alleen bekende keurmerk-slugs toestaan: dit voorkomt dat een onverwachte
@@ -144,6 +152,12 @@ export async function updateDetails(formData: FormData): Promise<void> {
       image_url: imageUrl,
       lifespan,
       end_of_life: endOfLife,
+      description,
+      description_en: descriptionEn,
+      why_sustainable: whySustainable,
+      why_sustainable_en: whySustainableEn,
+      co2_note: co2Note,
+      co2_note_en: co2NoteEn,
     })
     .eq("id", id);
   if (error) throw new Error(error.message);

@@ -20,6 +20,12 @@ export type ProductRow = {
   rejection_reason: string | null;
   lifespan: string | null;
   end_of_life: string | null;
+  description: string | null;
+  description_en: string | null;
+  why_sustainable: string | null;
+  why_sustainable_en: string | null;
+  co2_note: string | null;
+  co2_note_en: string | null;
   created_at: string;
 };
 

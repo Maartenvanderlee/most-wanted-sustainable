@@ -81,7 +81,16 @@ export function SiteNav({
             </Link>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Op mobiel staat "Ranglijst/Methodologie/Blog" hierboven verborgen
+              (hidden md:flex); deze knop houdt de blog ook op kleine schermen
+              met één tik bereikbaar in plaats van alleen onderin de footer. */}
+          <Link
+            href={t.blogHref}
+            className="rounded-full border border-outline-variant/50 px-3 py-1.5 text-sm font-semibold text-on-surface-variant transition-colors hover:text-primary md:hidden"
+          >
+            {t.blog}
+          </Link>
           <Link
             href={otherLocaleHref}
             title={t.switchTitle}
@@ -91,7 +100,7 @@ export function SiteNav({
           </Link>
           <Link
             href={t.newsletterHref}
-            className="rounded-full bg-primary-container px-6 py-2.5 font-semibold text-on-primary shadow-md transition-all hover:opacity-90"
+            className="rounded-full bg-primary-container px-4 py-2.5 font-semibold text-on-primary shadow-md transition-all hover:opacity-90 sm:px-6"
           >
             {t.newsletter}
           </Link>
