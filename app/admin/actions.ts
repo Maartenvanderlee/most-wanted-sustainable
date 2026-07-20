@@ -70,6 +70,16 @@ export async function setStatus(formData: FormData): Promise<void> {
   const reason = String(formData.get("rejection_reason") ?? "").trim() || null;
 
   const supabase = createServerClient();
+
+  // Slug/naam zelf opzoeken (niet uit het formulier vertrouwen) zodat de
+  // curatiegeschiedenis altijd het echte product beschrijft.
+  const { data: product, error: lookupError } = await supabase
+    .from("products")
+    .select("slug, name")
+    .eq("id", id)
+    .single();
+  if (lookupError) throw new Error(lookupError.message);
+
   const { error } = await supabase
     .from("products")
     .update({
@@ -78,6 +88,19 @@ export async function setStatus(formData: FormData): Promise<void> {
     })
     .eq("id", id);
   if (error) throw new Error(error.message);
+
+  // Append-only: elke beslissing komt er als NIEUWE rij bij, nooit een
+  // overschrijving. Zo blijft de volledige geschiedenis van een product
+  // (ook na meerdere afwijzingen) bewaard voor toekomstige curatie.
+  if (status === "approved" || status === "rejected") {
+    const { error: historyError } = await supabase.from("curation_history").insert({
+      product_slug: product.slug,
+      product_name: product.name,
+      decision: status,
+      reason: status === "rejected" ? reason : null,
+    });
+    if (historyError) throw new Error(historyError.message);
+  }
 
   revalidatePath("/admin");
   revalidatePath("/");

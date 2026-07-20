@@ -18,6 +18,7 @@ import {
   updateDetails,
 } from "./actions";
 import { LoginForm } from "./login-form";
+import { ApproveButton } from "./approve-button";
 
 export const dynamic = "force-dynamic";
 // Ruime limiet: "Foto's automatisch invullen" doet tot 100 zoekopdrachten.
@@ -62,6 +63,19 @@ export default async function AdminPage() {
     const list = offersByProduct.get(row.product_id) ?? [];
     list.push(row);
     offersByProduct.set(row.product_id, list);
+  }
+
+  // Curatiegeschiedenis per product-slug (append-only: alle beslissingen
+  // ooit, nieuwste eerst). Gebruikt voor de waarschuwing bij goedkeuren.
+  const { data: historyData } = await supabase
+    .from("curation_history")
+    .select("product_slug, decision, reason, decided_at")
+    .order("decided_at", { ascending: false });
+  const historyBySlug = new Map<string, HistoryEntry[]>();
+  for (const row of historyData ?? []) {
+    const list = historyBySlug.get(row.product_slug) ?? [];
+    list.push(row);
+    historyBySlug.set(row.product_slug, list);
   }
 
   // Pending eerst, dan approved, dan rejected.
@@ -126,6 +140,7 @@ export default async function AdminPage() {
             product={p}
             evidence={evidenceByProduct.get(p.id) ?? []}
             offers={offersByProduct.get(p.id) ?? []}
+            history={historyBySlug.get(p.slug) ?? []}
           />
         ))}
       </div>
@@ -183,15 +198,50 @@ type Offer = {
   price: number | null;
 };
 
+type HistoryEntry = {
+  product_slug: string;
+  decision: "approved" | "rejected";
+  reason: string | null;
+  decided_at: string;
+};
+
+function formatHistoryDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("nl-NL", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+// Bouwt de tekst voor de bevestigingspop-up uit alle eerdere afwijzingen
+// van dit product (cumulatief — elke afwijzing ooit, niet alleen de laatste).
+function buildWarningText(name: string, history: HistoryEntry[]): string | null {
+  const rejections = history.filter((h) => h.decision === "rejected");
+  if (rejections.length === 0) return null;
+
+  const lines = rejections.map(
+    (r) => `• ${formatHistoryDate(r.decided_at)}: ${r.reason ?? "(geen reden genoteerd)"}`
+  );
+  return (
+    `Let op: "${name}" is eerder ${rejections.length > 1 ? `${rejections.length} keer` : "al eens"} afgewezen.\n\n` +
+    lines.join("\n") +
+    `\n\nWeet je zeker dat je dit product nu wilt goedkeuren?`
+  );
+}
+
 function ProductCard({
   product,
   evidence,
   offers,
+  history,
 }: {
   product: ProductRow;
   evidence: CertEvidence[];
   offers: Offer[];
+  history: HistoryEntry[];
 }) {
+  const priorRejections = history.filter((h) => h.decision === "rejected");
+  const warningText = buildWarningText(product.name, history);
   const categoryLabel = isCategory(product.category)
     ? CATEGORY_LABELS[product.category]
     : product.category;
@@ -219,6 +269,24 @@ function ProductCard({
         <p className="mb-3 text-sm text-error">
           Reden: {product.rejection_reason}
         </p>
+      )}
+
+      {priorRejections.length > 0 && product.status !== "rejected" && (
+        <div className="mb-3 rounded-lg border border-error/40 bg-error-container/20 p-3 text-sm text-on-error-container">
+          <p className="font-semibold">
+            ⚠ Dit product is eerder{" "}
+            {priorRejections.length > 1 ? `${priorRejections.length} keer` : "al eens"}{" "}
+            afgewezen:
+          </p>
+          <ul className="mt-1.5 list-disc space-y-1 pl-5">
+            {priorRejections.map((r, i) => (
+              <li key={i}>
+                <span className="text-xs opacity-80">{formatHistoryDate(r.decided_at)}:</span>{" "}
+                {r.reason ?? "(geen reden genoteerd)"}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
 
       {/* Foto, keurmerken, kenmerken en koop-link bewerken */}
@@ -465,9 +533,7 @@ function ProductCard({
         <form action={setStatus}>
           <input type="hidden" name="id" value={product.id} />
           <input type="hidden" name="status" value="approved" />
-          <button className="rounded-full bg-primary-container px-4 py-1.5 text-sm font-semibold text-on-primary hover:opacity-90">
-            Goedkeuren
-          </button>
+          <ApproveButton warningText={warningText} />
         </form>
 
         <form action={setStatus} className="flex items-end gap-2">

@@ -191,6 +191,28 @@ export type Database = {
         >;
         Relationships: [];
       };
+      curation_history: {
+        Row: {
+          id: string;
+          product_slug: string;
+          product_name: string;
+          decision: "approved" | "rejected";
+          reason: string | null;
+          decided_at: string;
+        };
+        Insert: {
+          id?: string;
+          product_slug: string;
+          product_name: string;
+          decision: "approved" | "rejected";
+          reason?: string | null;
+          decided_at?: string;
+        };
+        Update: Partial<
+          Database["public"]["Tables"]["curation_history"]["Insert"]
+        >;
+        Relationships: [];
+      };
       events: {
         Row: {
           id: string;
