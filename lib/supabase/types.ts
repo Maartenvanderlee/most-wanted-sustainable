@@ -40,6 +40,8 @@ export type Database = {
           why_sustainable_en: string | null;
           co2_note: string | null;
           co2_note_en: string | null;
+          co2_kg_per_year: number | null;
+          annual_saving_eur: number | null;
           created_at: string;
         };
         Insert: {
@@ -60,6 +62,8 @@ export type Database = {
           why_sustainable_en?: string | null;
           co2_note?: string | null;
           co2_note_en?: string | null;
+          co2_kg_per_year?: number | null;
+          annual_saving_eur?: number | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["products"]["Insert"]>;

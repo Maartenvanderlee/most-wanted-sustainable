@@ -249,11 +249,43 @@ export async function ProductView({
         </section>
 
         {/* Duurzame winst t.o.v. het gangbare alternatief */}
-        {(whySustainable || co2Note) && (
+        {(whySustainable ||
+          co2Note ||
+          product.co2_kg_per_year ||
+          product.annual_saving_eur) && (
           <section className="mt-8 rounded-xl border border-primary-container/60 bg-primary-container/10 p-6">
             <h2 className="mb-3 font-semibold text-on-background">
               {ui.greenGainTitle}
             </h2>
+            {(product.co2_kg_per_year || product.annual_saving_eur) && (
+              <div className="mb-4">
+                <p className="mb-2 text-sm text-on-surface-variant">
+                  {ui.whatYouGet}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {product.co2_kg_per_year && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-container/25 px-3 py-1.5 text-sm font-semibold text-primary">
+                      <span aria-hidden="true">🌍</span>
+                      {ui.co2PerYear(
+                        Math.round(product.co2_kg_per_year).toLocaleString(
+                          ui.dateLocale
+                        )
+                      )}
+                    </span>
+                  )}
+                  {product.annual_saving_eur && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary-container/30 px-3 py-1.5 text-sm font-semibold text-secondary">
+                      <span aria-hidden="true">💶</span>
+                      {ui.savingPerYear(
+                        Math.round(product.annual_saving_eur).toLocaleString(
+                          ui.dateLocale
+                        )
+                      )}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
             {whySustainable && (
               <p className="mb-3 text-body-md text-on-surface-variant">
                 {whySustainable}
@@ -267,7 +299,7 @@ export async function ProductView({
             )}
             <p className="mt-3 text-xs text-on-surface-variant">
               {ui.co2Disclaimer}{" "}
-              {co2Note && (
+              {(co2Note || product.co2_kg_per_year || product.annual_saving_eur) && (
                 <Link href={ui.sourcesHref} className="text-primary underline">
                   {ui.viewSources}
                 </Link>

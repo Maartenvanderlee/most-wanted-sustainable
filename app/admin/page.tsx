@@ -462,6 +462,43 @@ function ProductCard({
             &quot;indicatieve schatting&quot;. Engels leeg? Dan valt de pagina
             terug op de Nederlandse tekst.
           </p>
+
+          <div className="mt-3 flex flex-col gap-2 border-t border-outline-variant/30 pt-3 sm:flex-row">
+            <label className="block w-full text-xs text-on-surface-variant sm:w-1/2">
+              CO2-besparing per jaar (kg, getal)
+              <input
+                name="co2_kg_per_year"
+                defaultValue={product.co2_kg_per_year ?? ""}
+                placeholder="bv. 24"
+                inputMode="decimal"
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+            <label className="block w-full text-xs text-on-surface-variant sm:w-1/2">
+              Besparing per jaar (€, getal)
+              <input
+                name="annual_saving_eur"
+                defaultValue={product.annual_saving_eur ?? ""}
+                placeholder="bv. 46"
+                inputMode="decimal"
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+          </div>
+          <p className="mt-2 text-[11px] text-on-surface-variant">
+            Optioneel. Ingevuld? Dan tonen we op de productpagina een &quot;wat
+            dit je oplevert&quot;-kaart met deze twee cijfers. Onderbouw ze
+            net als de tekst hierboven, zie{" "}
+            <a
+              href="/bronnen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline"
+            >
+              /bronnen
+            </a>
+            .
+          </p>
         </fieldset>
 
         <label className="block text-xs text-on-surface-variant">

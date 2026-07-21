@@ -133,6 +133,15 @@ docs/                    dit document
 6. **Nieuwe producten krijgen pas een score na ≥2 weken historie.** Zonder
    genoeg metingen is week-op-week groei betekenisloos.
 
+7. **True pricing: alleen cijfers die we kunnen onderbouwen.** `co2_kg_per_year`
+   en `annual_saving_eur` (migratie `0013`) zijn door de admin onderzochte
+   schattingen, net als `co2_note` — geen berekend "verborgen kostenbedrag in
+   euro's". Dat laatste zou een schaduwprijs voor CO2 vereisen (bv. CE Delft's
+   Handboek Milieuprijzen), en dat cijfer hebben we bewust niet in code gezet
+   totdat het handmatig geverifieerd is uit de brontabel — zie `/bronnen` en
+   de sessie-notities voor de exacte PDF-links. Tastbare vergelijkingen
+   (autokilometers, bomen) wachten om dezelfde reden.
+
 ## De trendscore-formule (v3)
 
 ```

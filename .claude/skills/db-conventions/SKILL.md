@@ -14,11 +14,11 @@ description: Use when creating or changing database tables, columns, migrations,
 
 ## Core schema
 
-Current as of migration `0012_new_sources.sql`. Every table below is
+Current as of migration `0013_true_price.sql`. Every table below is
 real — re-derived from `supabase/migrations/`; if you add a
 migration, update this block in the same change. (0011 adds the
 `curation_history` table; 0012 adds `wikipedia`/`gdelt_news`/`ebay` to the
-`source_name` enum.)
+`source_name` enum; 0013 adds `co2_kg_per_year`/`annual_saving_eur`.)
 
 ```sql
 products (
@@ -39,11 +39,17 @@ products (
   why_sustainable_en text,             -- same, English                        (0010)
   co2_note text,                      -- indicative CO2 saving, range only (nl)(0010)
   co2_note_en text,                    -- same, English                        (0010)
+  co2_kg_per_year numeric,            -- indicative CO2 saved per year, kg     (0013)
+  annual_saving_eur numeric,          -- indicative money saved per year, EUR  (0013)
   created_at timestamptz DEFAULT now()
 )
--- description*/why_sustainable*/co2_note* are editorial (admin-filled),
--- always rendered with an "indicative estimate" disclaimer — never a
--- certified measurement. See sustainability-curation skill for claims rules.
+-- description*/why_sustainable*/co2_note*/co2_kg_per_year/annual_saving_eur
+-- are editorial (admin-filled), always rendered with an "indicative estimate"
+-- disclaimer — never a certified measurement. co2_kg_per_year and
+-- annual_saving_eur feed the "what this gets you" card on the product page;
+-- both are optional, no shadow-price/currency conversion is derived from
+-- them yet (see docs/architecture.md true-pricing note). See
+-- sustainability-curation skill for claims rules.
 
 signals (
   id uuid PK,

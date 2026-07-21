@@ -152,6 +152,14 @@ export async function updateDetails(formData: FormData): Promise<void> {
   const whySustainableEn = textField("why_sustainable_en");
   const co2Note = textField("co2_note");
   const co2NoteEn = textField("co2_note_en");
+  // True-pricing cijfers: optioneel, accepteren "24" en "24,5".
+  const numberField = (name: string) => {
+    const raw = String(formData.get(name) ?? "").trim().replace(",", ".");
+    const n = Number(raw);
+    return raw && Number.isFinite(n) && n > 0 ? n : null;
+  };
+  const co2KgPerYear = numberField("co2_kg_per_year");
+  const annualSavingEur = numberField("annual_saving_eur");
 
   // Aangevinkte keurmerken + los ingevoerde kenmerken samenvoegen tot tags.
   // Alleen bekende keurmerk-slugs toestaan: dit voorkomt dat een onverwachte
@@ -181,6 +189,8 @@ export async function updateDetails(formData: FormData): Promise<void> {
       why_sustainable_en: whySustainableEn,
       co2_note: co2Note,
       co2_note_en: co2NoteEn,
+      co2_kg_per_year: co2KgPerYear,
+      annual_saving_eur: annualSavingEur,
     })
     .eq("id", id);
   if (error) throw new Error(error.message);

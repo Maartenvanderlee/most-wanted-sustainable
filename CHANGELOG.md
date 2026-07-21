@@ -4,6 +4,23 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Na livegang] — True pricing, fase 1: wat dit je oplevert
+
+- Twee nieuwe, optionele velden per product (migratie `0013_true_price.sql`):
+  `co2_kg_per_year` (indicatieve CO2-besparing per jaar, kg) en
+  `annual_saving_eur` (indicatieve besparing per jaar, €). Admin-beheerd,
+  zelfde regels als het bestaande `co2_note`-veld: schatting met bandbreedte,
+  nooit een gecertificeerde meting.
+- Op de productpagina verschijnt, zodra een van beide is ingevuld, een
+  compacte "wat dit je oplevert"-kaart (🌍 CO2/jaar, 💶 besparing/jaar) boven
+  de bestaande duurzame-winst-tekst.
+- **Bewust nog niet gebouwd:** een omgerekend "verborgen kostenbedrag" in
+  euro's (vereist een schaduwprijs voor CO2, bv. uit CE Delft's Handboek
+  Milieuprijzen 2023) en tastbare vergelijkingen (autokilometers, bomen). De
+  exacte cijfers konden niet automatisch uit de brondocumenten geverifieerd
+  worden; ze volgen in fase 2 zodra ze handmatig bevestigd zijn. Zie
+  `docs/architecture.md` en `/bronnen`.
+
 ## [Na livegang] — Juridische pagina's en bronvermelding
 
 - **Algemene voorwaarden** (`/voorwaarden` + `/en/terms`): informatief
