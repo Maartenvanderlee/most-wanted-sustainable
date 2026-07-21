@@ -5,7 +5,7 @@ import { HomeView } from "@/app/home-view";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Most Wanted Sustainable — trending sustainable products",
+  title: "Most Wanted Sustainable: trending sustainable products",
   description:
     "Daily ranking of sustainable products accelerating in popularity. Independently curated.",
   alternates: {

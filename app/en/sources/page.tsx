@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Sources — what our CO2 estimates are based on | Most Wanted",
+  title: "Sources: what our CO2 estimates are based on | Most Wanted",
   description:
     "The authoritative sources and life-cycle studies behind our indicative per-product CO2 savings. Full transparency.",
   alternates: {
@@ -21,7 +21,7 @@ const GROUPS: { heading: string; intro: string; sources: Source[] }[] = [
       "The basis under every CO2 comparison: how you measure a product's impact across its whole life (raw material, production, transport, use, waste).",
     sources: [
       {
-        name: "European Commission — Environmental Footprint & JRC",
+        name: "European Commission, Environmental Footprint & JRC",
         url: "https://green-business.ec.europa.eu/environmental-footprint-methods_en",
         what: "The official EU method for measuring a product's environmental footprint.",
       },
@@ -75,7 +75,7 @@ const GROUPS: { heading: string; intro: string; sources: Source[] }[] = [
         what: "Leading research on circular fashion and textile impact.",
       },
       {
-        name: "European Environment Agency — textiles",
+        name: "European Environment Agency, textiles",
         url: "https://www.eea.europa.eu/en/topics/in-depth/textiles",
         what: "European figures on the environmental and climate impact of textiles.",
       },
@@ -120,7 +120,7 @@ export default function SourcesPage() {
               For many products we state an{" "}
               <strong>indicative CO2 saving</strong> compared with the
               conventional, non-sustainable alternative. This page shows what
-              those estimates are based on — for full transparency.
+              those estimates are based on, for full transparency.
             </p>
             <p>
               Important: our figures are <strong>estimates with a range</strong>,
@@ -169,7 +169,7 @@ export default function SourcesPage() {
             </h2>
             <p>
               We keep this list current on purpose. If you see a claim you can
-              back up — or debunk — with a better source, let us know via the
+              back up, or debunk, with a better source, let us know via the
               newsletter page. Corrections only make the list stronger.
             </p>
           </section>

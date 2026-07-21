@@ -1,6 +1,6 @@
 ---
 title: Wat betekenen keurmerken als FSC, GOTS en B Corp eigenlijk?
-description: Een nuchtere uitleg van de bekendste duurzaamheidskeurmerken — wat ze wel en niet garanderen, en hoe je ze zelf controleert.
+description: Een nuchtere uitleg van de bekendste duurzaamheidskeurmerken, wat ze wel en niet garanderen, en hoe je ze zelf controleert.
 date: 2026-07-16
 image: https://images.pexels.com/photos/4406826/pexels-photo-4406826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
@@ -15,16 +15,16 @@ Op onze ranglijst zie je bij veel producten keurmerk-badges staan. Maar wat zegt
 
 **B Corp** certificeert geen product maar een heel bedrijf. Het meet de impact op werknemers, gemeenschap en milieu. Handig om te weten: het zegt iets over de maker, niet automatisch over elk afzonderlijk product.
 
-**EU Ecolabel** is het officiële milieukeurmerk van de Europese Unie, met criteria per productgroep over de hele levenscyclus — van grondstof tot afval.
+**EU Ecolabel** is het officiële milieukeurmerk van de Europese Unie, met criteria per productgroep over de hele levenscyclus, van grondstof tot afval.
 
 **OEKO-TEX** test textiel op schadelijke stoffen. Let op: het zegt iets over je gezondheid, niet per se over het milieu of de productieomstandigheden.
 
 ## Waarom wij keurmerken controleerbaar maken
 
-Een logo op een verpakking is makkelijk gedrukt. Daarom leggen we bij producten op onze lijst waar mogelijk het **registratienummer** vast, met een link naar het openbare register van de certificeerder. Zo kun je zelf nagaan of de claim klopt — precies zoals wij dat tijdens de curatie doen.
+Een logo op een verpakking is makkelijk gedrukt. Daarom leggen we bij producten op onze lijst waar mogelijk het **registratienummer** vast, met een link naar het openbare register van de certificeerder. Zo kun je zelf nagaan of de claim klopt, precies zoals wij dat tijdens de curatie doen.
 
-Geen keurmerk? Dan kan een product alsnog op de lijst komen via onze handmatige checklist — lees hoe dat werkt op de [methodologie-pagina](/methodologie).
+Geen keurmerk? Dan kan een product alsnog op de lijst komen via onze handmatige checklist, lees hoe dat werkt op de [methodologie-pagina](/methodologie).
 
 ## Eén waarschuwing
 
-Een keurmerk is een ondergrens, geen eindoordeel. Het beste product is vaak het product dat je níet koopt omdat je het al hebt. Onze lijst helpt je bij de aankopen die je toch al van plan was — bewuster kiezen, niet méér kopen.
+Een keurmerk is een ondergrens, geen eindoordeel. Het beste product is vaak het product dat je níet koopt omdat je het al hebt. Onze lijst helpt je bij de aankopen die je toch al van plan was, bewuster kiezen, niet méér kopen.

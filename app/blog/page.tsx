@@ -36,13 +36,13 @@ export default async function BlogIndexPage() {
           Blog
         </h1>
         <p className="mb-10 font-body text-body-lg text-on-surface-variant">
-          Achtergrond bij keurmerken, trends en onze werkwijze — nuchter en
+          Achtergrond bij keurmerken, trends en onze werkwijze, nuchter en
           zonder groene marketingpraat.
         </p>
 
         {posts.length === 0 ? (
           <p className="rounded-xl border border-outline-variant/30 bg-surface-container-low p-8 text-center text-on-surface-variant">
-            Nog geen artikelen — binnenkort meer.
+            Nog geen artikelen, binnenkort meer.
           </p>
         ) : (
           <div className="space-y-5">

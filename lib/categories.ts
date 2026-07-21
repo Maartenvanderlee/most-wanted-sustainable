@@ -41,15 +41,15 @@ export function isCategory(value: string): value is Category {
   return (CATEGORIES as string[]).includes(value);
 }
 
-// Korte, unieke introtekst per categoriepagina (SEO — nooit hetzelfde blok).
+// Korte, unieke introtekst per categoriepagina (SEO, nooit hetzelfde blok).
 export const CATEGORY_INTROS: Record<Category, string> = {
-  home: "Duurzame producten voor in en om het huis die nu in populariteit stijgen — van herbruikbare basics tot energiezuinige oplossingen.",
+  home: "Duurzame producten voor in en om het huis die nu in populariteit stijgen, van herbruikbare basics tot energiezuinige oplossingen.",
   personal_care:
     "Persoonlijke verzorging zonder onnodig plastic of wegwerp: de snelst opkomende duurzame alternatieven voor je dagelijkse routine.",
   fashion:
-    "Kleding en accessoires met een kleinere voetafdruk — gerecyclede, biologische en circulaire items die aan populariteit winnen.",
+    "Kleding en accessoires met een kleinere voetafdruk, gerecyclede, biologische en circulaire items die aan populariteit winnen.",
   tech: "Techniek die langer meegaat of op hernieuwbare energie draait: de duurzame gadgets waar de vraag naar toeneemt.",
-  food: "Voeding en keukenbenodigdheden met minder verspilling en verpakking — de duurzame trends die nu opkomen.",
+  food: "Voeding en keukenbenodigdheden met minder verspilling en verpakking, de duurzame trends die nu opkomen.",
 };
 
 // Kleurverloop per categorie voor de placeholder-"foto".

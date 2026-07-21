@@ -1,14 +1,14 @@
 ---
 title: The energy transition hangs from the neighbours' balcony
-description: Balcony solar panels are the most democratic piece of the energy transition — no roof, no installer, no quotes required. What do they actually deliver?
+description: Balcony solar panels are the most democratic piece of the energy transition, no roof, no installer, no quotes required. What do they actually deliver?
 date: 2026-07-05
 image: https://images.pexels.com/photos/15389268/pexels-photo-15389268.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 nl: energietransitie-aan-het-balkon
 ---
 
-*Column — from the perspective of a parent who arranges everything alone, so this too.*
+*Column: from the perspective of a parent who arranges everything alone, so this too.*
 
-The energy transition has a communication problem: it is told in amounts of money most people simply don't have. Heat pumps costing fifteen thousand euros, roof renovations, subsidy desks with waiting lists long enough to raise a second child in. Anyone running a household single-handedly reads those stories the way you read travel features about Patagonia — beautiful, no doubt important, not for now.
+The energy transition has a communication problem: it is told in amounts of money most people simply don't have. Heat pumps costing fifteen thousand euros, roof renovations, subsidy desks with waiting lists long enough to raise a second child in. Anyone running a household single-handedly reads those stories the way you read travel features about Patagonia, beautiful, no doubt important, not for now.
 
 And then, one day, two panels appeared on the neighbours' balcony. No scaffolding, no installer, no quote in triplicate. A bracket, a plug, done.
 
@@ -18,6 +18,6 @@ Earth-shattering it is not. It is, however, more than most people will do for th
 
 There is another return, harder to quantify. Children are poor listeners when it comes to stories about the planet, but they are excellent watchers. An app on the kitchen table showing what the sun earned today does more than ten well-intentioned conversations. Energy becomes something you can *make*, not just something a bill arrives for every month. That idea doesn't wear out; the panels last twenty years, the idea probably longer.
 
-The technology, for the rest, isn't worth studying. Face south or south-west, avoid shade, run the washing machine during the day — that's all.
+The technology, for the rest, isn't worth studying. Face south or south-west, avoid shade, run the washing machine during the day, that's all.
 
 What remains is an observation for the evening walk: count the balconies in the street that catch sun all day and give nothing back. Somewhere in that row, next year, the first panel will appear. The only real question is why it should be the neighbours'.

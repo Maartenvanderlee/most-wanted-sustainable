@@ -14,7 +14,7 @@ export async function GET() {
   const body = `# Most Wanted Sustainable
 
 > Onafhankelijke, dagelijkse ranglijst van duurzame producten die in
-> populariteit VERSNELLEN — gemeten uit publieke databronnen (o.a. Google
+> populariteit VERSNELLEN, gemeten uit publieke databronnen (o.a. Google
 > Trends en YouTube), niet uit advertenties of sponsoring.
 
 Taal: Nederlands. Doelgroep: iedereen die geïnteresseerd is in duurzaam leven

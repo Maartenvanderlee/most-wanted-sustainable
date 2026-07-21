@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Bronnen — waar onze CO2-schattingen op gebaseerd zijn | Most Wanted",
+  title: "Bronnen: waar onze CO2-schattingen op gebaseerd zijn | Most Wanted",
   description:
     "De gezaghebbende bronnen en levenscyclusstudies waarop onze indicatieve CO2-besparingen per product zijn gebaseerd. Volledige transparantie.",
   alternates: {
@@ -21,7 +21,7 @@ const GROUPS: { heading: string; intro: string; sources: Source[] }[] = [
       "De basis onder elke CO2-vergelijking: hoe je de impact van een product over de hele levensloop meet (grondstof, productie, transport, gebruik, afval).",
     sources: [
       {
-        name: "European Commission — Environmental Footprint & JRC",
+        name: "European Commission, Environmental Footprint & JRC",
         url: "https://green-business.ec.europa.eu/environmental-footprint-methods_en",
         what: "De officiële EU-methode voor het meten van de milieuvoetafdruk van producten.",
       },
@@ -75,7 +75,7 @@ const GROUPS: { heading: string; intro: string; sources: Source[] }[] = [
         what: "Toonaangevend onderzoek naar circulaire mode en textielimpact.",
       },
       {
-        name: "European Environment Agency — textiel",
+        name: "European Environment Agency, textiel",
         url: "https://www.eea.europa.eu/en/topics/in-depth/textiles",
         what: "Europese cijfers over de milieu- en klimaatimpact van textiel.",
       },
@@ -120,7 +120,7 @@ export default function BronnenPage() {
               Bij veel producten noemen we een{" "}
               <strong>indicatieve CO2-besparing</strong> ten opzichte van het
               gangbare, niet-duurzame alternatief. Op deze pagina laten we zien
-              waar die schattingen op gebaseerd zijn — voor volledige
+              waar die schattingen op gebaseerd zijn, voor volledige
               transparantie.
             </p>
             <p>
@@ -172,7 +172,7 @@ export default function BronnenPage() {
             <p>
               We houden deze lijst bewust actueel. Zie je een claim die je met
               een betere bron kunt onderbouwen of ontkrachten, laat het ons
-              weten via de nieuwsbrief-pagina — correcties maken de lijst
+              weten via de nieuwsbrief-pagina, correcties maken de lijst
               alleen maar sterker.
             </p>
           </section>

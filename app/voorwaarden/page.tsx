@@ -48,9 +48,9 @@ export default function VoorwaardenPage() {
             </h2>
             <p className="mb-3">
               We stellen onze inhoud met zorg samen, maar alle informatie op de
-              site — waaronder trendscores, productbeschrijvingen,
+              site, waaronder trendscores, productbeschrijvingen,
               duurzaamheidskenmerken en <strong>schattingen van
-              CO2-besparing</strong> — is bedoeld als algemene voorlichting en
+              CO2-besparing</strong>, is bedoeld als algemene voorlichting en
               is <strong>indicatief</strong>.
             </p>
             <p className="mb-3">
@@ -97,8 +97,8 @@ export default function VoorwaardenPage() {
             </h2>
             <p>
               Wij maken, verkopen, leveren of garanderen de vermelde producten
-              niet. Voor de producten zelf — kwaliteit, veiligheid, levering,
-              garantie, en de juistheid van claims van de fabrikant of winkel —
+              niet. Voor de producten zelf, kwaliteit, veiligheid, levering,
+              garantie, en de juistheid van claims van de fabrikant of winkel
               is uitsluitend de verkopende partij verantwoordelijk. Klachten of
               aanspraken over een product richt je aan de winkel waar je het
               koopt.

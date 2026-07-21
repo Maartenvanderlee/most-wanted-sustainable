@@ -4,7 +4,7 @@ import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Methodologie — zo werkt onze trendscore | Most Wanted",
+  title: "Methodologie: zo werkt onze trendscore | Most Wanted",
   description:
     "Uitleg in gewone taal: hoe we duurzame producten rangschikken op versnelling (niet volume), welke bronnen we gebruiken en hoe we greenwashing voorkomen.",
   alternates: {
@@ -46,19 +46,19 @@ export default function MethodologiePage() {
             </p>
             <ul className="space-y-2">
               <li>
-                <strong>Google Trends</strong> — de zoekinteresse in een product
+                <strong>Google Trends</strong>: de zoekinteresse in een product
                 ({Math.round((WEIGHTS.google_trends ?? 0) * 100)}%)
               </li>
               <li>
-                <strong>YouTube</strong> — het aantal weergaven van recente
+                <strong>YouTube</strong>: het aantal weergaven van recente
                 video&apos;s ({Math.round((WEIGHTS.youtube ?? 0) * 100)}%)
               </li>
               <li>
-                <strong>Wikipedia</strong> — de paginaweergaven van het best
+                <strong>Wikipedia</strong>: de paginaweergaven van het best
                 passende artikel ({Math.round((WEIGHTS.wikipedia ?? 0) * 100)}%)
               </li>
               <li>
-                <strong>Nieuws (GDELT)</strong> — hoeveel de wereldwijde
+                <strong>Nieuws (GDELT)</strong>: hoeveel de wereldwijde
                 nieuwsmedia over het product berichten (
                 {Math.round((WEIGHTS.gdelt_news ?? 0) * 100)}%)
               </li>
@@ -79,7 +79,7 @@ export default function MethodologiePage() {
 
           <section>
             <h2 className="mb-2 font-display text-headline-md-mobile text-on-background">
-              Hoe we geld verdienen — en wat dat wél en niet beïnvloedt
+              Hoe we geld verdienen, en wat dat wél en niet beïnvloedt
             </h2>
             <p className="mb-3">
               Volledige openheid: deze site is ook een bedrijf. We verdienen (of
@@ -95,7 +95,7 @@ export default function MethodologiePage() {
               <li>
                 <strong>Sponsoring en advertenties.</strong> Mogelijk werken we in
                 de toekomst met gesponsorde uitingen. Die herken je dan altijd aan
-                een duidelijk label als &quot;gesponsord&quot; — en ze staan nooit
+                een duidelijk label als &quot;gesponsord&quot;, en ze staan nooit
                 vermomd tussen de ranglijst.
               </li>
             </ul>
@@ -107,7 +107,7 @@ export default function MethodologiePage() {
               . De score komt uit publieke data en een vaste formule; ook de
               beoordeling of een product duurzaam genoeg is voor de lijst staat
               volledig los van commerciële afspraken. Een merk kan dus wél bij ons
-              adverteren, maar niet hoger op de lijst komen — die twee werelden
+              adverteren, maar niet hoger op de lijst komen, die twee werelden
               raken elkaar niet.
             </p>
           </section>
@@ -126,7 +126,7 @@ export default function MethodologiePage() {
             <p>
               Producten met misleidende claims of van fast-fashion-merken wijzen
               we af. Op elke productpagina laten we zien wáárom een product op de
-              lijst staat. We schrijven nooit zomaar &quot;duurzaam&quot; — we
+              lijst staat. We schrijven nooit zomaar &quot;duurzaam&quot;, we
               tonen de concrete kenmerken.
             </p>
           </section>
@@ -138,7 +138,7 @@ export default function MethodologiePage() {
             <p>
               Dit is de eerste versie van onze methode (v1). Passen we de formule
               aan, dan werken we deze pagina bij en houden we de oude gegevens
-              intact — de geschiedenis blijft eerlijk zoals gemeten.
+              intact, de geschiedenis blijft eerlijk zoals gemeten.
             </p>
           </section>
         </div>

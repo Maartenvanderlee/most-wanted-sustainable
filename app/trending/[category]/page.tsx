@@ -20,7 +20,7 @@ export async function generateMetadata({
 
   const now = new Date();
   const label = CATEGORY_LABELS[category].toLowerCase();
-  const title = `Trending duurzame ${label} — ${MONTHS_NL[now.getMonth()]} ${now.getFullYear()} | Most Wanted Sustainable`;
+  const title = `Trending duurzame ${label}, ${MONTHS_NL[now.getMonth()]} ${now.getFullYear()} | Most Wanted Sustainable`;
 
   return {
     title: title.slice(0, 60),

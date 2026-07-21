@@ -21,7 +21,7 @@ export async function generateMetadata({
 
   const now = new Date();
   const label = CATEGORY_LABELS_EN[category].toLowerCase();
-  const title = `Trending sustainable ${label} — ${MONTHS_EN[now.getMonth()]} ${now.getFullYear()} | Most Wanted Sustainable`;
+  const title = `Trending sustainable ${label}, ${MONTHS_EN[now.getMonth()]} ${now.getFullYear()} | Most Wanted Sustainable`;
   const description =
     CONTENT_DEFAULTS[`en.trending.${params.category}.intro`] ?? "";
 

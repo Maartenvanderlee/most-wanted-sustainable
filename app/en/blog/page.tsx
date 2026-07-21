@@ -40,7 +40,7 @@ export default async function EnglishBlogIndexPage() {
           Blog
         </h1>
         <p className="mb-2 font-body text-body-lg text-on-surface-variant">
-          Background on certification labels, trends and how we work —
+          Background on certification labels, trends and how we work:
           level-headed, no green marketing fluff.
         </p>
         <p className="mb-10 text-sm text-on-surface-variant">
@@ -51,7 +51,7 @@ export default async function EnglishBlogIndexPage() {
 
         {posts.length === 0 ? (
           <p className="rounded-xl border border-outline-variant/30 bg-surface-container-low p-8 text-center text-on-surface-variant">
-            No articles yet — coming soon.
+            No articles yet, coming soon.
           </p>
         ) : (
           <div className="space-y-5">

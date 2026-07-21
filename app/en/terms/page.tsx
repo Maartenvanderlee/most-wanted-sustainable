@@ -46,9 +46,9 @@ export default function TermsPage() {
               2. Our information is indicative, not a guarantee
             </h2>
             <p className="mb-3">
-              We compile our content with care, but all information on the site —
+              We compile our content with care, but all information on the site,
               including trend scores, product descriptions, sustainability
-              characteristics and <strong>CO2-saving estimates</strong> — is
+              characteristics and <strong>CO2-saving estimates</strong>, is
               intended as general guidance and is <strong>indicative</strong>.
             </p>
             <p className="mb-3">
@@ -94,8 +94,8 @@ export default function TermsPage() {
             </h2>
             <p>
               We do not make, sell, deliver or guarantee the listed products. For
-              the products themselves — quality, safety, delivery, warranty, and
-              the accuracy of the manufacturer&apos;s or shop&apos;s claims — the
+              the products themselves, quality, safety, delivery, warranty, and
+              the accuracy of the manufacturer&apos;s or shop&apos;s claims, the
               selling party is solely responsible. Direct any complaints or
               claims about a product to the shop where you buy it.
             </p>

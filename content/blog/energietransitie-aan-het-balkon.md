@@ -1,13 +1,13 @@
 ---
 title: De energietransitie hangt bij de buren aan het balkon
-description: Balkonpanelen zijn het meest democratische stukje energietransitie — geen dak, geen installateur, geen offerte nodig. Wat levert het echt op?
+description: Balkonpanelen zijn het meest democratische stukje energietransitie, geen dak, geen installateur, geen offerte nodig. Wat levert het echt op?
 date: 2026-07-05
 image: https://images.pexels.com/photos/15389268/pexels-photo-15389268.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 ---
 
-*Column — vanuit het perspectief van een ouder die alles zelf regelt, dus ook dit.*
+*Column: vanuit het perspectief van een ouder die alles zelf regelt, dus ook dit.*
 
-De energietransitie heeft een communicatieprobleem: ze wordt verteld in bedragen die de meeste mensen niet hebben. Warmtepompen van vijftienduizend euro, dakrenovaties, subsidieloketten met wachttijden waar je een tweede kind in kunt opvoeden. Wie in z'n eentje een huishouden draait, leest die verhalen zoals je reisreportages over Patagonië leest — mooi, ongetwijfeld belangrijk, niet voor nu.
+De energietransitie heeft een communicatieprobleem: ze wordt verteld in bedragen die de meeste mensen niet hebben. Warmtepompen van vijftienduizend euro, dakrenovaties, subsidieloketten met wachttijden waar je een tweede kind in kunt opvoeden. Wie in z'n eentje een huishouden draait, leest die verhalen zoals je reisreportages over Patagonië leest, mooi, ongetwijfeld belangrijk, niet voor nu.
 
 En toen hingen er bij de buren ineens twee panelen aan het balkon. Geen steiger, geen installateur, geen offerte in drievoud. Een beugel, een stekker, klaar.
 
@@ -17,6 +17,6 @@ Wereldschokkend is het niet. Het is wel meer dan de meeste mensen dit jaar voor 
 
 Er is nog een opbrengst, lastiger te kwantificeren. Kinderen luisteren slecht naar verhalen over de planeet, maar ze kijken uitstekend. Een app op de keukentafel die laat zien wat de zon vandaag heeft opgebracht, doet meer dan tien goedbedoelde gesprekken. Energie wordt iets wat je kunt máken, niet alleen iets waar elke maand een rekening voor komt. Dat idee slijt niet; de panelen gaan twintig jaar mee, het idee waarschijnlijk langer.
 
-De techniek is verder geen studie waard. Zuid of zuidwest gericht, schaduw vermijden, de wasmachine overdag laten draaien — dat is alles.
+De techniek is verder geen studie waard. Zuid of zuidwest gericht, schaduw vermijden, de wasmachine overdag laten draaien, dat is alles.
 
 Wat rest is een observatie voor tijdens het avondrondje: tel de balkons in de straat die de hele dag zon vangen en niets terugdoen. Ergens in die rij hangt volgend jaar het eerste paneel. De vraag is eigenlijk alleen waarom dat van de buren zou moeten zijn.

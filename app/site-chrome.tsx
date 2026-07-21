@@ -67,7 +67,7 @@ export function SiteNav({
     <nav className="glass-morphism fixed top-0 z-50 w-full shadow-sm">
       <div className="mx-auto flex max-w-container items-center justify-between px-5 py-3 md:px-16">
         <div className="flex items-center gap-8">
-          <Link href={t.homeHref} aria-label="Most Wanted Sustainable — home">
+          <Link href={t.homeHref} aria-label="Most Wanted Sustainable, home">
             <Logo size="nav" />
           </Link>
           <div className="hidden items-center gap-6 md:flex">

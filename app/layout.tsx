@@ -34,7 +34,7 @@ import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
-  title: "Most Wanted Sustainable — trending duurzame producten",
+  title: "Most Wanted Sustainable: trending duurzame producten",
   description:
     "Dagelijkse ranglijst van duurzame producten die in populariteit versnellen. Onafhankelijk samengesteld.",
   openGraph: {
