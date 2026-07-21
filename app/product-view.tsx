@@ -21,6 +21,7 @@ import {
 import { pexelsSized } from "@/lib/pexels";
 import { safeJsonLd } from "@/lib/json-ld";
 import { WEIGHTS } from "@/lib/scoring/version";
+import { formatHiddenCost } from "@/lib/true-price";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 function formatMeasurement(m: SourceMeasurement, ui: UIStrings): string {
@@ -271,6 +272,13 @@ export async function ProductView({
                           ui.dateLocale
                         )
                       )}
+                      <span className="text-xs font-normal opacity-80">
+                        (
+                        {ui.hiddenCost(
+                          formatHiddenCost(product.co2_kg_per_year)
+                        )}
+                        )
+                      </span>
                     </span>
                   )}
                   {product.annual_saving_eur && (

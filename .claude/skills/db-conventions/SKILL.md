@@ -47,9 +47,10 @@ products (
 -- are editorial (admin-filled), always rendered with an "indicative estimate"
 -- disclaimer — never a certified measurement. co2_kg_per_year and
 -- annual_saving_eur feed the "what this gets you" card on the product page;
--- both are optional, no shadow-price/currency conversion is derived from
--- them yet (see docs/architecture.md true-pricing note). See
--- sustainability-curation skill for claims rules.
+-- both are optional. co2_kg_per_year also feeds a computed hidden-cost-in-
+-- euros figure via a cited CO2 shadow price (lib/true-price.ts; see
+-- docs/architecture.md true-pricing note). See sustainability-curation
+-- skill for claims rules.
 
 signals (
   id uuid PK,

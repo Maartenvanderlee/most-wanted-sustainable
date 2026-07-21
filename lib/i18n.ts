@@ -94,6 +94,7 @@ export const UI = {
     greenGainTitle: "Duurzamer dan het gangbare alternatief",
     whatYouGet: "Wat dit je oplevert",
     co2PerYear: (kg: string) => `−${kg} kg CO2 per jaar`,
+    hiddenCost: (eur: string) => `${eur} milieukost`,
     savingPerYear: (eur: string) => `+€${eur} per jaar`,
     co2Label: "Geschatte CO2-besparing:",
     co2Disclaimer:
@@ -161,6 +162,7 @@ export const UI = {
     greenGainTitle: "More sustainable than the conventional alternative",
     whatYouGet: "What this gets you",
     co2PerYear: (kg: string) => `−${kg} kg CO2 per year`,
+    hiddenCost: (eur: string) => `${eur} environmental cost`,
     savingPerYear: (eur: string) => `+€${eur} per year`,
     co2Label: "Estimated CO2 saving:",
     co2Disclaimer:

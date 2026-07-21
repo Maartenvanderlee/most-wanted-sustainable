@@ -43,6 +43,18 @@ const GROUPS: { heading: string; intro: string; sources: Source[] }[] = [
     ],
   },
   {
+    heading: "Price & saving (true pricing)",
+    intro:
+      "Alongside a CO2 saving, some products also show an indicative euro amount for avoided environmental costs. That figure is not a shop price, it's a societal cost estimate.",
+    sources: [
+      {
+        name: "CE Delft, Environmental Prices Handbook 2023",
+        url: "https://ce.nl/wp-content/uploads/2023/03/CE_Delft_220175_Handboek_Milieuprijzen_2023_DEF.pdf",
+        what: "The official Dutch shadow price for CO2: €0.13 per kg CO2-eq. (central estimate, range €0.05-€0.16, 2021 price level). We use the central estimate from Table 1 (p.6) and Table 2 (p.7).",
+      },
+    ],
+  },
+  {
     heading: "Food",
     intro:
       "For claims about plant-based alternatives, meat substitutes and food waste.",

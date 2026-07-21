@@ -135,12 +135,13 @@ docs/                    dit document
 
 7. **True pricing: alleen cijfers die we kunnen onderbouwen.** `co2_kg_per_year`
    en `annual_saving_eur` (migratie `0013`) zijn door de admin onderzochte
-   schattingen, net als `co2_note` — geen berekend "verborgen kostenbedrag in
-   euro's". Dat laatste zou een schaduwprijs voor CO2 vereisen (bv. CE Delft's
-   Handboek Milieuprijzen), en dat cijfer hebben we bewust niet in code gezet
-   totdat het handmatig geverifieerd is uit de brontabel — zie `/bronnen` en
-   de sessie-notities voor de exacte PDF-links. Tastbare vergelijkingen
-   (autokilometers, bomen) wachten om dezelfde reden.
+   schattingen, net als `co2_note`. Het "verborgen kostenbedrag in euro's"
+   op de productpagina is wél berekend, via een schaduwprijs voor CO2
+   (`lib/true-price.ts`, €0,13/kg — CE Delft, Handboek Milieuprijzen 2023,
+   Tabel 1 p.6 en Tabel 2 p.7, middenschatting, prijspeil 2021), handmatig
+   geverifieerd uit de brontabel voordat hij in code ging. Zie `/bronnen`.
+   Tastbare vergelijkingen (autokilometers, bomen) wachten nog op een
+   voldoende betrouwbare bron.
 
 ## De trendscore-formule (v3)
 

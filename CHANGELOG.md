@@ -4,6 +4,25 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Na livegang] — True pricing, fase 2: verborgen milieukost in euro's
+
+- De CO2-schaduwprijs is geverifieerd uit de originele brontabel (niet uit
+  een los zoekresultaat): CE Delft, Handboek Milieuprijzen 2023, Tabel 1
+  (p.6, stofniveau) én Tabel 2 (p.7, midpointniveau) geven onafhankelijk van
+  elkaar dezelfde middenschatting: **€0,13 per kg CO2-eq.** (bandbreedte
+  €0,05-€0,16, prijspeil 2021).
+- Nieuw bestand `lib/true-price.ts`: rekent `co2_kg_per_year` om naar een
+  indicatief eurobedrag aan vermeden milieukosten, met de bronvermelding
+  direct in de code-comment.
+- De "wat dit je oplevert"-kaart op de productpagina toont dit bedrag nu
+  tussen haakjes naast de CO2-chip, bv. "−24 kg CO2 per jaar (±€3
+  milieukost)".
+- Nieuwe bron toegevoegd aan `/bronnen` + `/en/sources` met exacte tabel- en
+  paginaverwijzing, zodat elke bezoeker het zelf kan naslaan.
+- Tastbare vergelijkingen (autokilometers, bomen) staan nog uit: de
+  beschikbare autocijfers golden alleen voor nieuwe auto's uit 2020, niet
+  representatief genoeg voor een gemiddelde rijdende auto.
+
 ## [Na livegang] — True pricing, fase 1: wat dit je oplevert
 
 - Twee nieuwe, optionele velden per product (migratie `0013_true_price.sql`):

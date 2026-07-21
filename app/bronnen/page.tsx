@@ -43,6 +43,18 @@ const GROUPS: { heading: string; intro: string; sources: Source[] }[] = [
     ],
   },
   {
+    heading: "Prijs & besparing (true pricing)",
+    intro:
+      "Naast een CO2-besparing tonen we bij sommige producten ook een indicatief eurobedrag aan vermeden milieukosten. Dat bedrag is geen winkelprijs, maar een maatschappelijke kostprijs.",
+    sources: [
+      {
+        name: "CE Delft, Handboek Milieuprijzen 2023",
+        url: "https://ce.nl/wp-content/uploads/2023/03/CE_Delft_220175_Handboek_Milieuprijzen_2023_DEF.pdf",
+        what: "Officiële Nederlandse schaduwprijs voor CO2: €0,13 per kg CO2-eq. (middenschatting, bandbreedte €0,05-€0,16, prijspeil 2021). Wij gebruiken de middenschatting uit Tabel 1 (p.6) en Tabel 2 (p.7).",
+      },
+    ],
+  },
+  {
     heading: "Voeding",
     intro:
       "Voor claims over plantaardige alternatieven, vleesvervangers en voedselverspilling.",
