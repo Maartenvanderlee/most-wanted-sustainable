@@ -4,6 +4,23 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Na livegang] — Juridische pagina's en bronvermelding
+
+- **Algemene voorwaarden** (`/voorwaarden` + `/en/terms`): informatief
+  platform (geen verkoper), CO2- en duurzaamheidsinformatie is nadrukkelijk
+  indicatief zonder aansprakelijkheid, uitleg hoe we greenwashing tegengaan,
+  geen aansprakelijkheid voor producten van derden, affiliate-disclosure en
+  onafhankelijkheid van de score, externe links, IE, wijzigingen, Nederlands
+  recht. Tweetalig met hreflang.
+- **Bronnenpagina** (`/bronnen` + `/en/sources`): de gezaghebbende bronnen en
+  levenscyclusstudies (o.a. EU Environmental Footprint/JRC, ecoinvent, IPCC,
+  Poore & Nemecek, Milieu Centraal, Ellen MacArthur Foundation, EEA, IEA,
+  RIVM, CE Delft) waarop onze indicatieve CO2-schattingen zijn gebaseerd,
+  gegroepeerd per thema. Vergroot transparantie, geloofwaardigheid en SEO.
+- De **CO2-disclaimer op elke productpagina** linkt nu naar de bronnenpagina
+  ("Bekijk onze bronnen" / "See our sources"). Beide juridische/transparantie-
+  pagina's staan in de footer (nieuwe kolom) en de sitemap.
+
 ## [Na livegang] — Bronspreiding en databorging
 
 - Trendscore-formule **v3**: bronspreiding om minder afhankelijk te zijn van

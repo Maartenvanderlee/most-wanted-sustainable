@@ -123,6 +123,8 @@ export const UI = {
     busy: "Bezig...",
     backToRanking: "← Terug naar de ranglijst",
     methodologyHref: "/methodologie",
+    sourcesHref: "/bronnen",
+    viewSources: "Bekijk onze bronnen",
     dateLocale: "nl-NL",
   },
   en: {
@@ -183,6 +185,8 @@ export const UI = {
     busy: "One moment...",
     backToRanking: "← Back to the ranking",
     methodologyHref: "/en/methodology",
+    sourcesHref: "/en/sources",
+    viewSources: "See our sources",
     dateLocale: "en-GB",
   },
 } as const;

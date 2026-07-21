@@ -266,7 +266,12 @@ export async function ProductView({
               </p>
             )}
             <p className="mt-3 text-xs text-on-surface-variant">
-              {ui.co2Disclaimer}
+              {ui.co2Disclaimer}{" "}
+              {co2Note && (
+                <Link href={ui.sourcesHref} className="text-primary underline">
+                  {ui.viewSources}
+                </Link>
+              )}
             </p>
           </section>
         )}

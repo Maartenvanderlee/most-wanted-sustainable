@@ -16,6 +16,11 @@ const NAV = {
     methodologyHref: "/methodologie",
     blogHref: "/blog",
     newsletterHref: "/#nieuwsbrief",
+    legal: "Transparantie",
+    sources: "Bronnen",
+    sourcesHref: "/bronnen",
+    terms: "Algemene voorwaarden",
+    termsHref: "/voorwaarden",
     switchLabel: "EN",
     switchTitle: "Read this site in English",
     tagline:
@@ -33,6 +38,11 @@ const NAV = {
     methodologyHref: "/en/methodology",
     blogHref: "/en/blog",
     newsletterHref: "/en#nieuwsbrief",
+    legal: "Transparency",
+    sources: "Sources",
+    sourcesHref: "/en/sources",
+    terms: "Terms of use",
+    termsHref: "/en/terms",
     switchLabel: "NL",
     switchTitle: "Lees deze site in het Nederlands",
     tagline:
@@ -138,6 +148,21 @@ export function SiteFooter({ locale = "nl" }: { locale?: Locale }) {
               className="text-on-surface-variant transition-colors hover:text-primary"
             >
               {t.blog}
+            </Link>
+          </div>
+          <div className="flex flex-col gap-3">
+            <span className="font-bold text-primary">{t.legal}</span>
+            <Link
+              href={t.sourcesHref}
+              className="text-on-surface-variant transition-colors hover:text-primary"
+            >
+              {t.sources}
+            </Link>
+            <Link
+              href={t.termsHref}
+              className="text-on-surface-variant transition-colors hover:text-primary"
+            >
+              {t.terms}
             </Link>
           </div>
         </div>
