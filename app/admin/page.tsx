@@ -19,6 +19,7 @@ import {
 } from "./actions";
 import { LoginForm } from "./login-form";
 import { ApproveButton } from "./approve-button";
+import { suggestCo2KgPerYear } from "@/lib/true-price";
 
 export const dynamic = "force-dynamic";
 // Ruime limiet: "Foto's automatisch invullen" doet tot 100 zoekopdrachten.
@@ -178,6 +179,71 @@ function CurationGuide() {
           Schrijf nooit &quot;duurzaam&quot; als absolute claim; de tags tonen op
           de productpagina wáárom een product op de lijst staat.
         </p>
+
+        <div className="border-t border-outline-variant/30 pt-3">
+          <p className="mb-2 font-semibold text-on-background">
+            Veld voor veld: zo controleer je het
+          </p>
+          <ul className="list-disc space-y-2 pl-5">
+            <li>
+              <strong>Foto</strong>: gebruik &quot;Foto&apos;s automatisch
+              invullen&quot; of plak zelf een link. Check: toont de foto écht
+              dit product (niet een lookalike)?
+            </li>
+            <li>
+              <strong>Keurmerken</strong>: alleen aanvinken als je het bewijs
+              vindt. Klik &quot;open register&quot; naast het keurmerk, zoek
+              het merk op, en noteer registratienummer + link naar de
+              registervermelding. Niet vindbaar = niet aanvinken.
+            </li>
+            <li>
+              <strong>Levensduur / na gebruik</strong>: van de fabrikantsite
+              of Milieu Centraal. Bij twijfel een voorzichtige bandbreedte
+              (&quot;5-10 jaar&quot;), nooit een precies getal zonder bron.
+            </li>
+            <li>
+              <strong>Redactionele teksten</strong>: beschrijving = wat is het
+              en waarvoor; duurzame winst = concreet en controleerbaar, nooit
+              vergelijkend (&quot;groener dan X&quot; is verboden); CO2 =
+              altijd een bandbreedte (&quot;5 tot 10 kg per jaar&quot;),
+              afgeleid uit de studies op{" "}
+              <a
+                href="/bronnen"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline"
+              >
+                /bronnen
+              </a>
+              .
+            </li>
+            <li>
+              <strong>CO2 kg/jaar (getal)</strong>: neem het midden van je
+              eigen bandbreedte, de suggestie verschijnt automatisch onder
+              het veld zodra de CO2-tekst een &quot;per jaar&quot;-bandbreedte
+              bevat. Eenmalige besparingen (&quot;per plank&quot;) krijgen
+              bewust geen suggestie: niet invullen.
+            </li>
+            <li>
+              <strong>Besparing €/jaar</strong>: alleen invullen als je de
+              rekensom kunt laten zien: gebruiksfrequentie (publieke bron,
+              bv. een enquête of Nibud) × prijs van het wegwerpalternatief
+              (supermarkt/winkelprijs). Geen bron voor de frequentie? Leeg
+              laten, een leeg veld is eerlijker dan een gok.
+            </li>
+            <li>
+              <strong>Gemiddeld gebruik (100%)</strong>: beschrijf kort waar
+              de schatting van uitgaat, mét bron, bv. &quot;2,9 wasbeurten
+              per week (Stichting HIER)&quot;. Dit is wat de bezoeker naast
+              de schuifregelaar ziet.
+            </li>
+            <li>
+              <strong>Verkoopkanalen</strong>: affiliate-link uit je Bol
+              Partner- of Amazon PartnerNet-dashboard, nooit een kale
+              winkellink. Prijs is indicatief en mag afgerond.
+            </li>
+          </ul>
+        </div>
       </div>
     </details>
   );
@@ -252,6 +318,10 @@ function ProductCard({
     evidence.find((e) => e.certification === cert);
   const offerAt = (position: number) =>
     offers.find((o) => o.position === position);
+  // Automatische, herleidbare suggestie: midden van de "X tot Y kg per
+  // jaar"-bandbreedte uit de eigen CO2-tekst. Geen "per jaar" in de tekst
+  // (bv. eenmalig "per plank")? Dan bewust geen suggestie.
+  const co2Suggestion = suggestCo2KgPerYear(product.co2_note);
 
   return (
     <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm">
@@ -473,6 +543,12 @@ function ProductCard({
                 inputMode="decimal"
                 className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
+              {co2Suggestion !== null && !product.co2_kg_per_year && (
+                <span className="mt-1 block text-[11px] text-primary">
+                  Suggestie: {co2Suggestion.toLocaleString("nl-NL")} — het
+                  midden van je eigen bandbreedte in de CO2-tekst hierboven.
+                </span>
+              )}
             </label>
             <label className="block w-full text-xs text-on-surface-variant sm:w-1/2">
               Besparing per jaar (€, getal)
@@ -485,10 +561,32 @@ function ProductCard({
               />
             </label>
           </div>
+          <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+            <label className="block w-full text-xs text-on-surface-variant sm:w-1/2">
+              Gemiddeld gebruik = 100% (NL, met bron)
+              <input
+                name="usage_basis"
+                defaultValue={product.usage_basis ?? ""}
+                placeholder="bv. 2,9 wasbeurten per week (Stichting HIER)"
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+            <label className="block w-full text-xs text-on-surface-variant sm:w-1/2">
+              Average use = 100% (EN)
+              <input
+                name="usage_basis_en"
+                defaultValue={product.usage_basis_en ?? ""}
+                placeholder="e.g. 2.9 laundry loads per week"
+                className="mt-1 w-full rounded-lg border border-outline-variant/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </label>
+          </div>
           <p className="mt-2 text-[11px] text-on-surface-variant">
             Optioneel. Ingevuld? Dan tonen we op de productpagina een &quot;wat
-            dit je oplevert&quot;-kaart met deze twee cijfers. Onderbouw ze
-            net als de tekst hierboven, zie{" "}
+            dit je oplevert&quot;-kaart met deze cijfers en een
+            schuifregelaar; het &quot;gemiddeld gebruik&quot; vertelt de
+            bezoeker waar 100% voor staat. Onderbouw alles net als de tekst
+            hierboven, zie{" "}
             <a
               href="/bronnen"
               target="_blank"

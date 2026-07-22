@@ -14,11 +14,12 @@ description: Use when creating or changing database tables, columns, migrations,
 
 ## Core schema
 
-Current as of migration `0013_true_price.sql`. Every table below is
+Current as of migration `0014_usage_basis.sql`. Every table below is
 real — re-derived from `supabase/migrations/`; if you add a
 migration, update this block in the same change. (0011 adds the
 `curation_history` table; 0012 adds `wikipedia`/`gdelt_news`/`ebay` to the
-`source_name` enum; 0013 adds `co2_kg_per_year`/`annual_saving_eur`.)
+`source_name` enum; 0013 adds `co2_kg_per_year`/`annual_saving_eur`;
+0014 adds `usage_basis`/`usage_basis_en`.)
 
 ```sql
 products (
@@ -41,6 +42,8 @@ products (
   co2_note_en text,                    -- same, English                        (0010)
   co2_kg_per_year numeric,            -- indicative CO2 saved per year, kg     (0013)
   annual_saving_eur numeric,          -- indicative money saved per year, EUR  (0013)
+  usage_basis text,                   -- what "average use" (100%) means, with
+  usage_basis_en text,                -- source; nl + en                       (0014)
   created_at timestamptz DEFAULT now()
 )
 -- description*/why_sustainable*/co2_note*/co2_kg_per_year/annual_saving_eur

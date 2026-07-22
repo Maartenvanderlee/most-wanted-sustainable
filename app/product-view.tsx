@@ -21,12 +21,8 @@ import {
 import { pexelsSized } from "@/lib/pexels";
 import { safeJsonLd } from "@/lib/json-ld";
 import { WEIGHTS } from "@/lib/scoring/version";
-import {
-  formatHiddenCost,
-  kmEquivalent,
-  treeMonthsEquivalent,
-} from "@/lib/true-price";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
+import { TruePriceCard } from "@/app/true-price-card";
 
 function formatMeasurement(m: SourceMeasurement, ui: UIStrings): string {
   if (m.value === null) return ui.insufficientData;
@@ -262,60 +258,16 @@ export async function ProductView({
             <h2 className="mb-3 font-semibold text-on-background">
               {ui.greenGainTitle}
             </h2>
-            {(product.co2_kg_per_year || product.annual_saving_eur) && (
-              <div className="mb-4">
-                <p className="mb-2 text-sm text-on-surface-variant">
-                  {ui.whatYouGet}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {product.co2_kg_per_year && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-container/25 px-3 py-1.5 text-sm font-semibold text-primary">
-                      <span aria-hidden="true">🌍</span>
-                      {ui.co2PerYear(
-                        Math.round(product.co2_kg_per_year).toLocaleString(
-                          ui.dateLocale
-                        )
-                      )}
-                      <span className="text-xs font-normal opacity-80">
-                        (
-                        {ui.hiddenCost(
-                          formatHiddenCost(product.co2_kg_per_year)
-                        )}
-                        )
-                      </span>
-                    </span>
-                  )}
-                  {product.annual_saving_eur && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary-container/30 px-3 py-1.5 text-sm font-semibold text-secondary">
-                      <span aria-hidden="true">💶</span>
-                      {ui.savingPerYear(
-                        Math.round(product.annual_saving_eur).toLocaleString(
-                          ui.dateLocale
-                        )
-                      )}
-                    </span>
-                  )}
-                </div>
-                {product.co2_kg_per_year && (
-                  <p className="mt-2 text-xs text-on-surface-variant">
-                    {ui.tangibleEquivalent(
-                      kmEquivalent(product.co2_kg_per_year).toLocaleString(
-                        ui.dateLocale
-                      ),
-                      (() => {
-                        const months = treeMonthsEquivalent(
-                          product.co2_kg_per_year
-                        );
-                        if (months < 1) return ui.treeLessThanMonth;
-                        return months < 12
-                          ? ui.treeMonths(months)
-                          : ui.treeYears(Math.round(months / 12));
-                      })()
-                    )}
-                  </p>
-                )}
-              </div>
-            )}
+            <TruePriceCard
+              co2KgPerYear={product.co2_kg_per_year}
+              annualSavingEur={product.annual_saving_eur}
+              usageBasis={
+                locale === "en"
+                  ? product.usage_basis_en ?? product.usage_basis
+                  : product.usage_basis
+              }
+              locale={locale}
+            />
             {whySustainable && (
               <p className="mb-3 text-body-md text-on-surface-variant">
                 {whySustainable}

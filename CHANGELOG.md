@@ -4,6 +4,42 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Na livegang] — True pricing, fase 3: personaliseer-regelaar + eerste cijfers
+
+- De "wat dit je oplevert"-kaart is nu interactief (`app/true-price-card.tsx`,
+  client component): een schuifregelaar (50%-300%, standaard 100%) laat de
+  bezoeker het eigen gebruik aangeven, en alle getallen (kg CO2,
+  milieuschade, €-besparing, autokilometers, boomtijd) schalen live mee.
+- Naast de schuifregelaar staat nu wat "gemiddeld" (100%) betekent: nieuw
+  veld `usage_basis`/`usage_basis_en` (migratie `0014_usage_basis.sql`),
+  admin-beheerd mét bron, bv. "2,9 wasbeurten per week (Stichting HIER)".
+  Leeg = generieke uitleg als terugval.
+- Formulering verbeterd: "±€3 milieukost" heet nu "voorkomt ±€3
+  milieuschade" (nl) / "prevents ±€3 in environmental damage" (en), in één
+  keer duidelijk wat het bedrag betekent.
+- Curatie-handleiding in `/admin` uitgebreid met een veld-voor-veld
+  werkwijze (wat controleer je, waar vind je het bewijs), zodat elke
+  beheerder consistent hetzelfde doet.
+- Automatische, herleidbare suggestie voor het CO2-jaarcijfer: het midden
+  van de "X tot Y kg per jaar"-bandbreedte uit de eigen redactionele
+  CO2-tekst verschijnt onder het invulveld (`suggestCo2KgPerYear`,
+  getest). Eenmalige besparingen ("per plank") krijgen bewust geen
+  suggestie. Verdergaande automatisering (zelf prijzen/frequenties
+  opzoeken met bronlinks) vereist een externe zoek/AI-dienst en blijft een
+  bewuste vervolgkeuze, de mens blijft de poortwachter.
+- Eerste cijfers ingevuld voor de vijf hoogst gerangschikte producten:
+  - CO2 kg/jaar: midden van de al bestaande, door de founder onderzochte
+    bandbreedte in `co2_note` (geen nieuw onderzoek nodig).
+  - Bamboe snijplank oversla­gen: die bandbreedte is expliciet "per plank"
+    (eenmalig), niet "per jaar" — geforceerd omrekenen zou de zorgvuldige
+    formulering verkeerd voorstellen.
+  - €/jaar: alleen ingevuld voor wool dryer balls (€15/jaar = 2,9
+    wasbeurten/week × 52 × €0,10 wasverzachter/beurt; bronnen: Stichting
+    HIER-enquête voor wasfrequentie, supermarktprijzen voor wasverzachter).
+    Voor de overige producten (diepvrieszakjes, toiletpapier, huishoudfolie)
+    bestaat geen betrouwbare, publieke bron voor de gebruiksfrequentie — dat
+    veld is bewust leeg gelaten in plaats van een gok te presenteren als feit.
+
 ## [Na livegang] — True pricing, fase 2b: tastbare vergelijkingen
 
 - Onder de "wat dit je oplevert"-kaart staat nu een regel als "Dat is

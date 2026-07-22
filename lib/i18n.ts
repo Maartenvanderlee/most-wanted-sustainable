@@ -94,13 +94,17 @@ export const UI = {
     greenGainTitle: "Duurzamer dan het gangbare alternatief",
     whatYouGet: "Wat dit je oplevert",
     co2PerYear: (kg: string) => `−${kg} kg CO2 per jaar`,
-    hiddenCost: (eur: string) => `${eur} milieukost`,
+    hiddenCost: (eur: string) => `voorkomt ${eur} milieuschade`,
     savingPerYear: (eur: string) => `+€${eur} per jaar`,
     tangibleEquivalent: (km: string, treeTime: string) =>
       `Dat is ongeveer ${km} km autorijden, of ${treeTime} aan CO2-opname van een boom.`,
     treeLessThanMonth: "minder dan 1 maand",
     treeMonths: (n: number) => `${n} maand${n === 1 ? "" : "en"}`,
     treeYears: (n: number) => `${n} jaar`,
+    personalizeLabel: "Gebruik jij dit vaker of minder vaak dan gemiddeld?",
+    usageBasisLabel: "Gemiddeld gebruik (100%):",
+    usageBasisFallback:
+      "het gebruik waarop de schatting hierboven is gebaseerd",
     co2Label: "Geschatte CO2-besparing:",
     co2Disclaimer:
       "Indicatieve schatting op basis van openbare levenscyclusstudies, inclusief productie en transport, geen gecertificeerde meting. De werkelijke besparing hangt af van gebruik en van wat je ermee vervangt.",
@@ -167,13 +171,16 @@ export const UI = {
     greenGainTitle: "More sustainable than the conventional alternative",
     whatYouGet: "What this gets you",
     co2PerYear: (kg: string) => `−${kg} kg CO2 per year`,
-    hiddenCost: (eur: string) => `${eur} environmental cost`,
+    hiddenCost: (eur: string) => `prevents ${eur} in environmental damage`,
     savingPerYear: (eur: string) => `+€${eur} per year`,
     tangibleEquivalent: (km: string, treeTime: string) =>
       `That's roughly ${km} km of driving, or ${treeTime} of a tree's CO2 uptake.`,
     treeLessThanMonth: "less than 1 month",
     treeMonths: (n: number) => `${n} month${n === 1 ? "" : "s"}`,
     treeYears: (n: number) => `${n} year${n === 1 ? "" : "s"}`,
+    personalizeLabel: "Do you use this more or less than average?",
+    usageBasisLabel: "Average use (100%):",
+    usageBasisFallback: "the usage our estimate above is based on",
     co2Label: "Estimated CO2 saving:",
     co2Disclaimer:
       "Indicative estimate based on public life-cycle studies, including production and transport, not a certified measurement. Actual savings depend on usage and on what you replace.",

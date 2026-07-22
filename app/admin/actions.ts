@@ -160,6 +160,8 @@ export async function updateDetails(formData: FormData): Promise<void> {
   };
   const co2KgPerYear = numberField("co2_kg_per_year");
   const annualSavingEur = numberField("annual_saving_eur");
+  const usageBasis = textField("usage_basis");
+  const usageBasisEn = textField("usage_basis_en");
 
   // Aangevinkte keurmerken + los ingevoerde kenmerken samenvoegen tot tags.
   // Alleen bekende keurmerk-slugs toestaan: dit voorkomt dat een onverwachte
@@ -191,6 +193,8 @@ export async function updateDetails(formData: FormData): Promise<void> {
       co2_note_en: co2NoteEn,
       co2_kg_per_year: co2KgPerYear,
       annual_saving_eur: annualSavingEur,
+      usage_basis: usageBasis,
+      usage_basis_en: usageBasisEn,
     })
     .eq("id", id);
   if (error) throw new Error(error.message);

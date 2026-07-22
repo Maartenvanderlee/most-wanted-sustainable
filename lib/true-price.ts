@@ -50,3 +50,23 @@ export const TREE_CO2_KG_PER_YEAR = 25;
 export function treeMonthsEquivalent(kgPerYear: number): number {
   return Math.round((kgPerYear / TREE_CO2_KG_PER_YEAR) * 12);
 }
+
+// Suggestie voor het veld "CO2-besparing per jaar (kg)" in de admin:
+// het midden van de bandbreedte die al in de redactionele co2_note staat
+// (bv. "5 tot 10 kg per jaar" → 7,5). Deterministisch en herleidbaar: de
+// bron is de eigen, al onderbouwde producttekst — geen nieuwe schatting.
+// Vereist expliciet "per jaar" in de tekst: een eenmalige besparing zoals
+// "2 tot 6 kg per plank" mag nooit als jaarcijfer worden voorgesteld.
+export function suggestCo2KgPerYear(co2Note: string | null): number | null {
+  if (!co2Note || !/per jaar/i.test(co2Note)) return null;
+  const range = co2Note.match(
+    /(\d+(?:[.,]\d+)?)\s*(?:tot|[-–])\s*(\d+(?:[.,]\d+)?)\s*kg/i
+  );
+  if (!range) return null;
+  const lo = Number(range[1].replace(",", "."));
+  const hi = Number(range[2].replace(",", "."));
+  if (!Number.isFinite(lo) || !Number.isFinite(hi) || lo <= 0 || hi < lo) {
+    return null;
+  }
+  return Math.round(((lo + hi) / 2) * 10) / 10;
+}

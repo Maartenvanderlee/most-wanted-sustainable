@@ -28,6 +28,8 @@ export type ProductRow = {
   co2_note_en: string | null;
   co2_kg_per_year: number | null;
   annual_saving_eur: number | null;
+  usage_basis: string | null;
+  usage_basis_en: string | null;
   created_at: string;
 };
 
