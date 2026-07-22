@@ -5,7 +5,7 @@ op een **trendscore die versnelling meet, niet volume** — een product dat hard
 stijgt verslaat een product dat alleen maar groot is. Gebouwd door een
 niet-technische founder samen met Claude Code.
 
-Live: https://most-wanted-sustainable.vercel.app (`/en` voor Engels)
+Live: https://www.risegoods.nl (`/en` voor Engels)
 
 - **Stack:** Next.js 14 (App Router, TypeScript, Tailwind) · Supabase (Postgres) · Vercel · Vitest + GitHub Actions (CI)
 - **Datastroom & ontwerpkeuzes:** zie [`docs/architecture.md`](docs/architecture.md)

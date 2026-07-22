@@ -40,6 +40,6 @@ Next.js 14 (App Router, TypeScript, Tailwind) · Supabase (Postgres) · Vercel (
       (YouTube live; Reddit uitgesteld i.v.m. beleid; Google Trends best-effort)
 - [x] Fase 4: detailpagina's, /methodologie, filters, nieuwsbrief, admin
 - [x] Fase 5: live op Vercel met dagelijkse cron
-      (https://most-wanted-sustainable.vercel.app — pipeline in 2 batches: 06:00 en 06:40 UTC)
+      (https://www.risegoods.nl — pipeline in 2 batches: 06:00 en 06:40 UTC)
 
 Werk deze checklist bij wanneer een fase af is. Het volledige bouwplan met prompts staat in BOUWPLAN.md.

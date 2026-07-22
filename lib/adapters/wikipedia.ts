@@ -8,7 +8,7 @@ import { getCached, setCached } from "./cache";
 
 // Wikimedia vraagt om een herkenbare User-Agent met contactinfo.
 const UA =
-  "most-wanted-sustainable/0.1 (https://most-wanted-sustainable.vercel.app) trend-pipeline";
+  "risegoods/0.1 (https://www.risegoods.nl) trend-pipeline";
 const SEARCH_API = "https://en.wikipedia.org/w/api.php";
 const PAGEVIEWS_API =
   "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user";

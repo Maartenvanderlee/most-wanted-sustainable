@@ -35,7 +35,7 @@ async function newsVolume(keyword: string): Promise<number | null> {
     `&mode=timelinevol&timespan=1w&format=json`;
 
   const res = await fetchWithRetry(url, {
-    headers: { "User-Agent": "most-wanted-sustainable/0.1 trend-pipeline" },
+    headers: { "User-Agent": "risegoods/0.1 trend-pipeline" },
   });
   if (!res) return null;
 

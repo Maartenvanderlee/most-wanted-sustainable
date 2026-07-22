@@ -16,7 +16,7 @@ const SUBREDDITS = [
 ];
 
 // Reddit vereist een herkenbare, unieke User-Agent.
-const USER_AGENT = "windows:most-wanted-sustainable:v0.1 (trend pipeline)";
+const USER_AGENT = "windows:risegoods:v0.1 (trend pipeline)";
 
 type RedditPost = { title?: string; selftext?: string };
 
