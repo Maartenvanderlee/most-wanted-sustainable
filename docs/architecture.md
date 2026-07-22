@@ -1,4 +1,4 @@
-# Architectuur — Most Wanted Sustainable
+# Architectuur — Risegoods
 
 Dit document beschrijft hoe het systeem in elkaar zit, welke keuzes we hebben
 gemaakt en waar je moet zijn om iets te wijzigen of uit te breiden. Bedoeld

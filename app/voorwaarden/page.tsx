@@ -3,9 +3,9 @@ import Link from "next/link";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Algemene voorwaarden | Most Wanted Sustainable",
+  title: "Algemene voorwaarden | Risegoods",
   description:
-    "De voorwaarden voor het gebruik van Most Wanted Sustainable: hoe we greenwashing tegengaan, en waarom onze CO2- en duurzaamheidsinformatie indicatief is en zonder aansprakelijkheid.",
+    "De voorwaarden voor het gebruik van Risegoods: hoe we greenwashing tegengaan, en waarom onze CO2- en duurzaamheidsinformatie indicatief is en zonder aansprakelijkheid.",
   alternates: {
     canonical: "/voorwaarden",
     languages: { nl: "/voorwaarden", en: "/en/terms" },
@@ -33,7 +33,7 @@ export default function VoorwaardenPage() {
               1. Wie we zijn en wat deze site is
             </h2>
             <p>
-              Most Wanted Sustainable (&quot;wij&quot;, &quot;de site&quot;) is
+              Risegoods (&quot;wij&quot;, &quot;de site&quot;) is
               een onafhankelijk, informatief platform dat duurzame producten
               rangschikt op een trendscore die versnelling meet. Wij zijn{" "}
               <strong>geen verkoper</strong>: je kunt bij ons niets kopen. Waar
@@ -142,7 +142,7 @@ export default function VoorwaardenPage() {
             </h2>
             <p>
               De teksten, vormgeving en samengestelde data op deze site zijn van
-              Most Wanted Sustainable, tenzij anders vermeld. Je mag de inhoud
+              Risegoods, tenzij anders vermeld. Je mag de inhoud
               lezen en delen met bronvermelding, maar niet zonder toestemming
               overnemen of commercieel hergebruiken.
             </p>

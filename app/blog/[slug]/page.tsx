@@ -21,9 +21,9 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
-  if (!post) return { title: "Artikel niet gevonden | Most Wanted Sustainable" };
+  if (!post) return { title: "Artikel niet gevonden | Risegoods" };
   const enSlug = (await getTranslationMap()).get(post.slug);
-  const title = `${post.title} | Most Wanted`;
+  const title = `${post.title} | Risegoods`;
   return {
     title: title.slice(0, 60),
     description: post.description.slice(0, 155),
@@ -80,7 +80,7 @@ export default async function BlogPostPage({
     description: post.description,
     datePublished: post.date,
     inLanguage: "nl",
-    publisher: { "@type": "Organization", name: "Most Wanted Sustainable" },
+    publisher: { "@type": "Organization", name: "Risegoods" },
   };
 
   return (

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Sources: what our CO2 estimates are based on | Most Wanted",
+  title: "Sources: what our CO2 estimates are based on | Risegoods",
   description:
     "The authoritative sources and life-cycle studies behind our indicative per-product CO2 savings. Full transparency.",
   alternates: {

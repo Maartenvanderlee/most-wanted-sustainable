@@ -16,11 +16,11 @@ export async function generateMetadata({
   params: { category: string };
 }): Promise<Metadata> {
   const category = slugToCategory(params.category);
-  if (!category) return { title: "Categorie niet gevonden | Most Wanted Sustainable" };
+  if (!category) return { title: "Categorie niet gevonden | Risegoods" };
 
   const now = new Date();
   const label = CATEGORY_LABELS[category].toLowerCase();
-  const title = `Trending duurzame ${label}, ${MONTHS_NL[now.getMonth()]} ${now.getFullYear()} | Most Wanted Sustainable`;
+  const title = `Trending duurzame ${label}, ${MONTHS_NL[now.getMonth()]} ${now.getFullYear()} | Risegoods`;
 
   return {
     title: title.slice(0, 60),

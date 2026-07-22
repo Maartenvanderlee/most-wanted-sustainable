@@ -3,9 +3,9 @@ import Link from "next/link";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Terms of use | Most Wanted Sustainable",
+  title: "Terms of use | Risegoods",
   description:
-    "The terms for using Most Wanted Sustainable: how we counter greenwashing, and why our CO2 and sustainability information is indicative and provided without liability.",
+    "The terms for using Risegoods: how we counter greenwashing, and why our CO2 and sustainability information is indicative and provided without liability.",
   alternates: {
     canonical: "/en/terms",
     languages: { nl: "/voorwaarden", en: "/en/terms" },
@@ -32,7 +32,7 @@ export default function TermsPage() {
               1. Who we are and what this site is
             </h2>
             <p>
-              Most Wanted Sustainable (&quot;we&quot;, &quot;the site&quot;) is an
+              Risegoods (&quot;we&quot;, &quot;the site&quot;) is an
               independent, informational platform that ranks sustainable products
               on a trend score measuring acceleration. We are{" "}
               <strong>not a seller</strong>: you cannot buy anything from us.

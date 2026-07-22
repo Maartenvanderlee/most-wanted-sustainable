@@ -19,13 +19,13 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const detail = await getProductBySlug(params.slug);
-  if (!detail) return { title: "Product niet gevonden | Most Wanted Sustainable" };
+  if (!detail) return { title: "Product niet gevonden | Risegoods" };
 
   const { product } = detail;
   const label = isCategory(product.category)
     ? CATEGORY_LABELS[product.category]
     : product.category;
-  const title = `${product.name}, trending duurzaam | Most Wanted`;
+  const title = `${product.name}, trending duurzaam | Risegoods`;
   const description =
     product.description ??
     `${product.name} in de categorie ${label}. Bekijk de trendscore, de opbouw per databron en waarom dit product op onze lijst staat.`;

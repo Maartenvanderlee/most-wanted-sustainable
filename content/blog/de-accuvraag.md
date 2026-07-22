@@ -13,7 +13,7 @@ De vraag verdient nochtans een serieus antwoord, al was het maar omdat wegwuiven
 
 Eén kanttekening hoort erbij, want zonder kanttekening is het reclame: wie met de e-bike alleen gewone fietskilometers vervangt, is per saldo slechter af. De winst zit nooit in het apparaat, altijd in wat het verdringt. Dat geldt overigens voor vrijwel alles wat tegenwoordig duurzaam heet, en het zou schelen als dat vaker hardop werd gezegd.
 
-Interessanter dan het antwoord is intussen de vraag waarom de accuvraag zo populair blijft. Vermoedelijk omdat hij zo behaaglijk is. Zolang het ingewikkeld lijkt, hoeft er niets. "Het is complex" is de slaapzak onder de klimaatdiscussie: iedereen kruipt er graag in weg. Maar dit is niet complex. Het is een rekensom van een half A4'tje, en hij valt al jaren dezelfde kant op uit, welke modellen momenteel het best bekeken worden, houdt een platform als Most Wanted Sustainable keurig bij.
+Interessanter dan het antwoord is intussen de vraag waarom de accuvraag zo populair blijft. Vermoedelijk omdat hij zo behaaglijk is. Zolang het ingewikkeld lijkt, hoeft er niets. "Het is complex" is de slaapzak onder de klimaatdiscussie: iedereen kruipt er graag in weg. Maar dit is niet complex. Het is een rekensom van een half A4'tje, en hij valt al jaren dezelfde kant op uit, welke modellen momenteel het best bekeken worden, houdt een platform als Risegoods keurig bij.
 
 Voor wie geen auto bezit, en dat zijn de meeste studenten, ligt de winst nog een slag dieper: elke e-bike die de aanschaf van een eerste auto een paar jaar uitstelt, voorkomt de hele keten die aan dat bezit vastzit.
 

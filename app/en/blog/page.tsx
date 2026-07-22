@@ -6,7 +6,7 @@ import { pexelsSized } from "@/lib/pexels";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Blog | Most Wanted Sustainable",
+  title: "Blog | Risegoods",
   description:
     "Level-headed columns on saving CO2 with sustainable products, certification labels and how our trend score works. No green marketing fluff.",
   alternates: {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     languages: { nl: "/blog", en: "/en/blog" },
   },
   openGraph: {
-    title: "Blog | Most Wanted Sustainable",
+    title: "Blog | Risegoods",
     description:
       "Level-headed columns on saving CO2 with sustainable products.",
     type: "website",

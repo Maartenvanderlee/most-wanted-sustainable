@@ -34,11 +34,11 @@ import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
-  title: "Most Wanted Sustainable: trending duurzame producten",
+  title: "Risegoods: trending duurzame producten",
   description:
     "Dagelijkse ranglijst van duurzame producten die in populariteit versnellen. Onafhankelijk samengesteld.",
   openGraph: {
-    siteName: "Most Wanted Sustainable",
+    siteName: "Risegoods",
     locale: "nl_NL",
     type: "website",
   },
@@ -52,7 +52,7 @@ const orgJsonLd = {
     {
       "@type": "Organization",
       "@id": `${BASE}/#organization`,
-      name: "Most Wanted Sustainable",
+      name: "Risegoods",
       url: BASE,
       description:
         "Onafhankelijke dagelijkse ranglijst van duurzame producten die in " +
@@ -62,7 +62,7 @@ const orgJsonLd = {
     {
       "@type": "WebSite",
       "@id": `${BASE}/#website`,
-      name: "Most Wanted Sustainable",
+      name: "Risegoods",
       url: BASE,
       inLanguage: "nl",
       publisher: { "@id": `${BASE}/#organization` },

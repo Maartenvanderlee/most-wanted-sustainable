@@ -41,8 +41,8 @@ export async function HomeView({ locale }: { locale: Locale }) {
     "@type": "ItemList",
     name:
       locale === "en"
-        ? "Most Wanted Sustainable, trending sustainable products"
-        : "Most Wanted Sustainable, trending duurzame producten",
+        ? "Risegoods, trending sustainable products"
+        : "Risegoods, trending duurzame producten",
     description:
       locale === "en"
         ? "Daily ranking of sustainable products accelerating in popularity."

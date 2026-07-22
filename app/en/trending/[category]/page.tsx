@@ -17,11 +17,11 @@ export async function generateMetadata({
   params: { category: string };
 }): Promise<Metadata> {
   const category = slugToCategory(params.category);
-  if (!category) return { title: "Category not found | Most Wanted Sustainable" };
+  if (!category) return { title: "Category not found | Risegoods" };
 
   const now = new Date();
   const label = CATEGORY_LABELS_EN[category].toLowerCase();
-  const title = `Trending sustainable ${label}, ${MONTHS_EN[now.getMonth()]} ${now.getFullYear()} | Most Wanted Sustainable`;
+  const title = `Trending sustainable ${label}, ${MONTHS_EN[now.getMonth()]} ${now.getFullYear()} | Risegoods`;
   const description =
     CONTENT_DEFAULTS[`en.trending.${params.category}.intro`] ?? "";
 

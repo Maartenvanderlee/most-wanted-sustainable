@@ -14,7 +14,7 @@ The question deserves a serious answer nonetheless, if only because waving it aw
 
 One caveat belongs here, because without a caveat it's advertising: whoever uses the e-bike only to replace ordinary cycling kilometres ends up worse off. The gain is never in the device; it is always in what the device displaces. That, incidentally, is true of almost everything currently sold as sustainable, and it would help if it were said out loud more often.
 
-More interesting than the answer, meanwhile, is why the battery question remains so popular. Presumably because it is so comfortable. As long as things seem complicated, nothing has to happen. "It's complex" is the sleeping bag under the climate debate: everyone likes to crawl into it. But this is not complex. It is a calculation that fits on half a sheet of paper, and it has been coming out the same way for years, which models are currently being watched most closely is neatly tracked by a platform like Most Wanted Sustainable.
+More interesting than the answer, meanwhile, is why the battery question remains so popular. Presumably because it is so comfortable. As long as things seem complicated, nothing has to happen. "It's complex" is the sleeping bag under the climate debate: everyone likes to crawl into it. But this is not complex. It is a calculation that fits on half a sheet of paper, and it has been coming out the same way for years, which models are currently being watched most closely is neatly tracked by a platform like Risegoods.
 
 For those who don't own a car, which is most students, the gain runs one level deeper: every e-bike that postpones the purchase of a first car by a few years prevents the entire chain that comes attached to that ownership.
 

@@ -6,11 +6,11 @@ import { pexelsSized } from "@/lib/pexels";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Blog | Most Wanted Sustainable",
+  title: "Blog | Risegoods",
   description:
     "Achtergrond bij duurzame keurmerken, trends en onze methodologie. Nuchter en zonder groene marketingpraat.",
   openGraph: {
-    title: "Blog | Most Wanted Sustainable",
+    title: "Blog | Risegoods",
     description:
       "Achtergrond bij duurzame keurmerken, trends en onze methodologie.",
     type: "website",

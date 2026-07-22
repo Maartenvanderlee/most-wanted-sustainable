@@ -67,7 +67,7 @@ export function SiteNav({
     <nav className="glass-morphism fixed top-0 z-50 w-full shadow-sm">
       <div className="mx-auto flex max-w-container items-center justify-between px-5 py-3 md:px-16">
         <div className="flex items-center gap-8">
-          <Link href={t.homeHref} aria-label="Most Wanted Sustainable, home">
+          <Link href={t.homeHref} aria-label="Risegoods, home">
             <Logo size="nav" />
           </Link>
           <div className="hidden items-center gap-6 md:flex">
@@ -169,7 +169,7 @@ export function SiteFooter({ locale = "nl" }: { locale?: Locale }) {
       </div>
       <div className="mx-auto flex max-w-container flex-col items-center justify-between gap-4 border-t border-outline-variant/30 px-5 py-6 md:flex-row md:px-16">
         <p className="text-sm text-on-surface-variant">
-          © 2026 Most Wanted Sustainable. {t.rights}
+          © 2026 Risegoods. {t.rights}
         </p>
         <p className="text-sm text-on-surface-variant">{t.independent}</p>
       </div>

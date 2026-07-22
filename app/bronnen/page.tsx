@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Bronnen: waar onze CO2-schattingen op gebaseerd zijn | Most Wanted",
+  title: "Bronnen: waar onze CO2-schattingen op gebaseerd zijn | Risegoods",
   description:
     "De gezaghebbende bronnen en levenscyclusstudies waarop onze indicatieve CO2-besparingen per product zijn gebaseerd. Volledige transparantie.",
   alternates: {

@@ -20,8 +20,8 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const post = await getPostBySlug(params.slug, "en");
-  if (!post) return { title: "Article not found | Most Wanted Sustainable" };
-  const title = `${post.title} | Most Wanted`;
+  if (!post) return { title: "Article not found | Risegoods" };
+  const title = `${post.title} | Risegoods`;
   return {
     title: title.slice(0, 60),
     description: post.description.slice(0, 155),
@@ -76,7 +76,7 @@ export default async function EnglishBlogPostPage({
     description: post.description,
     datePublished: post.date,
     inLanguage: "en",
-    publisher: { "@type": "Organization", name: "Most Wanted Sustainable" },
+    publisher: { "@type": "Organization", name: "Risegoods" },
   };
 
   return (

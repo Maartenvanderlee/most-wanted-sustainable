@@ -16,7 +16,7 @@ Programmatic SEO on sustainable long-tail keywords is a primary traffic channel.
 
 ## Every public page has
 
-1. Unique `<title>` (≤ 60 chars) and meta description (≤ 155 chars) via the Next.js Metadata API — pattern for categories: "Trending duurzame [category] — [maand jaar] | Most Wanted Sustainable"
+1. Unique `<title>` (≤ 60 chars) and meta description (≤ 155 chars) via the Next.js Metadata API — pattern for categories: "Trending duurzame [category] — [maand jaar] | Risegoods"
 2. Open Graph + Twitter card tags with image
 3. Structured data (JSON-LD): `ItemList` on category pages, `Product` on product pages (without invented review/price data — only fields we actually have)
 4. Exactly one `<h1>`

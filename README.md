@@ -1,4 +1,4 @@
-# Most Wanted Sustainable
+# Risegoods
 
 Een publieke, tweetalige (nl/en) ranglijst van duurzame producten, gerangschikt
 op een **trendscore die versnelling meet, niet volume** — een product dat hard

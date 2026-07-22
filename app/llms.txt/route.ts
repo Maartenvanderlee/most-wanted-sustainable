@@ -11,7 +11,7 @@ import { SITE_URL as BASE } from "@/lib/site";
 export async function GET() {
   const posts = await getAllPosts();
 
-  const body = `# Most Wanted Sustainable
+  const body = `# Risegoods
 
 > Onafhankelijke, dagelijkse ranglijst van duurzame producten die in
 > populariteit VERSNELLEN, gemeten uit publieke databronnen (o.a. Google

@@ -1,4 +1,4 @@
-# Most Wanted Sustainable
+# Risegoods
 
 Dashboard van trending duurzame producten, gebouwd door een niet-technische founder samen met Claude Code.
 

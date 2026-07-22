@@ -4,7 +4,7 @@ import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 export const metadata: Metadata = {
-  title: "Methodologie: zo werkt onze trendscore | Most Wanted",
+  title: "Methodologie: zo werkt onze trendscore | Risegoods",
   description:
     "Uitleg in gewone taal: hoe we duurzame producten rangschikken op versnelling (niet volume), welke bronnen we gebruiken en hoe we greenwashing voorkomen.",
   alternates: {
