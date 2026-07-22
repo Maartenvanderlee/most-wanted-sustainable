@@ -4,6 +4,24 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Na livegang] — True pricing, fase 2b: tastbare vergelijkingen
+
+- Onder de "wat dit je oplevert"-kaart staat nu een regel als "Dat is
+  ongeveer 179 km autorijden, of 1 jaar aan CO2-opname van een boom."
+- Autokilometers: geen kant-en-klaar CBS-cijfer, dus zelf berekend uit twee
+  bij elkaar passende CBS-statistieken over hetzelfde jaar (2022), beide
+  specifiek voor personenauto's — totale CO2-uitstoot (15,3 miljard kg)
+  gedeeld door totaal afgelegde kilometers (114,31 miljard km) = ≈134 g/km
+  voor de hele rijdende vloot (niet alleen nieuwe auto's, die eerder
+  gevonden 82,3 g/km-cijfers golden alleen voor nieuwverkochte auto's uit
+  2020). De berekening staat, met beide bronlinks, op `/bronnen`.
+- Bomen: Staatsbosbeheer, 10-40 kg CO2/jaar per vrijstaande boom; wij
+  gebruiken het midden van de bandbreedte (25 kg/jaar).
+- Bewust **niet** gebouwd: een cumulatieve historische CO2-voetafdruk van
+  de hele Nederlandse/Amerikaanse autovloot sinds 1950. Dat beantwoordt een
+  andere vraag dan "wat betekent deze besparing vandaag" en leunt op ruwe,
+  niet-herleidbare schattingen per decennium.
+
 ## [Na livegang] — True pricing, fase 2: verborgen milieukost in euro's
 
 - De CO2-schaduwprijs is geverifieerd uit de originele brontabel (niet uit

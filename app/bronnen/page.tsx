@@ -45,12 +45,27 @@ const GROUPS: { heading: string; intro: string; sources: Source[] }[] = [
   {
     heading: "Prijs & besparing (true pricing)",
     intro:
-      "Naast een CO2-besparing tonen we bij sommige producten ook een indicatief eurobedrag aan vermeden milieukosten. Dat bedrag is geen winkelprijs, maar een maatschappelijke kostprijs.",
+      "Naast een CO2-besparing tonen we bij sommige producten ook een indicatief eurobedrag aan vermeden milieukosten, en een tastbare vergelijking (autokilometers, CO2-opname van een boom). Het eurobedrag is geen winkelprijs, maar een maatschappelijke kostprijs.",
     sources: [
       {
         name: "CE Delft, Handboek Milieuprijzen 2023",
         url: "https://ce.nl/wp-content/uploads/2023/03/CE_Delft_220175_Handboek_Milieuprijzen_2023_DEF.pdf",
         what: "Officiële Nederlandse schaduwprijs voor CO2: €0,13 per kg CO2-eq. (middenschatting, bandbreedte €0,05-€0,16, prijspeil 2021). Wij gebruiken de middenschatting uit Tabel 1 (p.6) en Tabel 2 (p.7).",
+      },
+      {
+        name: "CBS, CO2-uitstoot wegverkeer in 2022",
+        url: "https://www.cbs.nl/nl-nl/nieuws/2024/16/co2-uitstoot-wegverkeer-in-2022-met-bijna-drie-procent-toegenomen",
+        what: "Totale CO2-uitstoot van Nederlandse personenauto's in 2022: 15,3 miljard kg.",
+      },
+      {
+        name: "CBS, Motorvoertuigen reden 7 procent meer in 2022",
+        url: "https://www.cbs.nl/nl-nl/nieuws/2023/43/motorvoertuigen-reden-7-procent-meer-in-2022",
+        what: "Totaal afgelegde kilometers door Nederlandse personenauto's in 2022: 114,31 miljard km. Samen met het vorige cijfer (zelfde jaar, zelfde voertuigcategorie) berekenen wij hieruit zelf een gemiddelde uitstoot van ≈134 gram CO2 per kilometer voor de hele rijdende vloot, niet alleen nieuwe auto's.",
+      },
+      {
+        name: "Staatsbosbeheer, Bos en CO2",
+        url: "https://www.staatsbosbeheer.nl/wat-we-doen/co2-opslaan/bos-en-co2",
+        what: "Een vrijstaande boom neemt gemiddeld 10 tot 40 kg CO2 per jaar op. Wij gebruiken het midden van die bandbreedte (25 kg/jaar).",
       },
     ],
   },

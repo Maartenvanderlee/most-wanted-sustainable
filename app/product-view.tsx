@@ -21,7 +21,11 @@ import {
 import { pexelsSized } from "@/lib/pexels";
 import { safeJsonLd } from "@/lib/json-ld";
 import { WEIGHTS } from "@/lib/scoring/version";
-import { formatHiddenCost } from "@/lib/true-price";
+import {
+  formatHiddenCost,
+  kmEquivalent,
+  treeMonthsEquivalent,
+} from "@/lib/true-price";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
 
 function formatMeasurement(m: SourceMeasurement, ui: UIStrings): string {
@@ -292,6 +296,24 @@ export async function ProductView({
                     </span>
                   )}
                 </div>
+                {product.co2_kg_per_year && (
+                  <p className="mt-2 text-xs text-on-surface-variant">
+                    {ui.tangibleEquivalent(
+                      kmEquivalent(product.co2_kg_per_year).toLocaleString(
+                        ui.dateLocale
+                      ),
+                      (() => {
+                        const months = treeMonthsEquivalent(
+                          product.co2_kg_per_year
+                        );
+                        if (months < 1) return ui.treeLessThanMonth;
+                        return months < 12
+                          ? ui.treeMonths(months)
+                          : ui.treeYears(Math.round(months / 12));
+                      })()
+                    )}
+                  </p>
+                )}
               </div>
             )}
             {whySustainable && (

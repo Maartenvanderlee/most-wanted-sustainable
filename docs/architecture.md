@@ -140,8 +140,9 @@ docs/                    dit document
    (`lib/true-price.ts`, €0,13/kg — CE Delft, Handboek Milieuprijzen 2023,
    Tabel 1 p.6 en Tabel 2 p.7, middenschatting, prijspeil 2021), handmatig
    geverifieerd uit de brontabel voordat hij in code ging. Zie `/bronnen`.
-   Tastbare vergelijkingen (autokilometers, bomen) wachten nog op een
-   voldoende betrouwbare bron.
+   Tastbare vergelijkingen (autokilometers via een zelf berekende
+   CBS-verhouding, CO2-opname van een boom via Staatsbosbeheer) staan er nu
+   ook, als toelichtende regel onder de kaart.
 
 ## De trendscore-formule (v3)
 
