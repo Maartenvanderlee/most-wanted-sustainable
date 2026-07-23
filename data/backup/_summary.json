@@ -1,0 +1,12 @@
+{
+  "exportedAt": "2026-07-22T20:30:17.102Z",
+  "mode": "committed",
+  "tables": {
+    "products": 100,
+    "signals": 6179,
+    "scores": 44,
+    "curation_history": 9,
+    "product_certifications": 0,
+    "product_offers": 0
+  }
+}

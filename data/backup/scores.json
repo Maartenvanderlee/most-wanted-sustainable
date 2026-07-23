@@ -1,0 +1,354 @@
+[
+  {
+    "id": "d98250bd-faef-4cd3-b6c5-76569e413713",
+    "product_id": "876508e6-53b3-4487-8d00-dfb69ccdb15c",
+    "score": 65,
+    "rank": 1,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "5c79116e-5818-478f-b9d1-7473b89cf0b7",
+    "product_id": "1d39b543-ca8f-4a9c-9aca-781c238b4bf3",
+    "score": 53.28,
+    "rank": 2,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "3a692fd9-a9bd-41f2-9e51-cd56bd255266",
+    "product_id": "e8651424-25ad-4415-a398-821800198a99",
+    "score": 30.6,
+    "rank": 3,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "0039e98d-1eb2-4fcd-a627-86843040cc39",
+    "product_id": "b762f862-e226-40d0-929e-6cf5f59e6d2c",
+    "score": 23.38,
+    "rank": 4,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "86f8f97f-4f79-4f92-b687-59737fa4c4bf",
+    "product_id": "8e2cce57-5583-4d52-a893-86ef6e106fb1",
+    "score": 13.75,
+    "rank": 5,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "661644c4-6ed3-498d-9d59-ec4d188d384c",
+    "product_id": "36f7b25a-954a-4054-a636-a8d967a6248c",
+    "score": 0,
+    "rank": 6,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "10afc072-646a-44b5-a9d0-dd53cc4f3dc6",
+    "product_id": "a72bc67d-3864-4476-ba6b-eb12d3c131b4",
+    "score": 0,
+    "rank": 7,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "87ea92ee-1d0d-4008-b46a-4811659b024f",
+    "product_id": "e219d30e-6e0c-4106-862b-50dfd35df7c6",
+    "score": 0,
+    "rank": 8,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "afb37478-6c21-460e-8b2d-718428ef73f2",
+    "product_id": "791bcbd5-a443-491a-abf5-9dd2ae44071c",
+    "score": 0,
+    "rank": 9,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "02a63499-4750-4bf0-b90f-525ad848fac4",
+    "product_id": "befd294f-0379-4ca8-a3f6-c6d148a9e44a",
+    "score": 0,
+    "rank": 10,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "0654d221-5f19-4cc8-95a2-cd62e772a69c",
+    "product_id": "699f798f-87fb-4449-82ab-20b93f447d96",
+    "score": 0,
+    "rank": 11,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-19"
+  },
+  {
+    "id": "c5002cd6-7997-40ba-8d4f-3758fa946c0a",
+    "product_id": "876508e6-53b3-4487-8d00-dfb69ccdb15c",
+    "score": 65,
+    "rank": 1,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "bf4fcf48-575b-4820-893f-578fc2dc235e",
+    "product_id": "1d39b543-ca8f-4a9c-9aca-781c238b4bf3",
+    "score": 53.28,
+    "rank": 2,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "cb534098-416a-43f6-bba8-30beaf691a15",
+    "product_id": "e8651424-25ad-4415-a398-821800198a99",
+    "score": 30.6,
+    "rank": 3,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "63792ee1-e310-40c6-bba5-e63caaabf093",
+    "product_id": "b762f862-e226-40d0-929e-6cf5f59e6d2c",
+    "score": 23.38,
+    "rank": 4,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "847a1528-f33d-4a84-8c51-0e24df9e2104",
+    "product_id": "8e2cce57-5583-4d52-a893-86ef6e106fb1",
+    "score": 13.75,
+    "rank": 5,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "e864ddb6-3339-4320-ada9-a6d839bd5b8b",
+    "product_id": "36f7b25a-954a-4054-a636-a8d967a6248c",
+    "score": 0,
+    "rank": 6,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "e6c34a12-4435-4258-94ee-7b25f8270047",
+    "product_id": "a72bc67d-3864-4476-ba6b-eb12d3c131b4",
+    "score": 0,
+    "rank": 7,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "f9aad80b-ebef-4ed9-b3c3-cdcda6b36ba0",
+    "product_id": "e219d30e-6e0c-4106-862b-50dfd35df7c6",
+    "score": 0,
+    "rank": 8,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "cb54e5b8-fce5-404b-b0c3-eec23a1659cc",
+    "product_id": "791bcbd5-a443-491a-abf5-9dd2ae44071c",
+    "score": 0,
+    "rank": 9,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "c770005b-36c5-4264-8102-08239858e3e6",
+    "product_id": "befd294f-0379-4ca8-a3f6-c6d148a9e44a",
+    "score": 0,
+    "rank": 10,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "5172dcfe-12a4-49eb-aca6-efba4a5984c0",
+    "product_id": "699f798f-87fb-4449-82ab-20b93f447d96",
+    "score": 0,
+    "rank": 11,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-20"
+  },
+  {
+    "id": "6c876ee3-2360-4f0d-9afe-9d7d9529df9f",
+    "product_id": "876508e6-53b3-4487-8d00-dfb69ccdb15c",
+    "score": 65,
+    "rank": 1,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "ba0b4b4c-0965-4ec6-906b-0e4299d85029",
+    "product_id": "1d39b543-ca8f-4a9c-9aca-781c238b4bf3",
+    "score": 53.28,
+    "rank": 2,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "673e9419-047b-435b-95e8-60d6d34e2eb0",
+    "product_id": "e8651424-25ad-4415-a398-821800198a99",
+    "score": 30.6,
+    "rank": 3,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "e758e8af-d2ee-465b-981d-a148f532ec3f",
+    "product_id": "b762f862-e226-40d0-929e-6cf5f59e6d2c",
+    "score": 23.38,
+    "rank": 4,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "e9de7f66-7b23-4066-92ae-95997295f41f",
+    "product_id": "8e2cce57-5583-4d52-a893-86ef6e106fb1",
+    "score": 13.75,
+    "rank": 5,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "41b01d95-7ac6-4546-a90b-892a9b52aac5",
+    "product_id": "36f7b25a-954a-4054-a636-a8d967a6248c",
+    "score": 0,
+    "rank": 6,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "6180098f-361c-40c6-89e3-477e4e54ebe4",
+    "product_id": "a72bc67d-3864-4476-ba6b-eb12d3c131b4",
+    "score": 0,
+    "rank": 7,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "ff7ce8bf-a462-42aa-96cf-81e7234c6492",
+    "product_id": "e219d30e-6e0c-4106-862b-50dfd35df7c6",
+    "score": 0,
+    "rank": 8,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "3d82fe6c-552c-4257-815a-8b00bb566a8b",
+    "product_id": "791bcbd5-a443-491a-abf5-9dd2ae44071c",
+    "score": 0,
+    "rank": 9,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "1eb2a4cb-4a98-4f82-b510-bc46ae1cbed3",
+    "product_id": "befd294f-0379-4ca8-a3f6-c6d148a9e44a",
+    "score": 0,
+    "rank": 10,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "3b53abcf-82de-4f54-a3f3-d3fb251a4a32",
+    "product_id": "699f798f-87fb-4449-82ab-20b93f447d96",
+    "score": 0,
+    "rank": 11,
+    "formula_version": "v2",
+    "snapshot_date": "2026-07-21"
+  },
+  {
+    "id": "1b9e648f-2469-4307-9e68-8dee24a24308",
+    "product_id": "876508e6-53b3-4487-8d00-dfb69ccdb15c",
+    "score": 40,
+    "rank": 1,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "ee6e7278-498b-4033-8567-578954f00baf",
+    "product_id": "1d39b543-ca8f-4a9c-9aca-781c238b4bf3",
+    "score": 32.79,
+    "rank": 2,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "b0f601fd-c5d0-43f0-9252-863d27284ce3",
+    "product_id": "e8651424-25ad-4415-a398-821800198a99",
+    "score": 18.83,
+    "rank": 3,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "6cdc0a80-c386-4fa9-b986-79f30107d632",
+    "product_id": "b762f862-e226-40d0-929e-6cf5f59e6d2c",
+    "score": 14.39,
+    "rank": 4,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "9df0fb2b-b2e0-4ceb-b7c1-1f111e76629c",
+    "product_id": "8e2cce57-5583-4d52-a893-86ef6e106fb1",
+    "score": 8.46,
+    "rank": 5,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "508ec535-d954-4d2c-bc16-c90f0b4720b4",
+    "product_id": "36f7b25a-954a-4054-a636-a8d967a6248c",
+    "score": 0,
+    "rank": 6,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "410eab25-c9da-4789-be1f-7b0570f24486",
+    "product_id": "a72bc67d-3864-4476-ba6b-eb12d3c131b4",
+    "score": 0,
+    "rank": 7,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "a2f1f58b-01c4-4c04-ae06-b51c6e15a9ca",
+    "product_id": "e219d30e-6e0c-4106-862b-50dfd35df7c6",
+    "score": 0,
+    "rank": 8,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "322ed33b-767c-444d-bec8-aeb4cf0b20b0",
+    "product_id": "791bcbd5-a443-491a-abf5-9dd2ae44071c",
+    "score": 0,
+    "rank": 9,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "81e19bff-d544-4b11-bf71-8caa4a285cc9",
+    "product_id": "befd294f-0379-4ca8-a3f6-c6d148a9e44a",
+    "score": 0,
+    "rank": 10,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  },
+  {
+    "id": "f7f4c94f-aac3-4df8-b5af-15c17fe03f8f",
+    "product_id": "699f798f-87fb-4449-82ab-20b93f447d96",
+    "score": 0,
+    "rank": 11,
+    "formula_version": "v3",
+    "snapshot_date": "2026-07-22"
+  }
+]

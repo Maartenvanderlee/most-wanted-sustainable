@@ -1,0 +1,74 @@
+[
+  {
+    "id": "ef725683-b43b-445b-994b-4b444f3065cd",
+    "product_slug": "bamboo-underwear",
+    "product_name": "bamboo underwear",
+    "decision": "rejected",
+    "reason": "\"Bamboe = eco\" is herhaaldelijk ontkracht (o.a. FTC-boetes): het hout is hernieuwbaar, maar het chemische proces naar viscose-stof is dat niet. Zonder GOTS/OEKO-TEX-keurmerk niet te verifiëren.",
+    "decided_at": "2026-07-20T08:40:11.760446+00:00"
+  },
+  {
+    "id": "725ef236-4dd5-401b-a518-c0369a02a723",
+    "product_slug": "capsule-wardrobe-basics",
+    "product_name": "capsule wardrobe basics",
+    "decision": "rejected",
+    "reason": "Geen concreet product maar een winkelconcept — geen van de 5 checklist-punten (poort 2) is hierop toepasbaar.",
+    "decided_at": "2026-07-20T08:40:12.110309+00:00"
+  },
+  {
+    "id": "03334c9b-b0d4-4642-8f75-d275847868c1",
+    "product_slug": "vegan-leather-bag",
+    "product_name": "vegan leather bag",
+    "decision": "rejected",
+    "reason": "\"Vegan leer\" is meestal PU-plastic (fossiel) met een groen sausje — bekend greenwashing-patroon. Zonder specifiek hernieuwbaar materiaal (zoals bij wél goedgekeurde Piñatex/paddenstoelleer) niet te onderscheiden van gewoon plastic.",
+    "decided_at": "2026-07-20T08:40:12.533959+00:00"
+  },
+  {
+    "id": "04f51758-15c6-407e-a1f2-0a9d92b5705d",
+    "product_slug": "compostable-coffee-pods",
+    "product_name": "compostable coffee pods",
+    "decision": "rejected",
+    "reason": "\"Composteerbaar\" is hier vrijwel altijd alleen industrieel, niet thuis. Blijft bovendien een wegwerpproduct dat een ander wegwerpproduct vervangt (voldoet niet aan checklist-punt 2).",
+    "decided_at": "2026-07-20T08:40:12.807772+00:00"
+  },
+  {
+    "id": "71c97d7c-1ade-4bf4-bc12-379e5dd58018",
+    "product_slug": "regenerative-olive-oil",
+    "product_name": "regenerative olive oil",
+    "decision": "rejected",
+    "reason": "\"Regeneratief\" is een ongereguleerde term zonder erkend keurmerk in onze lijst — niet te verifiëren bij een generieke zoekterm zonder merk.",
+    "decided_at": "2026-07-20T08:40:13.082892+00:00"
+  },
+  {
+    "id": "6e0803d8-17f6-49b7-9a11-8acef93d1916",
+    "product_slug": "carbon-neutral-coffee-beans",
+    "product_name": "carbon neutral coffee beans",
+    "decision": "rejected",
+    "reason": "\"CO2-neutraal\" leunt vrijwel altijd op compensatie i.p.v. echte reductie — precies het type claim dat de EU Green Claims-richtlijn aan banden legt.",
+    "decided_at": "2026-07-20T08:40:13.346424+00:00"
+  },
+  {
+    "id": "5c1afff5-6f94-4432-b72a-5bd22a168a45",
+    "product_slug": "natural-sunscreen-reef-safe",
+    "product_name": "natural sunscreen reef safe",
+    "decision": "rejected",
+    "reason": "\"Reef safe\" is een ongereguleerde marketingterm zonder wettelijke definitie; zonnebrand vereist bovendien gezondheidsclaims (SPF-werking) die we niet kunnen verifiëren (poort 3).",
+    "decided_at": "2026-07-20T08:40:13.720212+00:00"
+  },
+  {
+    "id": "3bf7ca1e-6a3b-45ef-a78a-55e061a835cf",
+    "product_slug": "mineral-sunscreen-stick",
+    "product_name": "mineral sunscreen stick",
+    "decision": "rejected",
+    "reason": "Zonnebrand vereist gezondheidsclaims (SPF-werking) die we niet kunnen verifiëren (poort 3).",
+    "decided_at": "2026-07-20T08:40:14.136305+00:00"
+  },
+  {
+    "id": "f7d2a836-0613-4bf2-a936-d17617163da7",
+    "product_slug": "biodegradable-phone-case",
+    "product_name": "biodegradable phone case",
+    "decision": "rejected",
+    "reason": "Zelfde patroon als de eerder afgewezen \"biodegradable wet wipes\": ongekwalificeerde \"biologisch afbreekbaar\"-claims op plastic(-vervangers) zijn herhaaldelijk ontkracht (breekt vaak alleen af onder industriële omstandigheden).",
+    "decided_at": "2026-07-20T08:40:14.411754+00:00"
+  }
+]

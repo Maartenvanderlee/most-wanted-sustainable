@@ -1,14 +1,20 @@
-// Lange-termijn databorging: dumpt de volledige inhoud van de belangrijkste
-// tabellen naar JSON-bestanden in data/archive/<datum>/, als offline backup
-// naast de append-only tabellen in Supabase. Handig voor:
+// Lange-termijn databorging: dumpt de belangrijkste tabellen naar JSON, als
+// offline backup naast de append-only tabellen in Supabase. Handig voor:
 //   - een periodieke veilige kopie los van de database
-//   - jaar-op-jaar rapportage (bewaar de map, vergelijk later met een verse export)
+//   - jaar-op-jaar rapportage (bewaar de kopie, vergelijk later met een verse export)
 //
 // De tabellen signals en scores zijn al append-only (historie wordt nooit
 // overschreven); dit script is de EXTRA verzekering — een echte kopie buiten
 // de database die je kunt archiveren of aan een data-afnemer kunt geven.
 //
-// Gebruik:  node --env-file=.env.local scripts/export-archive.mjs
+// Twee modi:
+//   Lokaal (standaard):  node --env-file=.env.local scripts/export-archive.mjs
+//     → data/archive/<datum>/ , ALLE tabellen, gitignored (blijft op je laptop).
+//   Duurzaam (CI):       ARCHIVE_TARGET=committed node scripts/export-archive.mjs
+//     → data/backup/ (vast pad, overschrijft), ZONDER newsletter_subscribers.
+//       Bedoeld voor de wekelijkse GitHub Action die dit naar de repo commit;
+//       git-historie wordt zo de versiebeheerde, duurzame kopie buiten Supabase.
+//       Subscriber-e-mails (persoonsgegevens) blijven bewust buiten git.
 import { createClient } from "@supabase/supabase-js";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -18,7 +24,10 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
+const COMMITTED = process.env.ARCHIVE_TARGET === "committed";
+
 // Tabellen die we volledig wegschrijven, met een stabiele sorteervolgorde.
+// pii: true = bevat persoonsgegevens; die slaan we over in de commit-modus.
 const TABLES = [
   { name: "products", order: "created_at" },
   { name: "signals", order: "measured_at" },
@@ -26,7 +35,7 @@ const TABLES = [
   { name: "curation_history", order: "decided_at" },
   { name: "product_certifications", order: "created_at" },
   { name: "product_offers", order: "created_at" },
-  { name: "newsletter_subscribers", order: "created_at" },
+  { name: "newsletter_subscribers", order: "created_at", pii: true },
 ];
 
 // Alles ophalen met paginering (Supabase geeft standaard max 1000 rijen).
@@ -46,13 +55,22 @@ async function fetchAll(table, order) {
   return all;
 }
 
+// Vast pad in de commit-modus (git-historie = versiebeheer); gedateerde map lokaal.
 const today = new Date().toISOString().slice(0, 10);
-const outDir = path.join(process.cwd(), "data", "archive", today);
+const outDir = COMMITTED
+  ? path.join(process.cwd(), "data", "backup")
+  : path.join(process.cwd(), "data", "archive", today);
 await fs.mkdir(outDir, { recursive: true });
 
-const summary = { exportedAt: new Date().toISOString(), tables: {} };
+const tablesToExport = COMMITTED ? TABLES.filter((t) => !t.pii) : TABLES;
 
-for (const { name, order } of TABLES) {
+const summary = {
+  exportedAt: new Date().toISOString(),
+  mode: COMMITTED ? "committed" : "local",
+  tables: {},
+};
+
+for (const { name, order } of tablesToExport) {
   try {
     const rows = await fetchAll(name, order);
     await fs.writeFile(
@@ -74,5 +92,8 @@ await fs.writeFile(
   "utf-8"
 );
 
-console.log(`\nKlaar. Export opgeslagen in: data/archive/${today}/`);
-console.log("Tip: bewaar deze map op een veilige plek (of in een aparte backup-repo).");
+const rel = COMMITTED ? "data/backup" : `data/archive/${today}`;
+console.log(`\nKlaar. Export opgeslagen in: ${rel}/`);
+if (!COMMITTED) {
+  console.log("Tip: bewaar deze map op een veilige plek (of in een aparte backup-repo).");
+}

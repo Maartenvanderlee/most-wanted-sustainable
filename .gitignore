@@ -5,5 +5,7 @@ node_modules/
 .cache/
 *.tsbuildinfo
 
-# Lokale data-exports/backups (scripts/export-archive.mjs)
+# Lokale data-exports (scripts/export-archive.mjs, standaardmodus) — blijven lokaal.
+# De duurzame kopie in data/backup/ (ARCHIVE_TARGET=committed) wordt JUIST wel
+# getrackt: git-historie is daar het versiebeheerde backup buiten Supabase.
 data/archive/
