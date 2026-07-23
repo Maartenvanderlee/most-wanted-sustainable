@@ -50,13 +50,13 @@ export function Analytics() {
 
   // Paginabezoek registreren bij elke navigatie (behalve de admin).
   useEffect(() => {
-    if (pathname.startsWith("/admin")) return;
+    if (pathname.startsWith("/admin") || pathname.startsWith("/embed")) return;
     send({ type: "page_view", path: pathname, visitorId: getVisitorId() });
   }, [pathname]);
 
   // Link-kliks registreren via één gedeelde luisteraar.
   useEffect(() => {
-    if (pathname.startsWith("/admin")) return;
+    if (pathname.startsWith("/admin") || pathname.startsWith("/embed")) return;
 
     function onClick(e: MouseEvent) {
       const target = e.target as HTMLElement | null;
