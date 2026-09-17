@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { growth, normalize, type SignalRow } from "../score";
+import { fetchAllSignals, growth, normalize, type SignalRow } from "../score";
 
 const DAY = 24 * 60 * 60 * 1000;
 const daysAgo = (n: number) => new Date(Date.now() - n * DAY).toISOString();
@@ -59,5 +59,54 @@ describe("normalize (min-max naar 0-100)", () => {
     );
     expect(out.get("a")).toBe(0);
     expect(out.get("b")).toBe(0);
+  });
+});
+
+// Regressietest voor een bug die de scores maandenlang bevroor: Supabase geeft
+// standaard max 1000 rijen terug, dus zonder paginering zag de scoring alleen
+// de oudste 1000 metingen en veranderde de uitkomst nooit meer.
+describe("fetchAllSignals (paginering)", () => {
+  function fakeClient(totalRows: number) {
+    const calls: { from: number; to: number }[] = [];
+    const rows: SignalRow[] = Array.from({ length: totalRows }, (_, i) => ({
+      product_id: `p${i}`,
+      source: "youtube",
+      value: i,
+      measured_at: new Date().toISOString(),
+    }));
+    const client = {
+      from: () => ({
+        select: () => ({
+          order: () => ({
+            range: async (from: number, to: number) => {
+              calls.push({ from, to });
+              return { data: rows.slice(from, to + 1), error: null };
+            },
+          }),
+        }),
+      }),
+    };
+    return { client, calls };
+  }
+
+  it("haalt ALLE rijen op, niet alleen de eerste 1000", async () => {
+    const { client, calls } = fakeClient(2500);
+    const out = await fetchAllSignals(client as never);
+    expect(out).toHaveLength(2500);
+    expect(calls.length).toBe(3); // 0-999, 1000-1999, 2000-2999
+  });
+
+  it("stopt na één pagina als er minder dan 1000 rijen zijn", async () => {
+    const { client, calls } = fakeClient(42);
+    const out = await fetchAllSignals(client as never);
+    expect(out).toHaveLength(42);
+    expect(calls.length).toBe(1);
+  });
+
+  it("stopt netjes bij precies 1000 rijen (lege vervolgpagina)", async () => {
+    const { client, calls } = fakeClient(1000);
+    const out = await fetchAllSignals(client as never);
+    expect(out).toHaveLength(1000);
+    expect(calls.length).toBe(2);
   });
 });

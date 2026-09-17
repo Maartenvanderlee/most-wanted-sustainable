@@ -50,16 +50,34 @@ export function normalize(values: Map<string, number>): Map<string, number> {
 
 export type ScoreResult = { written: number; skipped: number };
 
+// Haalt ALLE signalen op, met paginering. Cruciaal: Supabase/PostgREST geeft
+// standaard maximaal 1000 rijen terug. Zonder deze lus zag de scoring alleen
+// de oudste 1000 metingen, waardoor de scores maandenlang bevroren bleven op
+// verouderde data terwijl er verse metingen binnenkwamen. Sorteren op de
+// unieke `id` houdt de pagina's sluitend (geen overgeslagen of dubbele rijen).
+// Geëxporteerd zodat de paginering los te testen is.
+export async function fetchAllSignals(supabase: Client): Promise<SignalRow[]> {
+  const all: SignalRow[] = [];
+  const PAGE = 1000;
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await supabase
+      .from("signals")
+      .select("product_id, source, value, measured_at")
+      .order("id", { ascending: true })
+      .range(from, from + PAGE - 1);
+    if (error) throw new Error(`Signals laden mislukt: ${error.message}`);
+    const page = (data ?? []) as SignalRow[];
+    all.push(...page);
+    if (page.length < PAGE) break;
+  }
+  return all;
+}
+
 export async function computeAndStoreScores(
   supabase: Client,
   snapshotDate: string // 'YYYY-MM-DD'
 ): Promise<ScoreResult> {
-  const { data: signals, error } = await supabase
-    .from("signals")
-    .select("product_id, source, value, measured_at");
-  if (error) throw new Error(`Signals laden mislukt: ${error.message}`);
-
-  const rows = (signals ?? []) as SignalRow[];
+  const rows = await fetchAllSignals(supabase);
   if (rows.length === 0) return { written: 0, skipped: 0 };
 
   // Groepeer signalen per product en per bron.
