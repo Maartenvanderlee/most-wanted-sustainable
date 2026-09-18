@@ -41,8 +41,8 @@ export default function MethodologiePage() {
               Onze databronnen
             </h2>
             <p className="mb-3">
-              Elke dag verzamelen we publieke signalen. Elke bron telt met een
-              vast gewicht mee in de eindscore:
+              Elke dag verzamelen we publieke signalen. Deze verhouding bepaalt
+              hoe zwaar elke bron meetelt:
             </p>
             <ul className="space-y-2">
               <li>
@@ -54,10 +54,6 @@ export default function MethodologiePage() {
                 video&apos;s ({Math.round((WEIGHTS.youtube ?? 0) * 100)}%)
               </li>
               <li>
-                <strong>Wikipedia</strong>: de paginaweergaven van het best
-                passende artikel ({Math.round((WEIGHTS.wikipedia ?? 0) * 100)}%)
-              </li>
-              <li>
                 <strong>Nieuws (GDELT)</strong>: hoeveel de wereldwijde
                 nieuwsmedia over het product berichten (
                 {Math.round((WEIGHTS.gdelt_news ?? 0) * 100)}%)
@@ -67,6 +63,30 @@ export default function MethodologiePage() {
               We gebruiken meerdere onafhankelijke bronnen met opzet: valt er
               eentje tijdelijk uit, dan blijft de score overeind op de overige.
               Geen enkele bron bepaalt in z&apos;n eentje de uitkomst.
+            </p>
+            <p className="mt-3">
+              In de praktijk levert niet elke bron voor elk product iets op. Een
+              nichéproduct haalt bijvoorbeeld zelden het wereldnieuws, en niet
+              over alles bestaat een Wikipedia-artikel. Als een bron voor een
+              product niets meet, dan{" "}
+              <strong>
+                laten we die bron voor dat product buiten beschouwing
+              </strong>{" "}
+              en verdelen we het gewicht over de bronnen die er wél zijn. We
+              rekenen een ontbrekende meting dus nadrukkelijk niet als
+              &quot;geen groei&quot;: niet gemeten is iets anders dan
+              stilstand. Zo blijven producten onderling eerlijk vergelijkbaar,
+              ook als ze niet allemaal in dezelfde bronnen voorkomen.
+            </p>
+            <p className="mt-3">
+              <strong>Wikipedia staat tijdelijk op standby.</strong> We meten de
+              paginaweergaven wél en bewaren ze, maar ze tellen op dit moment
+              niet mee in de score. Reden: het automatisch gekozen artikel bleek
+              vaak niet over het product te gaan — &quot;solar power bank&quot;
+              kwam bijvoorbeeld uit bij een energiecentrale in Marokko. Liever
+              een bron tijdelijk niet meetellen dan hem meewegen terwijl we
+              weten dat hij het verkeerde meet. Zodra de koppeling betrouwbaar
+              is, zetten we hem weer aan.
             </p>
             <p className="mt-3">
               We vergelijken de meting van deze week met die van vorige week. Die

@@ -7,13 +7,16 @@ description: Use when calculating, changing, or displaying the trend score, rank
 
 The score measures **acceleration, not volume**. A product climbing fast beats a product that is merely big. This principle is non-negotiable.
 
-## Formula (current version: v3 — see lib/scoring/version.ts)
+## Formula (current version: v4 — see lib/scoring/version.ts)
+
+Only sources that actually produced a growth figure for that product count, and
+their weights are rescaled to 100%:
 
 ```
-score = 0.40 * norm(googleTrendsGrowth)
-      + 0.25 * norm(youtubeViewsGrowth)
-      + 0.20 * norm(wikipediaPageviewsGrowth)
-      + 0.15 * norm(gdeltNewsVolumeGrowth)
+score = Σ (weight_s * norm(growth_s))  /  Σ (weight_s)
+        for every source s that HAS a growth figure for this product
+
+weights: googleTrends 0.40 · youtube 0.25 · wikipedia 0.20 · gdeltNews 0.15
 ```
 
 Weights live in `lib/scoring/version.ts` (the `WEIGHTS` map — only active
@@ -23,7 +26,22 @@ sources appear there, and they must sum to 1). History:
   Google Trends 65 / YouTube 35.
 - v3: source diversification. Added Wikipedia and GDELT (both free, no key) so
   the score survives if Google Trends breaks. Reddit and eBay adapters exist
-  but stay on standby (need keys) until v4 adds them to the weights.
+  but stay on standby (need keys).
+- v4: dynamic reweighting. Weights unchanged; what changed is how a MISSING
+  source is treated. Up to v3 it counted as 0% growth, as if we had measured
+  that nothing happened. That silently capped the maximum score (with Wikipedia
+  and GDELT quiet the ceiling was 65, not 100) and unfairly compared products
+  that happened to have data from a sparse source against those that did not.
+  From v4 a source only counts for a product when it actually produced a growth
+  figure, and the remaining weights are rescaled to 100%.
+  Shipped together with putting **Wikipedia on standby**: the adapter keeps
+  running and its measurements are stored (building history), but it no longer
+  counts towards the score. Its article matching picks the first search hit,
+  which was wrong for 7 out of 10 sampled keywords ("solar power bank" matched a
+  Moroccan power station; many others matched a generic article like "Shampoo"
+  whose traffic has little to do with the product). Re-enable only after the
+  matching is reliable. Remaining weights keep their original 40 : 25 : 15 ratio,
+  rescaled to 100%.
 
 The original v1 formula, for reference:
 
@@ -34,8 +52,8 @@ score = 0.45 * norm(googleTrendsGrowth)
 ```
 
 - **Growth** = week-over-week percentage change of the raw signal value: `(thisWeek - lastWeek) / max(lastWeek, 1)`.
-- **norm()** = min-max normalization to 0–100 across the full product set for that snapshot day. Recompute per snapshot; never reuse old min/max.
-- A product missing a source gets 0 for that component (it is not excluded), and the UI shows "insufficient data" for that source.
+- **norm()** = min-max normalization to 0–100, per source, across only the products that have a growth figure for that source on that snapshot day. Recompute per snapshot; never reuse old min/max.
+- A product missing a source is **excluded from that component** and its weight is redistributed over the sources it does have (v4). Never treat a missing measurement as zero growth. The UI shows "insufficient data" for that source.
 - New products need at least 2 weeks of signals before they receive a score.
 
 ## Snapshots and ranking

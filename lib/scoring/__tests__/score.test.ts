@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { fetchAllSignals, growth, normalize, type SignalRow } from "../score";
+import { WEIGHTS } from "../version";
+import {
+  combineWeighted,
+  fetchAllSignals,
+  growth,
+  normalize,
+  type SignalRow,
+} from "../score";
 
 const DAY = 24 * 60 * 60 * 1000;
 const daysAgo = (n: number) => new Date(Date.now() - n * DAY).toISOString();
@@ -108,5 +115,56 @@ describe("fetchAllSignals (paginering)", () => {
     const out = await fetchAllSignals(client as never);
     expect(out).toHaveLength(1000);
     expect(calls.length).toBe(2);
+  });
+});
+
+describe("combineWeighted (v4: dynamische herweging)", () => {
+  it("gebruikt de volle 0-100 schaal als maar één bron data heeft", () => {
+    // Vóór v4 leverde dit 0,40 * 100 = 40 op: een stille bron drukte de score.
+    expect(combineWeighted({ google_trends: 100 })).toBe(100);
+  });
+
+  it("weegt meerdere bronnen naar verhouding van hun gewicht", () => {
+    // Afgeleid van WEIGHTS zelf, zodat deze test blijft kloppen na een
+    // herweging: alleen Trends scoort 100, YouTube 0.
+    const wt = WEIGHTS.google_trends ?? 0;
+    const wy = WEIGHTS.youtube ?? 0;
+    const verwacht = (wt * 100) / (wt + wy);
+    expect(combineWeighted({ google_trends: 100, youtube: 0 })).toBeCloseTo(
+      verwacht,
+      1
+    );
+  });
+
+  it("behoudt de onderlinge verhouding bij alle actieve bronnen", () => {
+    // Alles 100 -> nog steeds 100, ongeacht hoeveel bronnen meedoen.
+    const alles = Object.fromEntries(
+      Object.keys(WEIGHTS).map((s) => [s, 100])
+    );
+    expect(combineWeighted(alles)).toBe(100);
+  });
+
+  it("negeert een bron die niet (meer) meeweegt, zoals Wikipedia op standby", () => {
+    // Wikipedia zit niet in WEIGHTS; een waarde ervoor mag de score niet raken.
+    const zonder = combineWeighted({ google_trends: 60 });
+    const met = combineWeighted({ google_trends: 60, wikipedia: 100 });
+    expect(met).toBe(zonder);
+  });
+
+  it("straft een product niet af omdat een bron niets mat", () => {
+    // Twee producten die even hard groeien op de bronnen die ze delen,
+    // horen gelijk te scoren ook al heeft er één extra data van een
+    // schaarse bron die eveneens 100 is.
+    const zonderGdelt = combineWeighted({ google_trends: 80, youtube: 80 });
+    const metGdelt = combineWeighted({
+      google_trends: 80,
+      youtube: 80,
+      gdelt_news: 80,
+    });
+    expect(zonderGdelt).toBe(metGdelt);
+  });
+
+  it("geeft 0 als geen enkele bron data had (geen uitspraak mogelijk)", () => {
+    expect(combineWeighted({})).toBe(0);
   });
 });

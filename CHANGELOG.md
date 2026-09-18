@@ -4,6 +4,38 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Na livegang] — Trendscore-formule v4: dynamische herweging
+
+- **Gewichten ongewijzigd** (Google Trends 40% · YouTube 25% · Wikipedia 20% ·
+  GDELT 15%). Wat verandert is hoe een **ontbrekende** bron wordt behandeld.
+- Tot v3 telde een bron zonder meting als **0% groei**, alsof we hadden
+  vastgesteld dat er niets gebeurde. Twee gevolgen: het scoreplafond zakte
+  stilletjes (met Wikipedia en GDELT stil was de maximaal haalbare score 65
+  i.p.v. 100), en producten die toevallig data hadden uit een schaarse bron
+  werden oneerlijk vergeleken met producten zonder.
+- Vanaf **v4** telt per product alleen mee wat écht gemeten is, en worden de
+  gewichten van die bronnen naar 100% geschaald. Ook de normalisatie per bron
+  gebeurt nu over uitsluitend de producten die die bron hebben, zodat
+  nep-nullen de min/max niet meer vervuilen.
+- Hiermee doet "bronspreiding" eindelijk wat `CLAUDE.md` belooft: een
+  stilgevallen bron drukt niet langer iedereen omlaag.
+- Weeglogica losgetrokken als `combineWeighted()` en apart getest (5 nieuwe
+  tests, o.a. dat een product niet wordt afgestraft omdat een bron niets mat).
+- `/methodologie` en `/en/methodology` uitgelegd in gewone taal: niet gemeten
+  is iets anders dan stilstand. Ook de `trend-score` skill bijgewerkt.
+- **Wikipedia tijdelijk op standby** (in dezelfde uitrol). De adapter blijft
+  draaien en de metingen worden opgeslagen, maar ze tellen niet mee in de score.
+  Reden: de adapter kiest het eerste zoekresultaat als artikel, en dat was bij 7
+  van de 10 steekproeven het verkeerde — "solar power bank" kwam uit bij een
+  Marokkaanse energiecentrale, "silicone food storage bags" bij S.C. Johnson, en
+  diverse zoekwoorden bij een generiek artikel ("Toilet paper", "Shampoo") waarvan
+  het bezoek los staat van het product. Dankzij de dynamische herweging kost dit
+  geen enkel product punten. Overgebleven gewichten behouden hun onderlinge
+  verhouding (40 : 25 : 15), geschaald naar 100%: Google Trends 50% · YouTube 31% ·
+  GDELT 19%.
+- Historie blijft staan zoals gemeten; oude scores worden nooit herberekend.
+  Elke scorerij draagt zijn eigen formuleversie.
+
 ## [Na livegang] — True pricing, fase 3: personaliseer-regelaar + eerste cijfers
 
 - De "wat dit je oplevert"-kaart is nu interactief (`app/true-price-card.tsx`,

@@ -43,8 +43,8 @@ export default function MethodologyPage() {
               Our data sources
             </h2>
             <p className="mb-3">
-              Every day we collect public signals. Each source counts towards the
-              final score with a fixed weight:
+              Every day we collect public signals. These proportions determine
+              how heavily each source counts:
             </p>
             <ul className="space-y-2">
               <li>
@@ -56,10 +56,6 @@ export default function MethodologyPage() {
                 {Math.round((WEIGHTS.youtube ?? 0) * 100)}%)
               </li>
               <li>
-                <strong>Wikipedia</strong>: page views of the best-matching
-                article ({Math.round((WEIGHTS.wikipedia ?? 0) * 100)}%)
-              </li>
-              <li>
                 <strong>News (GDELT)</strong>: how much the world&apos;s news
                 media report on the product (
                 {Math.round((WEIGHTS.gdelt_news ?? 0) * 100)}%)
@@ -69,6 +65,27 @@ export default function MethodologyPage() {
               We deliberately use several independent sources: if one drops out
               temporarily, the score holds up on the others. No single source
               determines the outcome on its own.
+            </p>
+            <p className="mt-3">
+              In practice not every source yields something for every product. A
+              niche product rarely makes the world news, and not everything has a
+              Wikipedia article. When a source measures nothing for a product, we{" "}
+              <strong>leave that source out for that product</strong> and spread
+              its weight across the sources that are available. We explicitly do
+              not count a missing measurement as &quot;no growth&quot;: not
+              measured is not the same as standing still. That keeps products
+              fairly comparable, even when they do not all appear in the same
+              sources.
+            </p>
+            <p className="mt-3">
+              <strong>Wikipedia is temporarily on standby.</strong> We do measure
+              and store the page views, but they currently do not count towards
+              the score. The reason: the automatically chosen article often
+              turned out not to be about the product — &quot;solar power
+              bank&quot;, for instance, matched a power station in Morocco. We
+              would rather leave a source out for now than weigh it while
+              knowing it measures the wrong thing. We will switch it back on as
+              soon as the matching is reliable.
             </p>
             <p className="mt-3">
               We compare this week&apos;s measurement with last week&apos;s. That

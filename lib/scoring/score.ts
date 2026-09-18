@@ -48,6 +48,28 @@ export function normalize(values: Map<string, number>): Map<string, number> {
   return out;
 }
 
+// v4: dynamische herweging. Telt alleen de bronnen die voor dít product
+// daadwerkelijk een groeicijfer opleverden, en schaalt hun gewichten naar 100%.
+// Zo blijft de score vergelijkbaar tussen producten en drukt een stilgevallen
+// bron niet iedereen omlaag — precies de bronspreiding die dit project belooft.
+// Geëxporteerd zodat het los te testen is.
+export function combineWeighted(
+  values: Partial<Record<SourceName, number>>
+): number {
+  let weighted = 0;
+  let weightSum = 0;
+  for (const source of SOURCES) {
+    const value = values[source];
+    if (value === undefined) continue;
+    const weight = WEIGHTS[source] ?? 0;
+    weighted += weight * value;
+    weightSum += weight;
+  }
+  // Geen enkele bron met data: geen uitspraak mogelijk, dus 0.
+  const score = weightSum > 0 ? weighted / weightSum : 0;
+  return Math.round(score * 100) / 100;
+}
+
 export type ScoreResult = { written: number; skipped: number };
 
 // Haalt ALLE signalen op, met paginering. Cruciaal: Supabase/PostgREST geeft
@@ -102,18 +124,20 @@ export async function computeAndStoreScores(
 
   if (qualifying.length === 0) return { written: 0, skipped };
 
-  // Ruwe groei per bron (ontbrekende bron = 0 voor dat onderdeel).
+  // Ruwe groei per bron. v4: een bron zonder meetbare groei doet NIET mee
+  // (geen meting is iets anders dan nulgroei). Producten zonder waarde staan
+  // dus niet in de map, en vervuilen ook de min/max van de normalisatie niet.
   const rawBySource = new Map<SourceName, Map<string, number>>();
   for (const source of SOURCES) {
     const map = new Map<string, number>();
     for (const productId of qualifying) {
       const g = growth(byProduct.get(productId)!.get(source) ?? []);
-      map.set(productId, g ?? 0);
+      if (g !== null) map.set(productId, g);
     }
     rawBySource.set(source, map);
   }
 
-  // Normaliseer per bron en tel gewogen op.
+  // Normaliseer per bron over uitsluitend de producten die die bron wél hebben.
   const normBySource = new Map<SourceName, Map<string, number>>();
   for (const source of SOURCES) {
     normBySource.set(source, normalize(rawBySource.get(source)!));
@@ -121,11 +145,12 @@ export async function computeAndStoreScores(
 
   const scored = qualifying
     .map((productId) => {
-      let score = 0;
+      const present: Partial<Record<SourceName, number>> = {};
       for (const source of SOURCES) {
-        score += (WEIGHTS[source] ?? 0) * (normBySource.get(source)!.get(productId) ?? 0);
+        const value = normBySource.get(source)!.get(productId);
+        if (value !== undefined) present[source] = value;
       }
-      return { productId, score: Math.round(score * 100) / 100 };
+      return { productId, score: combineWeighted(present) };
     })
     .sort((a, b) => b.score - a.score);
 
