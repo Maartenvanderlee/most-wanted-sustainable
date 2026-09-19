@@ -19,6 +19,7 @@ import {
   type UIStrings,
 } from "@/lib/i18n";
 import { pexelsSized } from "@/lib/pexels";
+import { formatPriceRange, priceRangeFrom } from "@/lib/price";
 import { safeJsonLd } from "@/lib/json-ld";
 import { WEIGHTS } from "@/lib/scoring/version";
 import { SiteNav, SiteFooter } from "@/app/site-chrome";
@@ -154,35 +155,7 @@ export async function ProductView({
           </div>
         )}
 
-        {buyLinks.length > 0 && (
-          <div className="mt-6">
-            <p className="mb-3 text-sm font-semibold text-on-background">
-              {ui.buyHere}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {buyLinks.map((offer) => (
-                <a
-                  key={offer.position}
-                  href={offer.url}
-                  target="_blank"
-                  rel="nofollow sponsored noopener"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary-container px-6 py-3 font-semibold text-on-primary shadow-md transition hover:opacity-90"
-                >
-                  {offer.retailer}
-                  {offer.price ? (
-                    <span className="text-sm font-normal opacity-90">
-                      ±€{Math.round(offer.price)}
-                    </span>
-                  ) : null}
-                  <span aria-hidden="true">→</span>
-                </a>
-              ))}
-            </div>
-            <p className="mt-2 text-xs text-on-surface-variant">
-              {ui.affiliateNote}
-            </p>
-          </div>
-        )}
+        <BuyBlock buyLinks={buyLinks} ui={ui} />
 
         {/* Waarom op de lijst */}
         <section className="mt-8 rounded-xl border border-outline-variant/30 bg-surface-container-low p-6">
@@ -317,6 +290,9 @@ export async function ProductView({
           </section>
         )}
 
+        {/* Tweede koop-moment: wie tot hier leest, is het meest overtuigd. */}
+        <BuyBlock buyLinks={buyLinks} ui={ui} repeat />
+
         {/* Score-opbouw per bron */}
         <section className="mt-10">
           <h2 className="mb-1 font-display text-headline-md-mobile text-on-background">
@@ -367,6 +343,66 @@ export async function ProductView({
 
       <SiteFooter locale={locale} />
     </>
+  );
+}
+
+// Het koopblok. Verschijnt twee keer op de pagina: prominent onder de foto,
+// en nog eens onderaan waar de lezer de duurzame winst net heeft gezien. De
+// affiliate-melding staat alleen bij de eerste, om herhaling te voorkomen.
+function BuyBlock({
+  buyLinks,
+  ui,
+  repeat = false,
+}: {
+  buyLinks: { position: number; retailer: string; url: string; price: number | null }[];
+  ui: UIStrings;
+  repeat?: boolean;
+}) {
+  if (buyLinks.length === 0) return null;
+
+  const range = priceRangeFrom(buyLinks.map((o) => o.price));
+
+  return (
+    <section
+      className={`rounded-2xl border border-primary-container/50 bg-primary-container/10 p-6 ${
+        repeat ? "mt-8" : "mt-6"
+      }`}
+    >
+      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="font-semibold text-on-background">
+          {repeat ? ui.buyRepeat : ui.buyHere}
+        </h2>
+        {range && (
+          <span className="font-display text-headline-md-mobile text-primary">
+            {formatPriceRange(range)}
+          </span>
+        )}
+      </div>
+
+      <div className="flex flex-wrap gap-3">
+        {buyLinks.map((offer) => (
+          <a
+            key={offer.position}
+            href={offer.url}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            className="inline-flex items-center gap-2 rounded-full bg-primary-container px-6 py-3 font-semibold text-on-primary shadow-md transition hover:opacity-90"
+          >
+            {offer.retailer}
+            {offer.price ? (
+              <span className="text-sm font-normal opacity-90">
+                ±€{Math.round(offer.price)}
+              </span>
+            ) : null}
+            <span aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+
+      {!repeat && (
+        <p className="mt-3 text-xs text-on-surface-variant">{ui.affiliateNote}</p>
+      )}
+    </section>
   );
 }
 

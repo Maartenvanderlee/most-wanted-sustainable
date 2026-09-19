@@ -74,9 +74,14 @@ export const CONTENT_SECTIONS: ContentSection[] = [
 export const CONTENT_DEFAULTS: Record<string, string> = {
   "home.hero.badge": "ONAFHANKELIJKE RANGLIJST",
   "home.hero.title": "De hardst stijgende *duurzame* producten.",
+  // De claim is bewust afgebakend tot de SCORE. Sinds er affiliate-links op
+  // productpagina's staan, zou "100% onafhankelijk van affiliate" over de hele
+  // site misleidend zijn (EmpCo/Green Claims). Dat de score zelf onbeïnvloed
+  // blijft, is en blijft waar — en is een sterkere belofte dan de oude tekst.
   "home.hero.intro":
     "We meten versnelling, geen volume. Elke dag opnieuw berekend uit " +
-    "publieke databronnen, 100% onafhankelijk van affiliate of sponsoring.",
+    "publieke databronnen. De trendscore staat los van commerciële " +
+    "belangen: een product kan zich niet omhoog kopen.",
   "home.newsletter.title": "Blijf de trends voor",
   "home.newsletter.text":
     "Ontvang wekelijks de grootste stijgers in duurzame producten in je " +
@@ -92,7 +97,8 @@ export const CONTENT_DEFAULTS: Record<string, string> = {
   "en.home.hero.title": "The fastest-rising *sustainable* products.",
   "en.home.hero.intro":
     "We measure acceleration, not volume. Recalculated every day from " +
-    "public data sources, 100% independent from affiliate or sponsorship.",
+    "public data sources. The trend score is free from commercial " +
+    "influence: a product cannot buy its way up.",
   "en.home.newsletter.title": "Stay ahead of the trends",
   "en.home.newsletter.text":
     "Get the biggest risers in sustainable products in your inbox every " +

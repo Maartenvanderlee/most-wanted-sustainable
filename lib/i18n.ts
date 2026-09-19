@@ -78,7 +78,8 @@ export const UI = {
     inRanking: (rank: number) => `#${rank} in de ranglijst`,
     noScoreYet: "nog geen score",
     // productpagina
-    buyHere: "Hier online te koop:",
+    buyHere: "Hier online te koop",
+    buyRepeat: "Overtuigd? Zo kom je eraan",
     viewProduct: "Bekijk dit product",
     affiliateNote:
       "Affiliate-links, we verdienen mogelijk een kleine commissie. Dit heeft geen invloed op de trendscore. Prijzen zijn een indicatie en kunnen bij de winkel afwijken.",
@@ -155,7 +156,8 @@ export const UI = {
     isNew: "new",
     inRanking: (rank: number) => `#${rank} in the ranking`,
     noScoreYet: "no score yet",
-    buyHere: "Buy online:",
+    buyHere: "Buy online",
+    buyRepeat: "Convinced? Here is where to get it",
     viewProduct: "View this product",
     affiliateNote:
       "Affiliate links, we may earn a small commission. This never affects the trend score. Prices are indicative and may differ at the store.",
