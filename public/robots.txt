@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /en/
+Disallow: /admin
+Disallow: /api/
+Disallow: /.well-known/
+Disallow: /embed/
+
+Sitemap: https://www.risegoods.nl/sitemap.xml
