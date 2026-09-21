@@ -45,12 +45,35 @@ eerste geautomatiseerd wordt.
 
 ---
 
+## De koers (herzien 21 september 2026)
+
+Twee sporen parallel, en ze concurreren niet om dezelfde tijd.
+
+**Spoor 1 — verkeer en conversie (mijn werk, zaterdagbatch).** Amazon wordt
+geactiveerd, niet uitgesteld. Niet om de ~€30 per maand, maar omdat kliks en
+aankopen de ontbrekende laag onder het B2B-rapport zijn: "welke versnelling
+converteert echt" is een betere propositie dan "welke categorie versnelt". Een
+bewezen inkomstenstroom, hoe klein ook, is bovendien een vertrekpunt voor
+optimalisatie dat nul niet is.
+
+**Spoor 2 — kopersgesprekken (jouw 10 minuten per dag).** Eén bericht uit
+`docs/eerste-tien-gesprekken.md`. Niet wachten tot de conversiedata "goed genoeg"
+is: de eerste orders zeggen statistisch niets, en de gesprekken vertellen je of
+het rapport iets waard is.
+
+**Eén harde grens.** Affiliate-data mag de trendscore nooit raken (`CLAUDE.md`,
+geen uitzonderingen). Conversiecijfers worden een aparte, duidelijk gescheiden
+sectie in het B2B-rapport — nooit een bron in de score.
+
+---
+
 ## Nu doen (urgent, vandaag)
 
 | # | Stroom | Item | Wie |
 |---|--------|------|-----|
-| W1 | W | GitHub-secrets instellen zodat de wekelijkse backup werkt. Repo → **Settings → Secrets and variables → Actions → New repository secret**: `NEXT_PUBLIC_SUPABASE_URL` en `SUPABASE_SERVICE_ROLE_KEY` (waarden uit `.env.local`). Daarna Actions → *Weekly data archive* → **Run workflow**. | jij, 5 min |
-| W2 | W | Migraties 0003 + 0009 uitvoeren in de Supabase SQL Editor (SQL staat in `docs/verkeersplan.md` §1). Daarna `npm run check-db` → alles ✅. | jij, 5 min |
+| W1 | W | Migraties 0003 + 0009 uitvoeren in de Supabase SQL Editor (SQL in `docs/verkeersplan.md` §1). Daarna `npm run check-db` → alles ✅. **Dit is het instrument, niet alleen een reparatie:** `/api/track` registreert `outbound`-kliks per product. Dat is de helft van de conversiedata die je rapport legitimeert, en het werkt los van Amazon. | jij, 5 min |
+| W2 | W | GitHub-secrets instellen zodat de wekelijkse backup werkt. Repo → **Settings → Secrets and variables → Actions → New repository secret**: `NEXT_PUBLIC_SUPABASE_URL` en `SUPABASE_SERVICE_ROLE_KEY` (waarden uit `.env.local`). Daarna Actions → *Weekly data archive* → **Run workflow**. | jij, 5 min |
+| C1 | C | Amazon Associates aanmelden + W-9 of W-8BEN + direct deposit (`docs/verkeersplan.md` §2.2). Daarna OneLink aanzetten. Deadline drie verkopen: 180 dagen na aanmelding. | jij, 30 min |
 
 ---
 
@@ -81,19 +104,27 @@ eerste geautomatiseerd wordt.
 *Wel in orde:* beschrijving, why_sustainable, co2_note en foto zijn bij alle 89
 goedgekeurde producten gevuld, in nl én en.
 
-### M — Marketing & verkeer
+### M — Verkeer, conversie & marketing
 
+Op volgorde: eerst meten, dan koopkant, dan verkeer. Meten zonder koopknop geeft
+geen conversie; verkeer zonder meting leert je niets.
+
+- [ ] W1 afronden zodat `outbound`-kliks per product binnenkomen
+- [ ] Amazon-disclosuretekst + prijzen uit het koopblok (zie werkstroom B)
+- [ ] Koopkanalen invoeren voor de top 15 op trendscore (`product_offers`: nu 0 rijen) — dit is de harde blokkade, niet de aanmelding bij Amazon
 - [ ] Google Search Console instellen + sitemap indienen
 - [ ] Bing Webmaster Tools (importeren uit GSC)
 - [ ] Productnamen netjes maken (staan nu in kleine letters, Engels op de NL-site)
 - [ ] Paginatitels herschrijven ("Trending duurzame huis" is geen Nederlands)
+- [ ] Categorie-intro's via het CMS (`site_content`: nu 0 rijen)
 - [ ] Tien partijen aanschrijven voor de embed-calculator (backlinks)
+- [ ] Later: conversiesectie in het Index-rapport, strikt gescheiden van de score
 
 ### C — Commercie
 
-- [ ] Amazon Associates aanmelden (deadline drie verkopen: ± 20 maart 2027 na aanmelding)
-- [ ] OneLink aanzetten zodra het account er is
-- [ ] Eerste Risegoods Index-rapport genereren (`npm run report`) en één B2B-gesprek voeren
+- [ ] C1 hierboven: Amazon aanmelden + OneLink
+- [ ] Eén bericht per werkdag uit `docs/eerste-tien-gesprekken.md`, antwoord loggen
+- [ ] Maandelijks `npm run report` en sturen naar wie reageerde
 
 ---
 
