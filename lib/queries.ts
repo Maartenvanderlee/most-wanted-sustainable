@@ -7,6 +7,7 @@ import type { Category } from "./categories";
 import type { ProductStatus, SourceName } from "./supabase/types";
 import { WEIGHTS } from "./scoring/version";
 import { priceRangeFrom, type PriceRange } from "./price";
+import { getLatestScores, type LatestScore } from "./score-window";
 
 export type ProductRow = {
   id: string;
@@ -33,32 +34,14 @@ export type ProductRow = {
   created_at: string;
 };
 
-export type LatestScore = { score: number; rank: number; snapshot_date: string };
+export type { LatestScore };
 
 export type RankedProduct = ProductRow & {
   latest: LatestScore | null;
   priceRange: PriceRange | null; // indicatie uit de verkoopkanalen
 };
 
-// Pakt per product de meest recente scorerij.
-function latestScoreByProduct(
-  scores: { product_id: string; score: number; rank: number; snapshot_date: string }[]
-): Map<string, LatestScore> {
-  const map = new Map<string, LatestScore>();
-  for (const s of scores) {
-    const current = map.get(s.product_id);
-    if (!current || s.snapshot_date > current.snapshot_date) {
-      map.set(s.product_id, {
-        score: s.score,
-        rank: s.rank,
-        snapshot_date: s.snapshot_date,
-      });
-    }
-  }
-  return map;
-}
-
-// Goedgekeurde producten met hun laatste score, gesorteerd op rang.
+// Goedgekeurde producten met hun laatste score, hoogste score bovenaan.
 // Producten zonder score komen achteraan (nieuw, nog geen 2 weken historie).
 export async function getRankedProducts(filter?: {
   category?: Category;
@@ -71,10 +54,7 @@ export async function getRankedProducts(filter?: {
   const { data: products, error } = await query;
   if (error) throw new Error(`Producten laden: ${error.message}`);
 
-  const { data: scores } = await supabase
-    .from("scores")
-    .select("product_id, score, rank, snapshot_date");
-  const latest = latestScoreByProduct(scores ?? []);
+  const latest = await getLatestScores(supabase);
 
   // Prijzen uit de verkoopkanalen voor de prijsindicatie per kaart.
   const { data: offerPrices } = await supabase
@@ -94,7 +74,12 @@ export async function getRankedProducts(filter?: {
       priceRange: priceRangeFrom(pricesByProduct.get(p.id) ?? []),
     }))
     .sort((a, b) => {
-      if (a.latest && b.latest) return a.latest.rank - b.latest.rank;
+      // Hoogste trendscore bovenaan. Rang is de tiebreak; die kan van een iets
+      // oudere snapshot komen als een product de laatste run miste.
+      if (a.latest && b.latest) {
+        if (b.latest.score !== a.latest.score) return b.latest.score - a.latest.score;
+        return a.latest.rank - b.latest.rank;
+      }
       if (a.latest) return -1;
       if (b.latest) return 1;
       return a.name.localeCompare(b.name);

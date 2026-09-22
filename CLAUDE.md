@@ -13,7 +13,7 @@ Dashboard van trending duurzame producten, gebouwd door een niet-technische foun
 ## Wat dit product is
 
 - Publieke, tweetalige (nl/en) ranglijst van duurzame producten, gerangschikt op een trendscore die VERSNELLING meet, niet volume
-- Bronnen (formule v3): Google Trends 40% + YouTube 25% + Wikipedia 20% + GDELT-nieuws 15% actief; Reddit- en eBay-adapter klaar maar op standby (sleutels nodig). Bronspreiding zodat de score overeind blijft als één bron uitvalt.
+- Bronnen (formule v4): Google Trends 50% + YouTube 31% + GDELT-nieuws 19%. Wikipedia wordt wél gemeten maar weegt niet mee (artikelkoppeling onbetrouwbaar); Reddit- en eBay-adapter klaar maar op standby (sleutels nodig). Dynamische herweging: per product telt alleen mee wat écht gemeten is, geschaald naar 100%. Bronspreiding zodat de score overeind blijft als één bron uitvalt.
 - Duurzaamheid geborgd via certificeringen (met verifieerbaar registerbewijs) + handmatige curatie + uitsluitingslijst
 - Per product: redactionele beschrijving, duurzame winst t.o.v. het gangbare alternatief, indicatieve CO2-besparing (nl+en)
 - Content: blog (nl+en, met hreflang-koppeling), CMS met concept/preview/publiceren voor homepage- en categorieteksten
