@@ -108,11 +108,32 @@ async function main() {
     [...snapshotDates].reverse().find((d) => d <= (priorTarget ?? "")) ?? snapshotDates[0] ?? null;
 
   const latestScore = new Map<string, ScoreRow>();
-  const priorRank = new Map<string, number>();
   for (const s of scores) {
     if (s.snapshot_date === latestDate && approvedIds.has(s.product_id)) latestScore.set(s.product_id, s);
-    if (s.snapshot_date === priorDate && approvedIds.has(s.product_id)) priorRank.set(s.product_id, s.rank);
   }
+
+  // Rang = positie in de publieke ranglijst, dus uitsluitend goedgekeurde
+  // producten. De rank-kolom in de scores-tabel telt ook afgewezen producten
+  // mee (die worden wel gemeten maar staan niet in de lijst) en liet daardoor
+  // nummers overslaan. Door hem hier af te leiden klopt hij ook voor de
+  // vergelijkingssnapshot, zodat de rangverandering geen kunstmatige sprong
+  // krijgt. Zie lib/score-window.ts — de site doet exact hetzelfde.
+  function ranksOnDate(date: string | null): Map<string, number> {
+    if (!date) return new Map();
+    const rows = scores
+      .filter((s) => s.snapshot_date === date && approvedIds.has(s.product_id))
+      .sort((a, b) =>
+        b.score !== a.score
+          ? b.score - a.score
+          : a.rank !== b.rank
+            ? a.rank - b.rank
+            : a.product_id.localeCompare(b.product_id)
+      );
+    return new Map(rows.map((r, i) => [r.product_id, i + 1]));
+  }
+
+  const latestRank = ranksOnDate(latestDate);
+  const priorRank = ranksOnDate(priorDate);
 
   // Per categorie: ruwe week-op-week groei per bron (de eerlijke marktversnelling).
   const categoryData = CATEGORIES.map((cat) => {
@@ -148,8 +169,11 @@ async function main() {
         return {
           name: nameById.get(id)!,
           score: ls.score,
-          rank: ls.rank,
-          rankDelta: pr !== undefined ? pr - ls.rank : null,
+          rank: latestRank.get(ls.product_id) ?? ls.rank,
+          rankDelta:
+            pr !== undefined && latestRank.has(ls.product_id)
+              ? pr - latestRank.get(ls.product_id)!
+              : null,
         };
       })
       .sort((a, b) => b.score - a.score)
@@ -168,8 +192,11 @@ async function main() {
       name: nameById.get(s.product_id)!,
       category: CATEGORY_LABELS[catById.get(s.product_id)!],
       score: s.score,
-      rank: s.rank,
-      rankDelta: priorRank.has(s.product_id) ? priorRank.get(s.product_id)! - s.rank : null,
+      rank: latestRank.get(s.product_id) ?? s.rank,
+      rankDelta:
+        priorRank.has(s.product_id) && latestRank.has(s.product_id)
+          ? priorRank.get(s.product_id)! - latestRank.get(s.product_id)!
+          : null,
     }))
     .sort((a, b) => b.score - a.score)
     .slice(0, 10);

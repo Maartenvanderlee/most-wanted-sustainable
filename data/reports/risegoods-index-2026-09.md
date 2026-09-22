@@ -7,9 +7,9 @@
 
 ## Samenvatting
 
-- Datavenster: laatste snapshot 2026-09-21, rangverandering t.o.v. 2026-08-24.
+- Datavenster: laatste snapshot 2026-09-22, rangverandering t.o.v. 2026-08-25.
 - Goedgekeurde producten gevolgd: 89 · met voldoende historie voor een trendscore: 89.
-- Snelst versnellende categorie: **Voeding** (samengestelde versnelling +249%).
+- Snelst versnellende categorie: **Voeding** (samengestelde versnelling +204%).
 
 ## Per categorie
 
@@ -17,116 +17,116 @@
 
 Gevolgd: 20 producten · met trendscore: 20.
 
-**Marktversnelling (week-op-week, ruwe signalen):** +47% samengesteld.
+**Marktversnelling (week-op-week, ruwe signalen):** +14% samengesteld.
 
 | Bron | Versnelling |
 |---|---|
-| Google Trends | +41% |
-| YouTube | +57% |
+| Google Trends | -7% |
+| YouTube | +47% |
 | Nieuws (GDELT) | — |
 
 | Product | Trendscore | Rang | Δ rang |
 |---|---:|---:|---:|
-| compostable trash bags | 7.61 | #9 | ▼ 7 |
-| recycled toilet paper | 7.51 | #10 | ▲ 82 |
-| cork yoga mat | 5.22 | #19 | ▲ 13 |
-| smart thermostat | 4.25 | #24 | ▼ 19 |
-| refillable cleaning spray | 3.94 | #29 | ▲ 67 |
+| energy efficient led bulbs | 9.58 | #9 | ▼ 5 |
+| cork yoga mat | 8.3 | #11 | ▲ 17 |
+| bamboo cutting board | 5.28 | #29 | ▲ 53 |
+| glass food containers | 5.02 | #34 | ▲ 49 |
+| refillable cleaning spray | 4.96 | #36 | ▲ 49 |
 
 ### Verzorging
 
 Gevolgd: 17 producten · met trendscore: 17.
 
-**Marktversnelling (week-op-week, ruwe signalen):** +82% samengesteld.
+**Marktversnelling (week-op-week, ruwe signalen):** +68% samengesteld.
 
 | Bron | Versnelling |
 |---|---|
-| Google Trends | +49% |
-| YouTube | +137% |
+| Google Trends | +36% |
+| YouTube | +119% |
 | Nieuws (GDELT) | — |
 
 | Product | Trendscore | Rang | Δ rang |
 |---|---:|---:|---:|
-| refillable lip balm | 14.09 | #4 | ▲ 13 |
-| conditioner bar | 5.52 | #15 | ▲ 20 |
-| toothpaste tablets | 5.26 | #18 | ▲ 16 |
-| solid perfume | 4.48 | #22 | ▼ 7 |
-| shampoo bar | 3.99 | #27 | ▼ 17 |
+| refillable lip balm | 13.58 | #5 | ▲ 12 |
+| conditioner bar | 7.02 | #14 | ▲ 17 |
+| toothpaste tablets | 7.02 | #15 | ▲ 15 |
+| refillable deodorant | 6.43 | #19 | ▼ 10 |
+| solid perfume | 6.28 | #20 | ▼ 5 |
 
 ### Kleding
 
 Gevolgd: 17 producten · met trendscore: 17.
 
-**Marktversnelling (week-op-week, ruwe signalen):** +190% samengesteld.
+**Marktversnelling (week-op-week, ruwe signalen):** +125% samengesteld.
 
 | Bron | Versnelling |
 |---|---|
-| Google Trends | +263% |
-| YouTube | +73% |
+| Google Trends | +154% |
+| YouTube | +79% |
 | Nieuws (GDELT) | — |
 
 | Product | Trendscore | Rang | Δ rang |
 |---|---:|---:|---:|
-| recycled sneakers | 61.75 | #1 | ▲ 25 |
-| repairable shoes | 8.71 | #7 | ▲ 37 |
-| mushroom leather | 7.88 | #8 | ▲ 39 |
-| tencel dress | 5.43 | #16 | ▲ 13 |
-| hemp clothing | 4.46 | #23 | ▲ 2 |
+| organic linen shirt | 62.25 | #1 | ▲ 38 |
+| repairable shoes | 10.91 | #6 | ▲ 32 |
+| tencel dress | 8.65 | #10 | ▲ 16 |
+| mushroom leather | 8.11 | #12 | ▲ 29 |
+| organic cotton t shirt | 6.47 | #18 | ▲ 15 |
 
 ### Techniek
 
 Gevolgd: 19 producten · met trendscore: 19.
 
-**Marktversnelling (week-op-week, ruwe signalen):** +76% samengesteld.
+**Marktversnelling (week-op-week, ruwe signalen):** +55% samengesteld.
 
 | Bron | Versnelling |
 |---|---|
-| Google Trends | +119% |
-| YouTube | +7% |
+| Google Trends | +76% |
+| YouTube | +21% |
 | Nieuws (GDELT) | — |
 
 | Product | Trendscore | Rang | Δ rang |
 |---|---:|---:|---:|
-| solar backpack | 10.72 | #5 | ▲ 58 |
-| refurbished smartphone | 8.8 | #6 | ▲ 44 |
-| modular headphones | 6.75 | #12 | ▲ 47 |
-| e bike conversion kit | 5.76 | #14 | ▲ 51 |
-| solar security camera | 5.35 | #17 | ▲ 40 |
+| refurbished smartphone | 14.6 | #4 | ▲ 40 |
+| solar backpack | 10.09 | #7 | ▲ 49 |
+| solar garden lights | 9.85 | #8 | ▲ 38 |
+| solar security camera | 7.32 | #13 | ▲ 38 |
+| e bike conversion kit | 6.49 | #17 | ▲ 41 |
 
 ### Voeding
 
 Gevolgd: 16 producten · met trendscore: 16.
 
-**Marktversnelling (week-op-week, ruwe signalen):** +249% samengesteld.
+**Marktversnelling (week-op-week, ruwe signalen):** +204% samengesteld.
 
 | Bron | Versnelling |
 |---|---|
-| Google Trends | +96% |
-| YouTube | +497% |
+| Google Trends | +23% |
+| YouTube | +496% |
 | Nieuws (GDELT) | — |
 
 | Product | Trendscore | Rang | Δ rang |
 |---|---:|---:|---:|
-| vegan jerky | 43.3 | #2 | ▲ 81 |
-| fermentation kit | 17.91 | #3 | ▲ 78 |
-| bulk food containers | 6.18 | #13 | ▲ 61 |
-| oat milk powder | 4.7 | #21 | ▲ 47 |
-| reusable coffee filter | 3.96 | #28 | ▲ 41 |
+| vegan jerky | 38.27 | #2 | ▲ 71 |
+| fermentation kit | 19.03 | #3 | ▲ 68 |
+| bulk food containers | 6.58 | #16 | ▲ 51 |
+| reusable coffee filter | 5.85 | #25 | ▲ 37 |
+| plant based protein powder | 4.97 | #35 | ▲ 30 |
 
 ## Top-versnellers (alle categorieën)
 
 | Product | Categorie | Trendscore | Rang | Δ rang |
 |---|---|---:|---:|---:|
-| recycled sneakers | Kleding | 61.75 | #1 | ▲ 25 |
-| vegan jerky | Voeding | 43.3 | #2 | ▲ 81 |
-| fermentation kit | Voeding | 17.91 | #3 | ▲ 78 |
-| refillable lip balm | Verzorging | 14.09 | #4 | ▲ 13 |
-| solar backpack | Techniek | 10.72 | #5 | ▲ 58 |
-| refurbished smartphone | Techniek | 8.8 | #6 | ▲ 44 |
-| repairable shoes | Kleding | 8.71 | #7 | ▲ 37 |
-| mushroom leather | Kleding | 7.88 | #8 | ▲ 39 |
-| compostable trash bags | Huis | 7.61 | #9 | ▼ 7 |
-| recycled toilet paper | Huis | 7.51 | #10 | ▲ 82 |
+| organic linen shirt | Kleding | 62.25 | #1 | ▲ 38 |
+| vegan jerky | Voeding | 38.27 | #2 | ▲ 71 |
+| fermentation kit | Voeding | 19.03 | #3 | ▲ 68 |
+| refurbished smartphone | Techniek | 14.6 | #4 | ▲ 40 |
+| refillable lip balm | Verzorging | 13.58 | #5 | ▲ 12 |
+| repairable shoes | Kleding | 10.91 | #6 | ▲ 32 |
+| solar backpack | Techniek | 10.09 | #7 | ▲ 49 |
+| solar garden lights | Techniek | 9.85 | #8 | ▲ 38 |
+| energy efficient led bulbs | Huis | 9.58 | #9 | ▼ 5 |
+| tencel dress | Kleding | 8.65 | #10 | ▲ 16 |
 
 ## Methodologie & databronnen
 
@@ -134,10 +134,10 @@ Gevolgd: 16 producten · met trendscore: 16.
 - **Gewichten:** Google Trends 50% · YouTube 31% · Nieuws (GDELT) 19%.
 - **Drempel:** een product krijgt pas een trendscore na minimaal 2 weken historie.
 - **Databronnen:** publieke bronnen (Google Trends, YouTube, Wikipedia, GDELT-nieuws). Score is 100% onafhankelijk van affiliate of sponsoring.
-- **Rapport gegenereerd:** 2026-09-21T20:06:41.691Z uit onze append-only historie.
+- **Rapport gegenereerd:** 2026-09-22T20:19:32.191Z uit onze append-only historie.
 
 ### Beperkingen van deze editie
 
 - De metingen gebruiken Engelstalige zoektermen (internationaal signaal); een aparte Nederlandse meetlaag ontbreekt nog (zie zoekwoord-marktkaart).
-- De historie is nog jong (63 snapshot-dag(en) met scores). Het rapport wordt maand op maand rijker naarmate de tijdreeks groeit.
+- De historie is nog jong (64 snapshot-dag(en) met scores). Het rapport wordt maand op maand rijker naarmate de tijdreeks groeit.
 - Bij kleine aantallen producten per categorie kan de week-op-week versnelling sterk schommelen door één uitschieter; lees percentages deze editie als richting, niet als exacte marktgroei.

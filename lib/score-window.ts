@@ -73,6 +73,37 @@ export function latestScoreByProduct(scores: ScoreRow[]): Map<string, LatestScor
   return map;
 }
 
+// Rang zoals een bezoeker hem hoort te zien: de positie in de PUBLIEKE
+// ranglijst, dus alleen goedgekeurde producten.
+//
+// De `rank`-kolom in de scores-tabel is iets anders: die telt alles mee wat de
+// pipeline meet, inclusief afgewezen producten. Die worden bewust wél gemeten
+// (de historie is het bezit, en een afwijzing kan worden teruggedraaid), maar
+// ze staan niet in de lijst. Daardoor vielen er gaten in de nummering: #7, dan
+// #9, omdat #8 een afgewezen product was.
+//
+// Door de rang hier af te leiden in plaats van de opgeslagen waarde te tonen,
+// klopt hij ook voor oude snapshots en verandert er niets aan de append-only
+// tabel. Keur je later een product alsnog goed, dan schuift de nummering
+// vanzelf mee.
+export function publicRanks(
+  approvedIds: Iterable<string>,
+  latest: Map<string, LatestScore>
+): Map<string, number> {
+  const scored = [...approvedIds]
+    .map((id) => ({ id, s: latest.get(id) }))
+    .filter((x): x is { id: string; s: LatestScore } => x.s !== undefined)
+    .sort((a, b) => {
+      if (b.s.score !== a.s.score) return b.s.score - a.s.score;
+      // Gelijke scores: de opgeslagen rang als tiebreak, dan het id. Zonder
+      // die laatste stap kan de volgorde per aanroep verschillen.
+      if (a.s.rank !== b.s.rank) return a.s.rank - b.s.rank;
+      return a.id.localeCompare(b.id);
+    });
+
+  return new Map(scored.map((x, i) => [x.id, i + 1]));
+}
+
 // Haalt het volledige venster op: nieuwste snapshot zoeken, dan de scores van
 // de dagen daarvóór. Lege map als er nog geen enkele score bestaat.
 export async function getLatestScores(

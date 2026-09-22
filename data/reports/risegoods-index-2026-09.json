@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T20:06:41.692Z",
+  "generatedAt": "2026-09-22T20:19:32.191Z",
   "month": "2026-09",
   "formulaVersion": "v4",
   "weights": {
@@ -9,9 +9,9 @@
   },
   "market": "international (English keywords)",
   "window": {
-    "latestSnapshot": "2026-09-21",
-    "priorSnapshot": "2026-08-24",
-    "snapshotDays": 63
+    "latestSnapshot": "2026-09-22",
+    "priorSnapshot": "2026-08-25",
+    "snapshotDays": 64
   },
   "coverage": {
     "approvedTracked": 89,
@@ -22,42 +22,42 @@
       "category": "home",
       "tracked": 20,
       "scored": 20,
-      "compositeAcceleration": 0.46918761140392057,
+      "compositeAcceleration": 0.13763813317373777,
       "accelerationBySource": {
-        "google_trends": 0.40647313470842883,
-        "youtube": 0.5703399931708428,
+        "google_trends": -0.06871860095389508,
+        "youtube": 0.4704715753150811,
         "gdelt_news": null
       },
       "topProducts": [
         {
-          "name": "compostable trash bags",
-          "score": 7.61,
+          "name": "energy efficient led bulbs",
+          "score": 9.58,
           "rank": 9,
-          "rankDelta": -7
-        },
-        {
-          "name": "recycled toilet paper",
-          "score": 7.51,
-          "rank": 10,
-          "rankDelta": 82
+          "rankDelta": -5
         },
         {
           "name": "cork yoga mat",
-          "score": 5.22,
-          "rank": 19,
-          "rankDelta": 13
+          "score": 8.3,
+          "rank": 11,
+          "rankDelta": 17
         },
         {
-          "name": "smart thermostat",
-          "score": 4.25,
-          "rank": 24,
-          "rankDelta": -19
+          "name": "bamboo cutting board",
+          "score": 5.28,
+          "rank": 29,
+          "rankDelta": 53
+        },
+        {
+          "name": "glass food containers",
+          "score": 5.02,
+          "rank": 34,
+          "rankDelta": 49
         },
         {
           "name": "refillable cleaning spray",
-          "score": 3.94,
-          "rank": 29,
-          "rankDelta": 67
+          "score": 4.96,
+          "rank": 36,
+          "rankDelta": 49
         }
       ]
     },
@@ -65,42 +65,42 @@
       "category": "personal_care",
       "tracked": 17,
       "scored": 17,
-      "compositeAcceleration": 0.823509613387633,
+      "compositeAcceleration": 0.6751883401157078,
       "accelerationBySource": {
-        "google_trends": 0.48574566321764295,
-        "youtube": 1.3682901781779397,
+        "google_trends": 0.3567416763971733,
+        "youtube": 1.1888119912746344,
         "gdelt_news": null
       },
       "topProducts": [
         {
           "name": "refillable lip balm",
-          "score": 14.09,
-          "rank": 4,
-          "rankDelta": 13
+          "score": 13.58,
+          "rank": 5,
+          "rankDelta": 12
         },
         {
           "name": "conditioner bar",
-          "score": 5.52,
-          "rank": 15,
-          "rankDelta": 20
+          "score": 7.02,
+          "rank": 14,
+          "rankDelta": 17
         },
         {
           "name": "toothpaste tablets",
-          "score": 5.26,
-          "rank": 18,
-          "rankDelta": 16
+          "score": 7.02,
+          "rank": 15,
+          "rankDelta": 15
+        },
+        {
+          "name": "refillable deodorant",
+          "score": 6.43,
+          "rank": 19,
+          "rankDelta": -10
         },
         {
           "name": "solid perfume",
-          "score": 4.48,
-          "rank": 22,
-          "rankDelta": -7
-        },
-        {
-          "name": "shampoo bar",
-          "score": 3.99,
-          "rank": 27,
-          "rankDelta": -17
+          "score": 6.28,
+          "rank": 20,
+          "rankDelta": -5
         }
       ]
     },
@@ -108,42 +108,42 @@
       "category": "fashion",
       "tracked": 17,
       "scored": 17,
-      "compositeAcceleration": 1.9006973475475588,
+      "compositeAcceleration": 1.2544734707100187,
       "accelerationBySource": {
-        "google_trends": 2.629475703324808,
-        "youtube": 0.7252483866165123,
+        "google_trends": 1.5443641568337472,
+        "youtube": 0.786907847929812,
         "gdelt_news": null
       },
       "topProducts": [
         {
-          "name": "recycled sneakers",
-          "score": 61.75,
+          "name": "organic linen shirt",
+          "score": 62.25,
           "rank": 1,
-          "rankDelta": 25
+          "rankDelta": 38
         },
         {
           "name": "repairable shoes",
-          "score": 8.71,
-          "rank": 7,
-          "rankDelta": 37
-        },
-        {
-          "name": "mushroom leather",
-          "score": 7.88,
-          "rank": 8,
-          "rankDelta": 39
+          "score": 10.91,
+          "rank": 6,
+          "rankDelta": 32
         },
         {
           "name": "tencel dress",
-          "score": 5.43,
-          "rank": 16,
-          "rankDelta": 13
+          "score": 8.65,
+          "rank": 10,
+          "rankDelta": 16
         },
         {
-          "name": "hemp clothing",
-          "score": 4.46,
-          "rank": 23,
-          "rankDelta": 2
+          "name": "mushroom leather",
+          "score": 8.11,
+          "rank": 12,
+          "rankDelta": 29
+        },
+        {
+          "name": "organic cotton t shirt",
+          "score": 6.47,
+          "rank": 18,
+          "rankDelta": 15
         }
       ]
     },
@@ -151,42 +151,42 @@
       "category": "tech",
       "tracked": 19,
       "scored": 19,
-      "compositeAcceleration": 0.7634610792001583,
+      "compositeAcceleration": 0.5469329882286861,
       "accelerationBySource": {
-        "google_trends": 1.1929281716978979,
-        "youtube": 0.07077222033283664,
+        "google_trends": 0.7586134282448728,
+        "youtube": 0.2055129236864495,
         "gdelt_news": null
       },
       "topProducts": [
         {
-          "name": "solar backpack",
-          "score": 10.72,
-          "rank": 5,
-          "rankDelta": 58
-        },
-        {
           "name": "refurbished smartphone",
-          "score": 8.8,
-          "rank": 6,
-          "rankDelta": 44
+          "score": 14.6,
+          "rank": 4,
+          "rankDelta": 40
         },
         {
-          "name": "modular headphones",
-          "score": 6.75,
-          "rank": 12,
-          "rankDelta": 47
+          "name": "solar backpack",
+          "score": 10.09,
+          "rank": 7,
+          "rankDelta": 49
         },
         {
-          "name": "e bike conversion kit",
-          "score": 5.76,
-          "rank": 14,
-          "rankDelta": 51
+          "name": "solar garden lights",
+          "score": 9.85,
+          "rank": 8,
+          "rankDelta": 38
         },
         {
           "name": "solar security camera",
-          "score": 5.35,
+          "score": 7.32,
+          "rank": 13,
+          "rankDelta": 38
+        },
+        {
+          "name": "e bike conversion kit",
+          "score": 6.49,
           "rank": 17,
-          "rankDelta": 40
+          "rankDelta": 41
         }
       ]
     },
@@ -194,116 +194,116 @@
       "category": "food",
       "tracked": 16,
       "scored": 16,
-      "compositeAcceleration": 2.49298002912186,
+      "compositeAcceleration": 2.043614448724801,
       "accelerationBySource": {
-        "google_trends": 0.9558958198664081,
-        "youtube": 4.972148108566137,
+        "google_trends": 0.2332044997486174,
+        "youtube": 4.963630495460582,
         "gdelt_news": null
       },
       "topProducts": [
         {
           "name": "vegan jerky",
-          "score": 43.3,
+          "score": 38.27,
           "rank": 2,
-          "rankDelta": 81
+          "rankDelta": 71
         },
         {
           "name": "fermentation kit",
-          "score": 17.91,
+          "score": 19.03,
           "rank": 3,
-          "rankDelta": 78
+          "rankDelta": 68
         },
         {
           "name": "bulk food containers",
-          "score": 6.18,
-          "rank": 13,
-          "rankDelta": 61
-        },
-        {
-          "name": "oat milk powder",
-          "score": 4.7,
-          "rank": 21,
-          "rankDelta": 47
+          "score": 6.58,
+          "rank": 16,
+          "rankDelta": 51
         },
         {
           "name": "reusable coffee filter",
-          "score": 3.96,
-          "rank": 28,
-          "rankDelta": 41
+          "score": 5.85,
+          "rank": 25,
+          "rankDelta": 37
+        },
+        {
+          "name": "plant based protein powder",
+          "score": 4.97,
+          "rank": 35,
+          "rankDelta": 30
         }
       ]
     }
   ],
   "topMovers": [
     {
-      "name": "recycled sneakers",
+      "name": "organic linen shirt",
       "category": "Kleding",
-      "score": 61.75,
+      "score": 62.25,
       "rank": 1,
-      "rankDelta": 25
+      "rankDelta": 38
     },
     {
       "name": "vegan jerky",
       "category": "Voeding",
-      "score": 43.3,
+      "score": 38.27,
       "rank": 2,
-      "rankDelta": 81
+      "rankDelta": 71
     },
     {
       "name": "fermentation kit",
       "category": "Voeding",
-      "score": 17.91,
+      "score": 19.03,
       "rank": 3,
-      "rankDelta": 78
-    },
-    {
-      "name": "refillable lip balm",
-      "category": "Verzorging",
-      "score": 14.09,
-      "rank": 4,
-      "rankDelta": 13
-    },
-    {
-      "name": "solar backpack",
-      "category": "Techniek",
-      "score": 10.72,
-      "rank": 5,
-      "rankDelta": 58
+      "rankDelta": 68
     },
     {
       "name": "refurbished smartphone",
       "category": "Techniek",
-      "score": 8.8,
-      "rank": 6,
-      "rankDelta": 44
+      "score": 14.6,
+      "rank": 4,
+      "rankDelta": 40
+    },
+    {
+      "name": "refillable lip balm",
+      "category": "Verzorging",
+      "score": 13.58,
+      "rank": 5,
+      "rankDelta": 12
     },
     {
       "name": "repairable shoes",
       "category": "Kleding",
-      "score": 8.71,
+      "score": 10.91,
+      "rank": 6,
+      "rankDelta": 32
+    },
+    {
+      "name": "solar backpack",
+      "category": "Techniek",
+      "score": 10.09,
       "rank": 7,
-      "rankDelta": 37
+      "rankDelta": 49
     },
     {
-      "name": "mushroom leather",
-      "category": "Kleding",
-      "score": 7.88,
+      "name": "solar garden lights",
+      "category": "Techniek",
+      "score": 9.85,
       "rank": 8,
-      "rankDelta": 39
+      "rankDelta": 38
     },
     {
-      "name": "compostable trash bags",
+      "name": "energy efficient led bulbs",
       "category": "Huis",
-      "score": 7.61,
+      "score": 9.58,
       "rank": 9,
-      "rankDelta": -7
+      "rankDelta": -5
     },
     {
-      "name": "recycled toilet paper",
-      "category": "Huis",
-      "score": 7.51,
+      "name": "tencel dress",
+      "category": "Kleding",
+      "score": 8.65,
       "rank": 10,
-      "rankDelta": 82
+      "rankDelta": 16
     }
   ]
 }

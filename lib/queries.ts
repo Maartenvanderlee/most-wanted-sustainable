@@ -7,7 +7,7 @@ import type { Category } from "./categories";
 import type { ProductStatus, SourceName } from "./supabase/types";
 import { WEIGHTS } from "./scoring/version";
 import { priceRangeFrom, type PriceRange } from "./price";
-import { getLatestScores, type LatestScore } from "./score-window";
+import { getLatestScores, publicRanks, type LatestScore } from "./score-window";
 
 export type ProductRow = {
   id: string;
@@ -48,13 +48,20 @@ export async function getRankedProducts(filter?: {
 }): Promise<RankedProduct[]> {
   const supabase = createServerClient();
 
-  let query = supabase.from("products").select("*").eq("status", "approved");
-  if (filter?.category) query = query.eq("category", filter.category);
-
-  const { data: products, error } = await query;
+  // Bewust ZONDER categoriefilter: de getoonde rang is de positie in de hele
+  // publieke ranglijst, niet binnen de categorie. Filteren gebeurt hieronder,
+  // nadat de rangen zijn bepaald.
+  const { data: products, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("status", "approved");
   if (error) throw new Error(`Producten laden: ${error.message}`);
 
   const latest = await getLatestScores(supabase);
+  const ranks = publicRanks(
+    (products ?? []).map((p) => p.id),
+    latest
+  );
 
   // Prijzen uit de verkoopkanalen voor de prijsindicatie per kaart.
   const { data: offerPrices } = await supabase
@@ -68,11 +75,15 @@ export async function getRankedProducts(filter?: {
   }
 
   return (products ?? [])
-    .map((p) => ({
-      ...(p as ProductRow),
-      latest: latest.get(p.id) ?? null,
-      priceRange: priceRangeFrom(pricesByProduct.get(p.id) ?? []),
-    }))
+    .filter((p) => !filter?.category || p.category === filter.category)
+    .map((p) => {
+      const score = latest.get(p.id);
+      return {
+        ...(p as ProductRow),
+        latest: score ? { ...score, rank: ranks.get(p.id) ?? score.rank } : null,
+        priceRange: priceRangeFrom(pricesByProduct.get(p.id) ?? []),
+      };
+    })
     .sort((a, b) => {
       // Hoogste trendscore bovenaan. Rang is de tiebreak; die kan van een iets
       // oudere snapshot komen als een product de laatste run miste.
@@ -148,9 +159,21 @@ export async function getProductBySlug(
     snapshot_date: s.snapshot_date,
     score: s.score,
   }));
-  const last = scoreRows?.[scoreRows.length - 1];
-  const latest: LatestScore | null = last
-    ? { score: last.score, rank: last.rank, snapshot_date: last.snapshot_date }
+  // Score en rang komen uit dezelfde bron als de ranglijstpagina's, zodat de
+  // detailpagina nooit een ander getal toont dan de kaart waar de bezoeker op
+  // klikte. De 30-daagse historie hierboven blijft alleen voor het grafiekje.
+  const latestByProduct = await getLatestScores(supabase);
+  const { data: approvedIds } = await supabase
+    .from("products")
+    .select("id")
+    .eq("status", "approved");
+  const ranks = publicRanks(
+    (approvedIds ?? []).map((r) => r.id),
+    latestByProduct
+  );
+  const own = latestByProduct.get(p.id);
+  const latest: LatestScore | null = own
+    ? { ...own, rank: ranks.get(p.id) ?? own.rank }
     : null;
 
   // Laatste ruwe meting per bron (server-side; anon ziet signals nooit).
