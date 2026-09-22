@@ -73,7 +73,8 @@ sectie in het B2B-rapport — nooit een bron in de score.
 |---|--------|------|-----|
 | W1 | W | Migraties 0003 + 0009 uitvoeren in de Supabase SQL Editor (SQL in `docs/verkeersplan.md` §1). Daarna `npm run check-db` → alles ✅. **Dit is het instrument, niet alleen een reparatie:** `/api/track` registreert `outbound`-kliks per product. Dat is de helft van de conversiedata die je rapport legitimeert, en het werkt los van Amazon. | jij, 5 min |
 | W2 | W | GitHub-secrets instellen zodat de wekelijkse backup werkt. Repo → **Settings → Secrets and variables → Actions → New repository secret**: `NEXT_PUBLIC_SUPABASE_URL` en `SUPABASE_SERVICE_ROLE_KEY` (waarden uit `.env.local`). Daarna Actions → *Weekly data archive* → **Run workflow**. | jij, 5 min |
-| C1 | C | Amazon Associates aanmelden + W-9 of W-8BEN + direct deposit (`docs/verkeersplan.md` §2.2). Daarna OneLink aanzetten. Deadline drie verkopen: 180 dagen na aanmelding. | jij, 30 min |
+| C1 | C | **Bol affiliate aanmelden als particulier** op `affiliate.bol.com` (`docs/verkeersplan.md` §1b). De KvK-blokkade bleek een verwarring met het Partnerplatform. Nakijken: heb je nog een Nederlandse IBAN? Acceptatie duurt tot 7 dagen. | jij, 15 min |
+| C2 | C | Amazon Associates aanmelden + W-9 of W-8BEN + direct deposit (`docs/verkeersplan.md` §2.2). Daarna OneLink aanzetten, voor de Engelse kant. Deadline drie verkopen: 180 dagen na aanmelding. | jij, 30 min |
 
 ---
 
@@ -111,7 +112,7 @@ geen conversie; verkeer zonder meting leert je niets.
 
 - [ ] W1 afronden zodat `outbound`-kliks per product binnenkomen
 - [ ] Amazon-disclosuretekst + prijzen uit het koopblok (zie werkstroom B)
-- [ ] Koopkanalen invoeren voor de top 15 op trendscore (`product_offers`: nu 0 rijen) — dit is de harde blokkade, niet de aanmelding bij Amazon
+- [ ] Koopkanalen invoeren voor de top 15 op trendscore (`product_offers`: nu 0 rijen) — dit is de harde blokkade, niet de aanmelding zelf. Bol op de NL-pagina, Amazon op de EN-pagina.
 - [ ] Google Search Console instellen + sitemap indienen
 - [ ] Bing Webmaster Tools (importeren uit GSC)
 - [ ] Productnamen netjes maken (staan nu in kleine letters, Engels op de NL-site)
@@ -122,7 +123,7 @@ geen conversie; verkeer zonder meting leert je niets.
 
 ### C — Commercie
 
-- [ ] C1 hierboven: Amazon aanmelden + OneLink
+- [ ] C1 en C2 hierboven: Bol aanmelden (NL-kant), daarna Amazon + OneLink (EN-kant)
 - [ ] Eén bericht per werkdag uit `docs/eerste-tien-gesprekken.md`, antwoord loggen
 - [ ] Maandelijks `npm run report` en sturen naar wie reageerde
 

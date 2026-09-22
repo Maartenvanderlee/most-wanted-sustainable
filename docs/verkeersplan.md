@@ -69,6 +69,58 @@ paginabezoeken te staan.
 
 ---
 
+## 1b. Bol affiliate: het hoofdkanaal voor Nederlands verkeer
+
+*Toegevoegd 22 september 2026, en het corrigeert de aanleiding van de hele pivot.*
+
+**De KvK-blokkade bestond niet.** Er zijn twee Bol-programma's:
+
+- **Partnerplatform** — zelf producten verkopen op bol.com. Eist KvK én
+  btw-nummer, en weigert particulieren sinds 2024. Hier kwam de blokkade vandaan.
+- **Affiliate programma** (`affiliate.bol.com`) — commissie verdienen door te
+  linken. Eist dat níet.
+
+Wat de affiliate-voorwaarden werkelijk zeggen: deelname staat open voor "iedere
+natuurlijke persoon vanaf de leeftijd van achttien (18) jaar of rechtspersoon",
+een btw-nummer is alleen nodig "indien het hebben van een btw-nummer wettelijk
+verplicht is" (als particulier niet), je kunt kiezen tussen een particulier of
+zakelijk account, en in het buitenland wonen mag expliciet. Uitbetaling gaat naar
+een rekening in IBAN/SEPA-formaat, drempel €50 per maand.
+
+### Waarom Bol vóór Amazon gaat
+
+1. **Je verkeer is Nederlands.** Google indexeerde je als NL-site. Bol lost de
+   scheve situatie uit §2.3 grotendeels op: Nederlandse bezoeker, Nederlandse
+   winkel, euro's.
+2. **Dieper NL-assortiment** dan amazon.nl, vooral in huis, verzorging en
+   voeding — precies je snelst versnellende categorieën.
+3. **Hogere commissie:** grofweg 2–8% per categorie tegenover 1–4% bij Amazon.
+   Let op: cashback- en aanbiedingensites krijgen een vast tarief van 2%.
+   Risegoods is een contentsite, dus beschrijf je bij aanmelding ook zo.
+4. **Geen klok van 180 dagen, geen tax interview.** Minder friction.
+
+### De kanaalverdeling
+
+| Bezoeker | Winkel | Via |
+|---|---|---|
+| Nederlands (`/product/…`) | bol.com | Bol affiliate |
+| Internationaal (`/en/product/…`) | amazon.com of lokale Amazon | Amazon + OneLink |
+
+`product_offers` staat drie kanalen per product toe, dus beide passen naast
+elkaar zonder schemawijziging.
+
+### Nakijken voor je aanmeldt
+
+- **Heb je nog een Nederlandse IBAN?** Bol betaalt alleen uit op IBAN/SEPA. Dit
+  is de enige echte blokkade die overblijft.
+- **Belasting:** particulier account krijgt geen 21% btw over de commissie,
+  zakelijk wel. NL-inkomsten met US-residentie is een vraag voor je boekhouder.
+  Geen reden om te wachten: onder €50 per maand wordt er toch niets uitgekeerd.
+- **Aanmelding duurt tot zeven dagen** voordat Bol laat weten of je geaccepteerd
+  bent.
+
+---
+
 ## 2. Amazon Associates: aanmelden
 
 ### 2.0 Twee aannames uit de vorige sessie die niet kloppen
