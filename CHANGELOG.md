@@ -4,6 +4,63 @@ Alle noemenswaardige wijzigingen aan dit project. Wijzigingen aan de
 trendscore-formule worden hier verplicht genoteerd (zie de `trend-score` skill).
 Nieuwste bovenaan.
 
+## [Na livegang] — Breuk in de tijdreeks: scores 22 juli t/m 17 september 2026
+
+> Deze notitie staat hier om aan een afnemer van de Risegoods Index te kunnen
+> laten zien. Wie de historie afneemt, moet weten waar de knik zit en waarom.
+> De ruwe metingen zijn niet aangetast — alleen de daaruit berekende scores.
+
+**Wat er mis was.** De scoreberekening vroeg alle signalen op zonder
+paginering. Supabase geeft standaard maximaal 1000 rijen terug, zonder
+foutmelding. Vanaf het moment dat de `signals`-tabel die grens passeerde
+(ongeveer 18 juli 2026, rond het inlezen van twaalf maanden backfill-historie)
+zag de berekening alleen nog de oudste 1000 van de toen 16.294 metingen. Die
+verzameling verandert nooit meer, dus rolde er elke dag dezelfde uitkomst uit.
+
+**Wat het gevolg was.** De scores lagen vast vanaf snapshot 22 juli: zeven
+unieke waarden over 100 producten, waarvan 94 identiek op 34,84. Trendscores,
+rangorde en rangveranderingen in die periode zeggen dus niets over de
+werkelijke marktbeweging.
+
+**Welke periode precies.**
+
+| Periode | Status |
+|---|---|
+| t/m 2026-07-21 | niet aangetast (tabel zat nog onder de grens), formule v2/v3 |
+| 2026-07-22 t/m 2026-09-17 | **aangetast**, formule v3 |
+| 2026-09-18 | eerste schone snapshot, nog formule v3 |
+| vanaf 2026-09-19 | formule v4 (dynamische herweging) |
+
+**Wat níet is aangetast.** De fout zat in het *lezen* van de metingen, niet in
+het schrijven ervan. De `signals`-tabel loopt onafgebroken door over de hele
+periode en is onaangeroerd. De scores van 22 juli t/m 17 september kunnen
+daarom desgewenst opnieuw worden berekend uit de bewaarde signalen, zodat er
+alsnog een doorlopende reeks ontstaat. Dat is bewust niet gedaan: `scores` is
+append-only, en herberekenen betekent historie herschrijven. Dat gebeurt alleen
+na expliciet akkoord, en dan met vermelding van de herberekening in dit
+changelog.
+
+**Hoe het is gevonden en verholpen.** Gevonden op 17 september 2026, hersteld
+in commit `b72ed29`. `fetchAllSignals()` bladert nu door alle pagina's,
+gesorteerd op de unieke `id` zodat de pagina's sluitend zijn. Direct na de fix:
+62 unieke scores over 100 producten, spreiding 0,06–40,27. Drie regressietests
+toegevoegd, want de bestaande tests dekten alleen de berekening en niet het
+ophalen van de data.
+
+**Dezelfde valkuil, tweede keer.** Op 22 september bleek dezelfde fout in de
+website te zitten (commit `0e8cf5e`): ook daar werden scores zonder paginering
+opgehaald, waardoor bezoekers sinds half augustus bevroren cijfers zagen. Die
+fout raakte uitsluitend de weergave, niet de opgeslagen data — de snapshots
+van na 18 september zijn dus gewoon goed, ze werden alleen niet getoond. Ook
+hier is een regressietest toegevoegd.
+
+**Les die eruit volgt.** Elke Supabase-select op een tabel die blijft groeien
+hoort gepagineerd te zijn, en elke ophaalfunctie hoort een eigen test te
+hebben. Een stille afkapping op 1000 rijen geeft geen foutmelding en is
+daardoor maandenlang onzichtbaar.
+
+---
+
 ## [Na livegang] — Trendscore-formule v4: dynamische herweging
 
 - **Gewichten ongewijzigd** (Google Trends 40% · YouTube 25% · Wikipedia 20% ·

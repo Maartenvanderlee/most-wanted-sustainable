@@ -84,7 +84,7 @@ sectie in het B2B-rapport — nooit een bron in de score.
 
 - [ ] Waakhond als subagent + geplande ochtendrun (haalt punt 1–3 hierboven voorgoed weg)
 - [ ] Faalmelding van GitHub Actions ergens laten landen waar je hem ziet
-- [ ] Methodologiebreuk (17 sept) vastleggen in `CHANGELOG.md`, zodat een B2B-koper de knik in de reeks uitgelegd krijgt
+- [x] Methodologiebreuk vastgelegd in `CHANGELOG.md` (22 sept): welke periode aangetast is, wat niet, en dat de ruwe signalen herberekening mogelijk maken
 - [ ] Accepteren en noteren: 25 juli en 12 augustus missen in de historie
 
 ### B — Bouwen
